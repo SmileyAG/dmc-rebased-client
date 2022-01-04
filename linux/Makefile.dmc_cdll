@@ -5,7 +5,7 @@
 
 DMC_SRC_DIR=$(SOURCE_DIR)/dmc/cl_dll
 GAME_SHARED_SRC_DIR=$(SOURCE_DIR)/game_shared
-PM_SHARED_SRC_DIR=$(DMC_SRC_DIR)/../pm_shared
+PM_SHARED_SRC_DIR=$(SOURCE_DIR)/dmc/pm_shared
 
 DMC_OBJ_DIR=$(BUILD_OBJ_DIR)/dmc_client
 PUBLIC_OBJ_DIR=$(DMC_OBJ_DIR)/public
