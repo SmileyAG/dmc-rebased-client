@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -25,11 +25,11 @@ extern int g_iVisibleMouse;
 
 #define MAX_LOGO_FRAMES 56
 
-int grgLogoFrame[MAX_LOGO_FRAMES] = 
+int grgLogoFrame[MAX_LOGO_FRAMES] =
 {
 	1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 13, 13, 13, 13, 13, 12, 11, 10, 9, 8, 14, 15,
-	16, 17, 18, 19, 20, 20, 20, 20, 20, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 
-	29, 29, 29, 29, 29, 28, 27, 26, 25, 24, 30, 31 
+	16, 17, 18, 19, 20, 20, 20, 20, 20, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+	29, 29, 29, 29, 29, 28, 27, 26, 25, 24, 30, 31
 };
 
 
@@ -50,10 +50,10 @@ void CHud::Think(void)
 	// think about default fov
 	if ( m_iFOV == 0 )
 	{  // only let players adjust up in fov,  and only if they are not overriden by something else
-		m_iFOV = max( default_fov->value, 90 );  
+		m_iFOV = max( default_fov->value, 90 );
 	}
 
-	
+
 }
 
 // Redraw
@@ -65,7 +65,7 @@ int CHud :: Redraw( float flTime, int intermission )
 	m_flTime = flTime;
 	m_flTimeDelta = (double)m_flTime - m_fOldTime;
 	static float m_flShotTime = 0;
-	
+
 	// Clock was reset, reset delta
 	if ( m_flTimeDelta < 0 )
 		m_flTimeDelta = 0;
@@ -102,7 +102,7 @@ int CHud :: Redraw( float flTime, int intermission )
 	}
 	// if no redrawing is necessary
 	// return 0;
-	
+
 	UpdateDefaultHUDColor();
 
 	// draw all registered HUD elements
@@ -136,7 +136,7 @@ int CHud :: Redraw( float flTime, int intermission )
 			m_hsprLogo = LoadSprite("sprites/%d_logo.spr");
 
 		SPR_Set(m_hsprLogo, 250, 250, 250 );
-		
+
 		x = SPR_Width(m_hsprLogo, 0);
 		x = ScreenWidth - x;
 		y = SPR_Height(m_hsprLogo, 0)/2;
@@ -147,7 +147,7 @@ int CHud :: Redraw( float flTime, int intermission )
 
 		SPR_DrawAdditive(i, x, y, NULL);
 	}
-	
+
 
 	return 1;
 }
@@ -188,26 +188,22 @@ int CHud::DrawHudNumberString(int xpos, int ypos, int iMinX, int iNumber, int r,
 
 }
 
+int CHud :: DrawHudNumberStringFixed( int xpos, int ypos, int iNumber, int r, int g, int b )
+{
+	char szString[32];
+	sprintf( szString, "%d", iNumber );
+	return DrawHudStringRightAligned( xpos, ypos, szString, r, g, b );
+}
+
 // draws a string from right to left (right-aligned)
 int CHud::DrawHudStringReverse(int xpos, int ypos, int iMinX, const char* szString, int r, int g, int b)
 {
 	return xpos - gEngfuncs.pfnDrawStringReverse(xpos, ypos, szString, r, g, b);
 }
 
-int CHud::DrawHudString(int xpos, int ypos, int iMaxX, char* szIt, int r, int g, int b)
+int CHud::DrawHudString(int xpos, int ypos, int iMaxX, const char *szIt, int r, int g, int b )
 {
-	// draw the string until we hit the null character or a newline character
-	for (; *szIt != 0 && *szIt != '\n'; szIt++)
-	{
-		int next = xpos + gHUD.m_scrinfo.charWidths[*szIt]; // variable-width fonts look cool
-		if (next > iMaxX)
-			return xpos;
-
-		TextMessageDrawChar(xpos, ypos, *szIt, r, g, b);
-		xpos = next;
-	}
-
-	return xpos;
+	return xpos + gEngfuncs.pfnDrawString( xpos, ypos, szIt, r, g, b);
 }
 
 int CHud :: DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b)
@@ -342,12 +338,12 @@ int CHud :: DrawHudStringCTF(int xpos, int ypos, int iMaxX, char *szIt, int r, i
 {
 	int WantColor = 0;
 	int Color = 0;
-	
+
 	// draw the string until we hit the null character or a newline character
 	for ( ; *szIt != 0 && *szIt != '\n'; szIt++ )
 	{
 		int next;// = xpos + gHUD.m_scrinfo.charWidths[ *szIt ]; // variable-width fonts look cool
-		
+
 	/*	if ( next > iMaxX )
 			return xpos;*/
 
@@ -358,7 +354,7 @@ int CHud :: DrawHudStringCTF(int xpos, int ypos, int iMaxX, char *szIt, int r, i
 				Color = 0;
 
 			WantColor = 1;
-			
+
 		}
 
 		if (WantColor == 1 && *szIt == 'w')
@@ -366,38 +362,38 @@ int CHud :: DrawHudStringCTF(int xpos, int ypos, int iMaxX, char *szIt, int r, i
 			Color = 1;
 			LastColor = Color;
 		}
-			
-		
+
+
 		if (WantColor == 1 && *szIt == 'g')
 		{
 			Color = 2;
 			LastColor = Color;
 		}
-			
-		
+
+
 
 		if (WantColor == 1 && *szIt == 'b')
 		{
 			Color = 3;
 			LastColor = Color;
 		}
-			
-		
+
+
 		if (WantColor == 1 && *szIt == 'r')
 		{
 			Color = 4;
 			LastColor = Color;
 		}
-		
-		
+
+
 
 		if (WantColor == 1 && *szIt == 'y')
 		{
 			Color = 5;
 			LastColor = Color;
 		}
-			
-		
+
+
 
 		if (WantColor == 1 && *szIt == 'q')
 		{
@@ -405,7 +401,7 @@ int CHud :: DrawHudStringCTF(int xpos, int ypos, int iMaxX, char *szIt, int r, i
 			LastColor = Color;
 		}
 
-			
+
 
 		if (Color == 0 && WantColor == 0)
 		{
@@ -421,13 +417,13 @@ int CHud :: DrawHudStringCTF(int xpos, int ypos, int iMaxX, char *szIt, int r, i
 				TextMessageDrawChar( xpos, ypos, *szIt, 198, 221, 66 );
 			if (LastColor == 6)
 				TextMessageDrawChar( xpos, ypos, *szIt, 136, 136, 136 );
-			
+
 			else if (LastColor == 0)
 				TextMessageDrawChar( xpos, ypos, *szIt, r, g, b );
 
 			next = xpos + gHUD.m_scrinfo.charWidths[ *szIt ];
 		}
-		
+
 		else if (Color > 0 && WantColor == 0 )
 		{
 			if (Color == 1)
@@ -452,8 +448,8 @@ int CHud :: DrawHudStringCTF(int xpos, int ypos, int iMaxX, char *szIt, int r, i
 			WantColor = 0;
 		}
 
-			
-		xpos = next;		
+
+		xpos = next;
 	}
 
 	return xpos;
@@ -483,6 +479,23 @@ int CHud::GetNumWidth( int iNumber, int iFlags )
 
 	return 3;
 
-}	
+}
 
+int CHud::DrawHudStringCentered(int x, int y, const char* string, int r, int g, int b)
+{
+	auto width = GetHudStringWidth(string);
+	return x + gEngfuncs.pfnDrawString(x - width / 2, y, string, r, g, b);
+}
+
+int CHud::DrawHudStringRightAligned(int x, int y, const char* string, int r, int g, int b)
+{
+	auto width = GetHudStringWidth(string);
+	gEngfuncs.pfnDrawString(x - width, y, string, r, g, b);
+	return x;
+}
+
+int CHud::GetHudStringWidth(const char* string)
+{
+	return gEngfuncs.pfnDrawString(0, 0, string, 0, 0, 0);
+}
 

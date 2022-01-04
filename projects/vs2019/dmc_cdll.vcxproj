@@ -36,6 +36,7 @@
     <ClCompile Include="..\..\dmc\cl_dll\hud_servers.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\hud_spectator.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\hud_speedometer.cpp" />
+    <ClCompile Include="..\..\dmc\cl_dll\hud_oldscoreboard.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\hud_update.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\input.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\inputw32.cpp" />
@@ -101,6 +102,7 @@
     <ClInclude Include="..\..\dmc\cl_dll\hud_servers_priv.h" />
     <ClInclude Include="..\..\dmc\cl_dll\hud_spectator.h" />
     <ClInclude Include="..\..\dmc\cl_dll\hud_speedometer.h" />
+    <ClInclude Include="..\..\dmc\cl_dll\hud_oldscoreboard.h" />
     <ClInclude Include="..\..\dmc\cl_dll\in_defs.h" />
     <ClInclude Include="..\..\dmc\cl_dll\kbutton.h" />
     <ClInclude Include="..\..\dmc\cl_dll\StudioModelRenderer.h" />
@@ -133,6 +135,7 @@
     <ProjectGuid>{50BD4CD5-4043-4457-BA51-7CF8FFC43767}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>dmc_cdll</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -199,6 +202,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;CLIENT_DLL;DMC_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>..\..\public;..\..\dmc\dlls;..\..\engine;..\..\common;..\..\dmc\pm_shared;..\..\utils\vgui\include;..\..\dmc\cl_dll;..\..\game_shared;..\..\external;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

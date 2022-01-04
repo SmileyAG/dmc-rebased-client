@@ -1,6 +1,6 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//========= Copyright ï¿½ 1996-2002, Valve LLC, All rights reserved. ============
 //
-// Purpose: 
+// Purpose:
 //
 // $NoKeywords: $
 //=============================================================================
@@ -31,7 +31,7 @@
 // custom scheme handling
 #include "vgui_SchemeManager.h"
 
-#define PC_LASTCLASS	12 
+#define PC_LASTCLASS	12
 
 #define MENU_DEFAULT				1
 #define MENU_TEAM 					2
@@ -72,7 +72,7 @@ extern int iTeamColors[5][3];
 #define MAX_SERVERNAME_LENGTH	32
 
 
-// Command Menu positions 
+// Command Menu positions
 #define MAX_MENUS				40
 #define MAX_BUTTONS				100
 
@@ -207,7 +207,7 @@ public:
 	void UpdateSubMenus( int iAdjustment );
 	int GetPlayerClass() { return m_iPlayerClass; };
 	CCommandMenu *GetSubMenu() { return m_pSubMenu; };
-	
+
 	CCommandMenu *getParentMenu( void );
 	void setParentMenu( CCommandMenu *pParentMenu );
 
@@ -237,7 +237,7 @@ private:
 	int			  m_iButtons;
 
 	// opens menu from top to bottom (0 = default), or from bottom to top (1)?
-	int				m_iDirection; 
+	int				m_iDirection;
 public:
 	CCommandMenu( CCommandMenu *pParentMenu, int x,int y,int wide,int tall ) : Panel(x,y,wide,tall)
 	{
@@ -302,7 +302,7 @@ private:
 	void		 CreateClassMenu( void );
 	CMenuPanel*	 ShowClassMenu( void );
 	void		 CreateSpectatorMenu( void );
-	
+
 	// Scheme handler
 	CSchemeManager m_SchemeManager;
 
@@ -409,6 +409,7 @@ public:
 	virtual void paintBackground();
 
 	CSchemeManager *GetSchemeManager( void ) { return &m_SchemeManager; }
+	ScorePanel *GetScoreBoard( void ) { return m_pScoreBoard; }
 
 	void *operator new( size_t stAllocateBlock );
 
@@ -459,7 +460,7 @@ public:
 	}
 };
 
-// This works the same as CMenuHandler_StringCommand, except it watches the string command 
+// This works the same as CMenuHandler_StringCommand, except it watches the string command
 // for specific commands, and modifies client vars based upon them.
 class CMenuHandler_StringCommandWatch : public CMenuHandler_StringCommand
 {
@@ -523,7 +524,7 @@ public:
 		//gViewPort->SetCurrentCommandMenu( m_pSubMenu );
 	}
 
-	virtual void cursorEntered(Panel* panel) 
+	virtual void cursorEntered(Panel* panel)
 	{
 		gViewPort->SetCurrentCommandMenu( m_pSubMenu );
 
@@ -590,7 +591,7 @@ public:
 		{
 			gViewPort->HideTopMenu();
 		}
-		else 
+		else
 		{
 			gViewPort->HideCommandMenu();
 			gViewPort->ShowVGUIMenu( m_iState );
@@ -619,7 +620,7 @@ public:
 		gViewPort->UpdateSpectatorPanel();
 	}
 
-	
+
 };
 class CDragNDropHandler : public InputSignal
 {
@@ -661,7 +662,7 @@ public:
 		m_iButton = iButton;
 		m_pMenuPanel = pPanel;
 	}
-		
+
 	void cursorEntered(Panel *panel);
 
 	void cursorMoved(int x,int y,Panel* panel) {};
@@ -686,11 +687,11 @@ public:
 		m_pButton = pButton;
 	}
 
-	virtual void cursorEntered(Panel* panel) 
-	{ 
+	virtual void cursorEntered(Panel* panel)
+	{
 		m_pButton->setArmed(true);
 	};
-	virtual void cursorExited(Panel* Panel) 
+	virtual void cursorExited(Panel* Panel)
 	{
 		m_pButton->setArmed(false);
 	};
@@ -921,7 +922,7 @@ private:
 	int m_iTeamNum;
 
 public:
-	TeamOnlyCommandButton( int iTeamNum, const char* text,int x,int y,int wide,int tall ) : 
+	TeamOnlyCommandButton( int iTeamNum, const char* text,int x,int y,int wide,int tall ) :
 	  CommandButton( text, x, y, wide, tall ), m_iTeamNum(iTeamNum) {}
 
 	virtual int IsNotValid()
@@ -942,10 +943,10 @@ private:
 	struct cvar_s * m_cvar;
 	CImageLabel *	pLabelOn;
 	CImageLabel *	pLabelOff;
-	
+
 
 public:
-	ToggleCommandButton( const char* cvarname, const char* text,int x,int y,int wide,int tall ) : 
+	ToggleCommandButton( const char* cvarname, const char* text,int x,int y,int wide,int tall ) :
 	  CommandButton( text, x, y, wide, tall )
 	 {
 		m_cvar = gEngfuncs.pfnGetCvarPointer( cvarname );
@@ -954,7 +955,7 @@ public:
 		pLabelOn = new CImageLabel( "checked", 0, 0 );
 		pLabelOn->setParent(this);
 		pLabelOn->addInputSignal(this);
-				
+
 		pLabelOff = new CImageLabel( "unchecked", 0, 0 );
 		pLabelOff->setParent(this);
 		pLabelOff->setEnabled(true);
@@ -962,12 +963,12 @@ public:
 
 		int textwide, texttall;
 		getTextSize( textwide, texttall);
-	
+
 		// Reposition
 		pLabelOn->setPos( textwide, (tall - pLabelOn->getTall()) / 2 );
 
 		pLabelOff->setPos( textwide, (tall - pLabelOff->getTall()) / 2 );
-		
+
 		// Set text color to orange
 		setFgColor(Scheme::sc_primary1);
 	}
@@ -988,7 +989,7 @@ public:
 	};
 
 	virtual void cursorMoved(int x,int y,Panel* panel) {};
-	
+
 	virtual void mouseDoublePressed(MouseCode code,Panel* panel)  {};
 	virtual void mouseReleased(MouseCode code,Panel* panel) {};
 	virtual void mouseWheeled(int delta,Panel* panel) {};
@@ -1003,7 +1004,7 @@ public:
 		{
 			pLabelOff->setVisible(false);
 			pLabelOn->setVisible(false);
-		} 
+		}
 		else if ( m_cvar->value )
 		{
 			pLabelOff->setVisible(false);
@@ -1017,7 +1018,7 @@ public:
 
 		CommandButton::paint();
 
-	} 
+	}
 };
 //============================================================
 // Panel that can be dragged around

@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -12,7 +12,7 @@
 *   without written permission from Valve LLC.
 *
 ****/
-//			
+//
 //  hud.h
 //
 // class CHud declaration
@@ -34,7 +34,7 @@
 #define DHN_DRAWZERO 1
 #define DHN_2DIGITS  2
 #define DHN_3DIGITS  4
-#define MIN_ALPHA	 100	
+#define MIN_ALPHA	 100
 
 #define		HUDELEM_ACTIVE	1
 
@@ -59,14 +59,14 @@ typedef struct cvar_s cvar_t;
 #define _cdecl
 #endif
 
-enum 
-{ 
+enum
+{
 	MAX_PLAYERS = 64,
 	MAX_TEAMS = 64,
 	MAX_TEAM_NAME = 16,
 };
 
-struct extra_player_info_t 
+struct extra_player_info_t
 {
 	short frags;
 	short deaths;
@@ -74,7 +74,7 @@ struct extra_player_info_t
 	char teamname[MAX_TEAM_NAME];
 };
 
-struct team_info_t 
+struct team_info_t
 {
 	char name[MAX_TEAM_NAME];
 	short frags;
@@ -100,7 +100,7 @@ class CHudBase
 public:
 	POSITION  m_pos;
 	int   m_type;
-	int	  m_iFlags; // active, moving, 
+	int	  m_iFlags; // active, moving,
 	virtual int Init( void ) {return 0;}
 	virtual int VidInit( void ) {return 0;}
 	virtual int Draw(float flTime) {return 0;}
@@ -118,6 +118,7 @@ struct HUDLIST {
 
 #include "hud_spectator.h"
 #include "hud_speedometer.h"
+#include "hud_oldscoreboard.h"
 //
 //-----------------------------------------------------
 //
@@ -166,7 +167,7 @@ private:
 	WEAPON *m_pWeapon;
 	int	m_HUD_bucket0;
 	int m_HUD_selection;
-	
+
 
 };
 
@@ -211,7 +212,7 @@ public:
 	int VidInit( void );
 	int Draw(float flTime);
 	int MsgFunc_Geiger(const char *pszName, int iSize, void *pbuf);
-	
+
 private:
 	int m_iGeigerRange;
 
@@ -274,7 +275,7 @@ public:
 	int MsgFunc_StatusValue( const char *pszName, int iSize, void *pbuf );
 
 protected:
-	enum { 
+	enum {
 		MAX_STATUSTEXT_LENGTH = 128,
 		MAX_STATUSBAR_VALUES = 8,
 		MAX_STATUSBAR_LINES = 2,
@@ -330,7 +331,7 @@ public:
 	void GetAllPlayersInfo( void );
 
 
-	
+
 };
 
 */
@@ -402,13 +403,13 @@ public:
 	int VidInit( void );
 	int Draw(float flTime);
 	int MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf );
-	
+
 private:
 	HSPRITE m_hSprite1;
 	HSPRITE m_hSprite2;
 	wrect_t *m_prc1;
 	wrect_t *m_prc2;
-	int	  m_iBat;	
+	int	  m_iBat;
 	float m_fFade;
 	int	  m_iHeight;		// width of the battery innards
 };
@@ -498,12 +499,12 @@ public:
 	int Draw(float flTime);
 	int MsgFunc_StatusIcon(const char *pszName, int iSize, void *pbuf);
 
-	enum { 
+	enum {
 		MAX_ICONSPRITENAME_LENGTH = MAX_SPRITE_NAME_LENGTH,
 		MAX_ICONSPRITES = 4,
 	};
 
-	
+
 	//had to make these public so CHud could access them (to enable concussion icon)
 	//could use a friend declaration instead...
 	void EnableIcon( char *pszIconName, unsigned char red, unsigned char green, unsigned char blue );
@@ -540,7 +541,7 @@ private:
 	int							m_iSpriteCount;
 	int							m_iSpriteCountAllRes;
 	float						m_flMouseSensitivity;
-	int							m_iConcussionEffect; 
+	int							m_iConcussionEffect;
 
 public:
 
@@ -568,12 +569,17 @@ public:
 	void UpdateDefaultHUDColor();
 	int DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b);
 	int DrawHudNumber(int x, int y, int number, int r, int g, int b);
-	int DrawHudString(int x, int y, int iMaxX, char* szString, int r, int g, int b);
+	int DrawHudString(int x, int y, int iMaxX, const char *szString, int r, int g, int b );
 	int DrawHudStringReverse(int xpos, int ypos, int iMinX, const char* szString, int r, int g, int b);
 	int DrawHudNumberCentered(int x, int y, int number, int r, int g, int b);
 	int DrawHudNumberString(int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b);
+	int DrawHudNumberStringFixed( int xpos, int ypos, int iNumber, int r, int g, int b );
 	int GetNumWidth(int iNumber, int iFlags);
 	int DrawHudStringCTF(int x, int y, int iMaxX, char *szString, int r, int g, int b );
+
+	int DrawHudStringCentered(int x, int y, const char* string, int r, int g, int b);
+	int DrawHudStringRightAligned(int x, int y, const char* string, int r, int g, int b);
+	int GetHudStringWidth(const char* string);
 
 	int ReturnStringPixelLength ( char *Hihi );
 
@@ -583,10 +589,10 @@ private:
 	HSPRITE *m_rghSprites;	/*[HUD_SPRITE_COUNT]*/			// the sprites loaded from hud.txt
 	wrect_t *m_rgrcRects;	/*[HUD_SPRITE_COUNT]*/
 	char *m_rgszSpriteNames; /*[HUD_SPRITE_COUNT][MAX_SPRITE_NAME_LENGTH]*/
-	
+
 	struct cvar_s *default_fov;
 public:
-	HSPRITE GetSprite( int index ) 
+	HSPRITE GetSprite( int index )
 	{
 		return (index < 0) ? 0 : m_rghSprites[index];
 	}
@@ -596,7 +602,7 @@ public:
 		return m_rgrcRects[index];
 	}
 
-	
+
 	int GetSpriteIndex( const char *SpriteName );	// gets a sprite index, for use in the m_rghSprites[] array
 
 	CHudAmmo	m_Ammo;
@@ -616,6 +622,7 @@ public:
 	CHudAmmoSecondary	m_AmmoSecondary;
 	CHudTextMessage m_TextMessage;
 	CHudStatusIcons m_StatusIcons;
+	CHudOldScoreboard m_OldScoreBoard;
 
 	void Init( void );
 	void VidInit( void );
@@ -650,7 +657,7 @@ public:
 
 
 	void AddHudElem(CHudBase *p);
-	
+
 	float GetSensitivity();
 };
 
