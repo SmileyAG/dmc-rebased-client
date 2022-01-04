@@ -221,6 +221,7 @@ void CHud :: Init( void )
 	cl_rollangle = gEngfuncs.pfnRegisterVariable ( "cl_rollangle", "0.65", FCVAR_CLIENTDLL|FCVAR_ARCHIVE );
 	cl_rollspeed = gEngfuncs.pfnRegisterVariable ( "cl_rollspeed", "300", FCVAR_CLIENTDLL|FCVAR_ARCHIVE );
 	cl_fov = gEngfuncs.pfnRegisterVariable ( "cl_fov", "90", FCVAR_USERINFO|FCVAR_ARCHIVE );
+	m_pCvarColor = CVAR_CREATE("hud_color", "255 160 0", FCVAR_ARCHIVE);
 	/************************ CLIENT CVAR DEFINITIONS ************************/
 
 	m_pSpriteList = NULL;

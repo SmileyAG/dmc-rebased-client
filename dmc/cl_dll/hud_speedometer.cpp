@@ -25,7 +25,10 @@ int CHudSpeedometer::Draw(float time)
 	if (hud_speedometer->value == 0.0f)
 		return 0;
 
-	gHUD.DrawHudNumberCentered(ScreenWidth / 2, ScreenHeight - 2 * gHUD.m_iFontHeight, speed, 255, 160, 0);
+	int r, g, b;
+	UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
+
+	gHUD.DrawHudNumberCentered(ScreenWidth / 2, ScreenHeight - 2 * gHUD.m_iFontHeight, speed, r, g, b);
 
 	return 0;
 }
