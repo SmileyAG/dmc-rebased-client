@@ -35,10 +35,10 @@ DO_GAME_SHARED_CC=$(CC) $(GAME_SHARED_INCLUDEDIRS) $(CFLAGS) $(SHLIBFLAGS) -o $@
 DMCDLL_OBJS = \
 	$(DMCDLL_OBJ_DIR)/animating.o \
 	$(DMCDLL_OBJ_DIR)/animation.o \
-    $(DMCDLL_OBJ_DIR)/bmodels.o \
-    $(DMCDLL_OBJ_DIR)/buttons.o \
-    $(DMCDLL_OBJ_DIR)/cbase.o \
-    $(DMCDLL_OBJ_DIR)/client.o \
+	$(DMCDLL_OBJ_DIR)/bmodels.o \
+	$(DMCDLL_OBJ_DIR)/buttons.o \
+	$(DMCDLL_OBJ_DIR)/cbase.o \
+	$(DMCDLL_OBJ_DIR)/client.o \
 	$(DMCDLL_OBJ_DIR)/combat.o \
 	$(DMCDLL_OBJ_DIR)/doors.o \
 	$(DMCDLL_OBJ_DIR)/effects.o \
