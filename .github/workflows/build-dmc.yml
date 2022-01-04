@@ -1,0 +1,52 @@
+name: build-dmc
+
+on:
+    push:
+    pull_request:
+    workflow_dispatch:
+    schedule:
+        - cron: '0 0 1 * *' # Monthly
+
+env:
+  RELEASE_CONFIGURATION: Release
+  PROJECT_FILE_PATH: projects/vs2019/dmc_cdll.vcxproj
+
+jobs:
+  game-dlls:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v2
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build release game dlls
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m ${{env.PROJECT_FILE_PATH}} /p:Configuration=${{env.RELEASE_CONFIGURATION}}
+    - name: Upload release game libs (Client)
+      uses: actions/upload-artifact@v2
+      with:
+        name: dmc-client
+        path: projects/vs2019/${{env.RELEASE_CONFIGURATION}}/dmc_cdll/client.dll
+
+  game-so-libs:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update sources to include xenial main
+      run: sudo su -c "echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial main' >> /etc/apt/sources.list"
+    - name: Update sources to include xenial universe
+      run: sudo su -c "echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial universe' >> /etc/apt/sources.list"
+    - name: Update packages
+      run: sudo apt update -y
+    - name: Install make
+      run: sudo apt-get install make
+    - name: Install g++-4.8
+      run: sudo apt install g++-4.8 gcc-4.8 -y
+    - name: Install headers
+      run: sudo apt-get install gcc-4.8-multilib g++-4.8-multilib -y
+    - name: Build DMC (Server)
+      run: cd linux && make dmc CFG=${{env.RELEASE_CONFIGURATION}}
+    - name: Upload release game libs (Server)
+      uses: actions/upload-artifact@v2
+      with:
+        name: dmc-server
+        path: linux/${{env.RELEASE_CONFIGURATION}}/dmc.so
