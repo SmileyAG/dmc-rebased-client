@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//========= Copyright Â© 1996-2002, Valve LLC, All rights reserved. ============
 //
 // Purpose: 
 //
@@ -806,6 +806,15 @@ void CStudioModelRenderer::StudioSetupBones ( void )
 	}
 
 	pseqdesc = (mstudioseqdesc_t *)((byte *)m_pStudioHeader + m_pStudioHeader->seqindex) + m_pCurrentEntity->curstate.sequence;
+
+	if (m_pCurrentEntity == gEngfuncs.GetViewModel())
+	{
+		if (strstr(pseqdesc->label, "idle") != NULL || strstr(pseqdesc->label, "fidget") != NULL)
+		{
+			m_pCurrentEntity->curstate.frame = 0; // set current state to first frame
+			m_pCurrentEntity->curstate.framerate = 0; // don't animate at all
+		}
+	}
 
 	f = StudioEstimateFrame( pseqdesc );
 
