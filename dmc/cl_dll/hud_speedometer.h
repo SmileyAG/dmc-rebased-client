@@ -3,7 +3,7 @@
 
 class CHudSpeedometer : public CHudBase
 {
-	uint16_t speed;
+	int speed;
 
 	cvar_t* hud_speedometer;
 
