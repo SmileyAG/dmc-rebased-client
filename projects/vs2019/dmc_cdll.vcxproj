@@ -35,6 +35,7 @@
     <ClCompile Include="..\..\dmc\cl_dll\hud_redraw.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\hud_servers.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\hud_spectator.cpp" />
+    <ClCompile Include="..\..\dmc\cl_dll\hud_speedometer.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\hud_update.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\input.cpp" />
     <ClCompile Include="..\..\dmc\cl_dll\inputw32.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="..\..\dmc\cl_dll\hud_servers.h" />
     <ClInclude Include="..\..\dmc\cl_dll\hud_servers_priv.h" />
     <ClInclude Include="..\..\dmc\cl_dll\hud_spectator.h" />
+    <ClInclude Include="..\..\dmc\cl_dll\hud_speedometer.h" />
     <ClInclude Include="..\..\dmc\cl_dll\in_defs.h" />
     <ClInclude Include="..\..\dmc\cl_dll\kbutton.h" />
     <ClInclude Include="..\..\dmc\cl_dll\StudioModelRenderer.h" />

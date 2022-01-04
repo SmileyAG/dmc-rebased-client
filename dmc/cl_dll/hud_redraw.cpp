@@ -158,6 +158,141 @@ void ScaleColors( int &r, int &g, int &b, int a )
 	b = (int)(b * x);
 }
 
+int CHud::DrawHudNumberString(int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b)
+{
+	char szString[32];
+	sprintf(szString, "%d", iNumber);
+	return DrawHudStringReverse(xpos, ypos, iMinX, szString, r, g, b);
+
+}
+
+// draws a string from right to left (right-aligned)
+int CHud::DrawHudStringReverse(int xpos, int ypos, int iMinX, const char* szString, int r, int g, int b)
+{
+	return xpos - gEngfuncs.pfnDrawStringReverse(xpos, ypos, szString, r, g, b);
+}
+
+int CHud::DrawHudString(int xpos, int ypos, int iMaxX, char* szIt, int r, int g, int b)
+{
+	// draw the string until we hit the null character or a newline character
+	for (; *szIt != 0 && *szIt != '\n'; szIt++)
+	{
+		int next = xpos + gHUD.m_scrinfo.charWidths[*szIt]; // variable-width fonts look cool
+		if (next > iMaxX)
+			return xpos;
+
+		TextMessageDrawChar(xpos, ypos, *szIt, r, g, b);
+		xpos = next;
+	}
+
+	return xpos;
+}
+
+int CHud :: DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b)
+{
+	int iWidth = GetSpriteRect(m_HUD_number_0).right - GetSpriteRect(m_HUD_number_0).left;
+	int k;
+
+	if (iNumber > 0)
+	{
+		// SPR_Draw 100's
+		if (iNumber >= 100)
+		{
+			k = iNumber / 100;
+			SPR_Set(GetSprite(m_HUD_number_0 + k), r, g, b);
+			SPR_DrawAdditive(0, x, y, &GetSpriteRect(m_HUD_number_0 + k));
+			x += iWidth;
+		}
+		else if (iFlags & (DHN_3DIGITS))
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		// SPR_Draw 10's
+		if (iNumber >= 10)
+		{
+			k = (iNumber % 100) / 10;
+			SPR_Set(GetSprite(m_HUD_number_0 + k), r, g, b);
+			SPR_DrawAdditive(0, x, y, &GetSpriteRect(m_HUD_number_0 + k));
+			x += iWidth;
+		}
+		else if (iFlags & (DHN_3DIGITS | DHN_2DIGITS))
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		// SPR_Draw ones
+		k = iNumber % 10;
+		SPR_Set(GetSprite(m_HUD_number_0 + k), r, g, b);
+		SPR_DrawAdditive(0, x, y, &GetSpriteRect(m_HUD_number_0 + k));
+		x += iWidth;
+	}
+	else if (iFlags & DHN_DRAWZERO)
+	{
+		SPR_Set(GetSprite(m_HUD_number_0), r, g, b);
+
+		// SPR_Draw 100's
+		if (iFlags & (DHN_3DIGITS))
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		if (iFlags & (DHN_3DIGITS | DHN_2DIGITS))
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		// SPR_Draw ones
+
+		SPR_DrawAdditive(0, x, y, &GetSpriteRect(m_HUD_number_0));
+		x += iWidth;
+	}
+
+	return x;
+}
+
+static constexpr int ten_powers[] = {
+	1,
+	10,
+	100,
+	1000,
+	10000,
+	100000,
+	1000000,
+	10000000,
+	100000000,
+	1000000000
+};
+
+int CHud::DrawHudNumber(int x, int y, int number, int r, int g, int b)
+{
+	auto digit_width = GetSpriteRect(m_HUD_number_0).right - GetSpriteRect(m_HUD_number_0).left;
+	auto digit_count = count_digits(number);
+
+	for (int i = digit_count; i > 0; --i) {
+		int digit = number / ten_powers[i - 1];
+
+		SPR_Set(GetSprite(m_HUD_number_0 + digit), r, g, b);
+		SPR_DrawAdditive(0, x, y, &GetSpriteRect(m_HUD_number_0 + digit));
+		x += digit_width;
+
+		number -= digit * ten_powers[i - 1];
+	}
+
+	return x;
+}
+
+int CHud::DrawHudNumberCentered(int x, int y, int number, int r, int g, int b)
+{
+	auto digit_width = GetSpriteRect(m_HUD_number_0).right - GetSpriteRect(m_HUD_number_0).left;
+	auto digit_count = count_digits(number);
+
+	return DrawHudNumber(x - (digit_width * digit_count) / 2, y, number, r, g, b);
+}
 
 
 /*
@@ -301,122 +436,6 @@ int CHud :: DrawHudStringCTF(int xpos, int ypos, int iMaxX, char *szIt, int r, i
 
 	return xpos;
 }
-
-
-int CHud :: DrawHudString(int xpos, int ypos, int iMaxX, char *szIt, int r, int g, int b )
-{
-	// draw the string until we hit the null character or a newline character
-	for ( ; *szIt != 0 && *szIt != '\n'; szIt++ )
-	{
-		int next = xpos + gHUD.m_scrinfo.charWidths[ *szIt ]; // variable-width fonts look cool
-		if ( next > iMaxX )
-			return xpos;
-
-		TextMessageDrawChar( xpos, ypos, *szIt, r, g, b );
-		xpos = next;		
-	}
-
-	return xpos;
-}
-
-int CHud :: DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b )
-{
-	char szString[32];
-	sprintf( szString, "%d", iNumber );
-	return DrawHudStringReverse( xpos, ypos, iMinX, szString, r, g, b );
-
-}
-
-// draws a string from right to left (right-aligned)
-int CHud :: DrawHudStringReverse( int xpos, int ypos, int iMinX, char *szString, int r, int g, int b )
-{
-	// find the end of the string
-	char *szIt;
-	for ( szIt = szString; *szIt != 0; szIt++ )
-	{ // we should count the length?		
-	}
-
-	// iterate throug the string in reverse
-	for ( szIt--;  szIt != (szString-1);  szIt-- )	
-	{
-		int next = xpos - gHUD.m_scrinfo.charWidths[ *szIt ]; // variable-width fonts look cool
-		if ( next < iMinX )
-			return xpos;
-		xpos = next;
-
-		TextMessageDrawChar( xpos, ypos, *szIt, r, g, b );
-	}
-
-	return xpos;
-}
-
-int CHud :: DrawHudNumber( int x, int y, int iFlags, int iNumber, int r, int g, int b)
-{
-	int iWidth = GetSpriteRect(m_HUD_number_0).right - GetSpriteRect(m_HUD_number_0).left;
-	int k;
-	
-	if (iNumber > 0)
-	{
-		// SPR_Draw 100's
-		if (iNumber >= 100)
-		{
-			 k = iNumber/100;
-			SPR_Set(GetSprite(m_HUD_number_0 + k), r, g, b );
-			SPR_DrawAdditive( 0, x, y, &GetSpriteRect(m_HUD_number_0 + k));
-			x += iWidth;
-		}
-		else if (iFlags & (DHN_3DIGITS))
-		{
-			//SPR_DrawAdditive( 0, x, y, &rc );
-			x += iWidth;
-		}
-
-		// SPR_Draw 10's
-		if (iNumber >= 10)
-		{
-			k = (iNumber % 100)/10;
-			SPR_Set(GetSprite(m_HUD_number_0 + k), r, g, b );
-			SPR_DrawAdditive( 0, x, y, &GetSpriteRect(m_HUD_number_0 + k));
-			x += iWidth;
-		}
-		else if (iFlags & (DHN_3DIGITS | DHN_2DIGITS))
-		{
-			//SPR_DrawAdditive( 0, x, y, &rc );
-			x += iWidth;
-		}
-
-		// SPR_Draw ones
-		k = iNumber % 10;
-		SPR_Set(GetSprite(m_HUD_number_0 + k), r, g, b );
-		SPR_DrawAdditive(0,  x, y, &GetSpriteRect(m_HUD_number_0 + k));
-		x += iWidth;
-	} 
-	else if (iFlags & DHN_DRAWZERO) 
-	{
-		SPR_Set(GetSprite(m_HUD_number_0), r, g, b );
-
-		// SPR_Draw 100's
-		if (iFlags & (DHN_3DIGITS))
-		{
-			//SPR_DrawAdditive( 0, x, y, &rc );
-			x += iWidth;
-		}
-
-		if (iFlags & (DHN_3DIGITS | DHN_2DIGITS))
-		{
-			//SPR_DrawAdditive( 0, x, y, &rc );
-			x += iWidth;
-		}
-
-		// SPR_Draw ones
-		
-		SPR_DrawAdditive( 0,  x, y, &GetSpriteRect(m_HUD_number_0));
-		x += iWidth;
-	}
-
-	return x;
-}
-
 
 int CHud::GetNumWidth( int iNumber, int iFlags )
 {

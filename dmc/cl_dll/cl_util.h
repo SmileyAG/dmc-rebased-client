@@ -97,6 +97,16 @@ inline 	int						TextMessageDrawChar( int x, int y, int number, int r, int g, in
 	return gEngfuncs.pfnDrawCharacter( x, y, number, r, g, b ); 
 }
 
+static size_t count_digits(int n)
+{
+	size_t result = 0;
+
+	do {
+		++result;
+	} while ((n /= 10) != 0);
+
+	return result;
+}
 inline int DrawConsoleString( int x, int y, const char *string )
 {
 	return gEngfuncs.pfnDrawConsoleString( x, y, (char*) string );

@@ -267,6 +267,9 @@
     <ClCompile Include="..\..\dmc\cl_dll\vgui_MOTDWindow.cpp">
       <Filter>Source Files\dmc\cl_dll</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\dmc\cl_dll\hud_speedometer.cpp">
+      <Filter>Source Files\dmc\cl_dll</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dmc\cl_dll\kbutton.h">
@@ -405,6 +408,9 @@
       <Filter>Header Files\dmc\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dmc\cl_dll\view.h">
+      <Filter>Header Files\dmc\cl_dll</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dmc\cl_dll\hud_speedometer.h">
       <Filter>Header Files\dmc\cl_dll</Filter>
     </ClInclude>
   </ItemGroup>
