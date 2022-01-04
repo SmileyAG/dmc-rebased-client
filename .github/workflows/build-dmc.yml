@@ -43,7 +43,7 @@ jobs:
       run: sudo apt install g++-4.8 gcc-4.8 -y
     - name: Install headers
       run: sudo apt-get install gcc-4.8-multilib g++-4.8-multilib -y
-    - name: Build DMC (Server)
+    - name: Build DMC
       run: cd linux && make dmc CFG=${{env.RELEASE_CONFIGURATION}}
     - name: Upload release game libs (Server)
       uses: actions/upload-artifact@v2
