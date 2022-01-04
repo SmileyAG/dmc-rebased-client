@@ -14,9 +14,11 @@
 #include "const.h"
 #include "camera.h"
 #include "in_defs.h"
+#include "pm_shared.h"
 
 #include "SDL2/SDL_mouse.h"
 #include "port.h"
+#include "demo_api.h"
 
 float CL_KeyState (kbutton_t *key);
 
@@ -619,6 +621,9 @@ void CAM_EndDistance(void)
 
 int EXPORT CL_IsThirdPerson( void )
 {
+	if (gEngfuncs.pDemoAPI->IsPlayingback() && gEngfuncs.IsSpectateOnly() && g_iUser1 != OBS_IN_EYE)
+		return 1;
+
 	return cam_thirdperson ? 1 : 0;
 }
 
