@@ -1,5 +1,5 @@
   client dll readme.txt
--------------------------
+--------------------------
 
 This file details the structure of the half-life client dll,  and
 how it communicates with the half-life game engine.
