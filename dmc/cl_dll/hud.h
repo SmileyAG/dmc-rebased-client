@@ -117,6 +117,7 @@ struct HUDLIST {
 
 
 #include "hud_spectator.h"
+#include "hud_speedometer.h"
 //
 //-----------------------------------------------------
 //
@@ -561,16 +562,16 @@ public:
 	int		m_iQuakeItems;
 
 	int m_iFontHeight;
-	int DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b );
-	int DrawHudString(int x, int y, int iMaxX, char *szString, int r, int g, int b );
-
+	int DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b);
+	int DrawHudNumber(int x, int y, int number, int r, int g, int b);
+	int DrawHudString(int x, int y, int iMaxX, char* szString, int r, int g, int b);
+	int DrawHudStringReverse(int xpos, int ypos, int iMinX, const char* szString, int r, int g, int b);
+	int DrawHudNumberCentered(int x, int y, int number, int r, int g, int b);
+	int DrawHudNumberString(int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b);
+	int GetNumWidth(int iNumber, int iFlags);
 	int DrawHudStringCTF(int x, int y, int iMaxX, char *szString, int r, int g, int b );
 
 	int ReturnStringPixelLength ( char *Hihi );
-
-	int DrawHudStringReverse( int xpos, int ypos, int iMinX, char *szString, int r, int g, int b );
-	int DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b );
-	int GetNumWidth(int iNumber, int iFlags);
 
 private:
 	// the memory for these arrays are allocated in the first call to CHud::VidInit(), when the hud.txt and associated sprites are loaded.
@@ -603,6 +604,7 @@ public:
 	CHudMessage m_Message;
 //	CHudScoreboard m_Scoreboard;
 //	CHudMOTD    m_MOTD;
+	CHudSpeedometer	m_Speedometer;
 	CHudStatusBar    m_StatusBar;
 	CHudDeathNotice m_DeathNotice;
 	CHudSayText m_SayText;

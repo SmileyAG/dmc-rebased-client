@@ -251,6 +251,7 @@ void CHud :: Init( void )
 	m_Message.Init();
 //	m_Scoreboard.Init();
 //	m_MOTD.Init();
+	m_Speedometer.Init();
 	m_StatusBar.Init();
 	m_DeathNotice.Init();
 	m_AmmoSecondary.Init();
@@ -405,6 +406,7 @@ void CHud :: VidInit( void )
 	m_Message.VidInit();
 //	m_Scoreboard.VidInit();
 //	m_MOTD.VidInit();
+	m_Speedometer.VidInit();
 	m_StatusBar.VidInit();
 	m_DeathNotice.VidInit();
 	m_SayText.VidInit();
