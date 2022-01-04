@@ -92,7 +92,7 @@ DMC_OBJS = \
 	$(DMC_OBJ_DIR)/vgui_SchemeManager.o \
 	$(DMC_OBJ_DIR)/dlls/quake_weapons_all.o \
 	$(DMC_OBJ_DIR)/dlls/quake_gun.o \
-
+	$(DMC_OBJ_DIR)/hud_speedometer.o \
 
 PUBLIC_OBJS = \
 	$(PUBLIC_OBJ_DIR)/interface.o \
