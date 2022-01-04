@@ -562,6 +562,10 @@ public:
 	int		m_iQuakeItems;
 
 	int m_iFontHeight;
+	cvar_t* m_pCvarColor;
+	unsigned long m_iDefaultHUDColor;
+
+	void UpdateDefaultHUDColor();
 	int DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b);
 	int DrawHudNumber(int x, int y, int number, int r, int g, int b);
 	int DrawHudString(int x, int y, int iMaxX, char* szString, int r, int g, int b);
