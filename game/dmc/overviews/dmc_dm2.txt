@@ -1,0 +1,14 @@
+// overview description file for dmc_dm2.bsp
+
+global 
+{
+	ZOOM	2.77
+	ORIGIN	2064 	-1120	-165
+	ROTATED	0
+}
+
+layer 
+{
+	IMAGE	"overviews/dmc_dm2.bmp"
+	HEIGHT	-165
+}

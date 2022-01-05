@@ -1,0 +1,14 @@
+// overview description file for dmc_dm6.bsp
+
+global 
+{
+	ZOOM	3.13
+	ORIGIN	941 	-1102	-305
+	ROTATED	1
+}
+
+layer 
+{
+	IMAGE	"overviews/dmc_dm6.bmp"
+	HEIGHT	-305
+}

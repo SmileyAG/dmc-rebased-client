@@ -1,0 +1,14 @@
+// overview description file for p_se_3.bsp
+
+global 
+{
+	ZOOM	1.81
+	ORIGIN	224 	-944	-161
+	ROTATED	0
+}
+
+layer 
+{
+	IMAGE	"overviews/p_se_3.bmp"
+	HEIGHT	-161
+}
