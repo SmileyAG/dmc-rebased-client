@@ -1,9 +1,0 @@
-dmc\Launcher_Preloads
-dmc\MP_Preloads
-dmc\dmc_dm2
-dmc\dmc_dm3
-dmc\dmc_dm4
-dmc\dmc_dm6
-dmc\dmc_e1m2
-dmc\dcdm5
-dmc\p_se_3
