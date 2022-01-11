@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -36,14 +36,14 @@ DECLARE_MESSAGE(m_Health, Damage )
 
 int giDmgHeight, giDmgWidth;
 
-int giDmgFlags[NUM_DMG_TYPES] = 
+int giDmgFlags[NUM_DMG_TYPES] =
 {
 	DMG_POISON,
 	DMG_ACID,
 	DMG_FREEZE|DMG_SLOWFREEZE,
 	DMG_DROWN,
 	DMG_BURN|DMG_SLOWBURN,
-	DMG_NERVEGAS, 
+	DMG_NERVEGAS,
 	DMG_RADIATION,
 	DMG_SHOCK,
 	DMG_CALTROP,
@@ -164,7 +164,7 @@ void CHudHealth::GetPainColor( int &r, int &g, int &b )
 		g = 0;
 		b = 0;
 	}
-#endif 
+#endif
 }
 
 int CHudHealth::Draw(float flTime)
@@ -181,7 +181,7 @@ int CHudHealth::Draw(float flTime)
 
 	if ( !m_hSprite )
 		m_hSprite = LoadSprite(PAIN_NAME);
-	
+
 	// Has health changed? Flash the health #
 	if (m_fFade)
 	{
@@ -203,9 +203,11 @@ int CHudHealth::Draw(float flTime)
 	// If health is getting low, make it bright red
 	if (m_iHealth <= 15)
 		a = 255;
-		
+
 	GetPainColor( r, g, b );
-	ScaleColors(r, g, b, a );
+	gHUD.GetHudColorsWithAlpha(r, g, b, a); // order is important here
+
+	//ScaleColors(r, g, b, a );
 
 	// Only draw health if we have the suit.
 	{
@@ -227,6 +229,7 @@ int CHudHealth::Draw(float flTime)
 		int iHeight = gHUD.m_iFontHeight;
 		int iWidth = HealthWidth/10;
 		UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
+		gHUD.GetHudColorsWithAlpha(r, g, b, a);
 		FillRGBA(x, y, iWidth, iHeight, r, g, b, a);
 	}
 
@@ -265,7 +268,7 @@ void CHudHealth::CalcDamageDirection(vec3_t vecFrom)
 	{
 		m_fAttackFront = m_fAttackRear = m_fAttackRight = m_fAttackLeft = 1;
 	}
-	else 
+	else
 	{
 		if (side > 0)
 		{
@@ -305,7 +308,7 @@ int CHudHealth::DrawPain(float flTime)
 	a = 255;	// max brightness until then
 
 	float fFade = gHUD.m_flTimeDelta * 2;
-	
+
 	// SPR_Draw top
 	if (m_fAttackFront > 0.4)
 	{
@@ -376,7 +379,7 @@ int CHudHealth::DrawDamage(float flTime)
 		return 1;
 
 	UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
-	
+
 	a = (int)( fabs(sin(flTime*2)) * 256.0);
 
 	ScaleColors(r, g, b, a);
@@ -427,15 +430,15 @@ int CHudHealth::DrawDamage(float flTime)
 
 	return 1;
 }
- 
+
 
 void CHudHealth::UpdateTiles(float flTime, long bitsDamage)
-{	
+{
 	DAMAGE_IMAGE *pdmg;
 
 	// Which types are new?
 	long bitsOn = ~m_bitsDamage & bitsDamage;
-	
+
 	for (int i = 0; i < NUM_DMG_TYPES; i++)
 	{
 		pdmg = &m_dmg[i];
@@ -455,7 +458,7 @@ void CHudHealth::UpdateTiles(float flTime, long bitsDamage)
 			pdmg->x = giDmgWidth/8;
 			pdmg->y = ScreenHeight - giDmgHeight * 2;
 			pdmg->fExpire=flTime + DMG_IMAGE_LIFE;
-			
+
 			// move everyone else up
 			for (int j = 0; j < NUM_DMG_TYPES; j++)
 			{
@@ -468,8 +471,8 @@ void CHudHealth::UpdateTiles(float flTime, long bitsDamage)
 
 			}
 			pdmg = &m_dmg[i];
-		}	
-	}	
+		}
+	}
 
 	// damage bits are only turned on here;  they are turned off when the draw time has expired (in DrawDamage())
 	m_bitsDamage |= bitsDamage;

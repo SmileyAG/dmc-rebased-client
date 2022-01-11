@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -58,7 +58,7 @@ int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 {
 	m_iFlags |= HUD_ACTIVE;
 
-	
+
 	BEGIN_READ( pbuf, iSize );
 	int x = READ_SHORT();
 
@@ -106,8 +106,9 @@ int CHudBattery::Draw(float flTime)
 	else
 		a = MIN_ALPHA;
 
-	ScaleColors(r, g, b, a );
-	
+	//ScaleColors(r, g, b, a );
+	gHUD.GetHudColorsWithAlpha(r, g, b, a);
+
 	int iOffset = (m_prc1->bottom - m_prc1->top)/6;
 
 	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight / 2;

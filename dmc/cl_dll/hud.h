@@ -558,6 +558,7 @@ public:
 	int		m_iRes;
 	cvar_t  *m_pCvarStealMouse;
 	cvar_t	*m_pCvarDraw;
+	cvar_t  *m_pCvarHudAlpha;
 
 	// QUAKECLASSIC
 	int		m_iQuakeItems;
@@ -572,6 +573,7 @@ public:
 	int DrawHudString(int x, int y, int iMaxX, const char *szString, int r, int g, int b );
 	int DrawHudStringReverse(int xpos, int ypos, int iMinX, const char* szString, int r, int g, int b);
 	int DrawHudNumberCentered(int x, int y, int number, int r, int g, int b);
+	void GetHudColorsWithAlpha(int &r, int &g, int &b, int a = 255);
 	int DrawHudNumberString(int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b);
 	int DrawHudNumberStringFixed( int xpos, int ypos, int iNumber, int r, int g, int b );
 	int GetNumWidth(int iNumber, int iFlags);

@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2002, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -29,7 +29,7 @@
 
 WEAPON *gpActiveSel;	// NULL means off, 1 means just the menu bar, otherwise
 						// this points to the active weapon menu item
-WEAPON *gpLastSel;		// Last weapon menu selection 
+WEAPON *gpLastSel;		// Last weapon menu selection
 
 client_sprite_t *GetSpriteList(client_sprite_t *pList, const char *psz, int iRes, int iCount);
 
@@ -46,15 +46,15 @@ void WeaponsResource :: LoadAllWeaponSprites( void )
 	}
 }
 
-int WeaponsResource :: CountAmmo( int iId ) 
-{ 
+int WeaponsResource :: CountAmmo( int iId )
+{
 	if ( iId < 0 )
 		return 0;
 
 	//Fixes some crashes.
 	if ( iId > MAX_AMMO_TYPES )
 		return 0;
-	
+
 	return riAmmo[iId];
 }
 
@@ -67,7 +67,7 @@ int WeaponsResource :: HasAmmo( WEAPON *p )
 	if ( p->iMax1 == -1 )
 		return TRUE;
 
-	return (p->iAmmoType == -1) || p->iClip > 0 || CountAmmo(p->iAmmoType) 
+	return (p->iAmmoType == -1) || p->iClip > 0 || CountAmmo(p->iAmmoType)
 		|| CountAmmo(p->iAmmo2Type) || ( p->iFlags & WEAPON_FLAGS_SELECTONEMPTY );
 }
 
@@ -102,7 +102,7 @@ void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 		return;
 
 	client_sprite_t *p;
-	
+
 	p = GetSpriteList( pList, "crosshair", iRes, i );
 	if (p)
 	{
@@ -221,7 +221,7 @@ WEAPON* WeaponsResource :: GetNextActivePos( int iSlot, int iSlotPos )
 		return NULL;
 
 	WEAPON *p = gWR.rgSlots[ iSlot ][ iSlotPos+1 ];
-	
+
 	if ( !p || !gWR.HasAmmo(p) )
 		return GetNextActivePos( iSlot, iSlotPos + 1 );
 
@@ -417,9 +417,9 @@ HSPRITE* WeaponsResource :: GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect )
 
 void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 {
-	if ( gHUD.m_Menu.m_fMenuDisplayed && (fAdvance == FALSE) && (iDirection == 1) )	
+	if ( gHUD.m_Menu.m_fMenuDisplayed && (fAdvance == FALSE) && (iDirection == 1) )
 	{ // menu is overriding slot use commands
-		gHUD.m_Menu.SelectMenuItem( iSlot );  
+		gHUD.m_Menu.SelectMenuItem( iSlot );
 		return;
 	}
 
@@ -459,7 +459,7 @@ void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 			p = GetFirstPos( iSlot );
 	}
 
-	
+
 	if ( !p )  // no selection found
 	{
 		// just display the weapon list, unless fastswitch is on just ignore it
@@ -468,7 +468,7 @@ void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 		else
 			gpActiveSel = NULL;
 	}
-	else 
+	else
 		gpActiveSel = p;
 }
 
@@ -478,7 +478,7 @@ void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 
 //
 // AmmoX  -- Update the count of a known type of ammo
-// 
+//
 int CHudAmmo::MsgFunc_AmmoX(const char *pszName, int iSize, void *pbuf)
 {
 	BEGIN_READ( pbuf, iSize );
@@ -529,7 +529,7 @@ int CHudAmmo::MsgFunc_ItemPickup( const char *pszName, int iSize, void *pbuf )
 int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 {
 	BEGIN_READ( pbuf, iSize );
-	
+
 	gHUD.m_iHideHUDDisplay = READ_BYTE();
 
 	if ( gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
@@ -542,16 +542,16 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 	return 1;
 }
 
-// 
+//
 //  CurWeapon: Update hud state with the current weapon and clip count. Ammo
-//  counts are updated with AmmoX. Server assures that the Weapon ammo type 
+//  counts are updated with AmmoX. Server assures that the Weapon ammo type
 //  numbers match a real ammo type.
 //
 int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 {
 	static wrect_t nullrc;
 	int fOnTarget = FALSE;
-	
+
 
 	BEGIN_READ( pbuf, iSize );
 
@@ -598,7 +598,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 
 	m_fFade = 200.0f; //!!!
 	m_iFlags |= HUD_ACTIVE;
-	
+
 	return 1;
 }
 
@@ -608,12 +608,12 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 int CHudAmmo::MsgFunc_WeaponList(const char *pszName, int iSize, void *pbuf )
 {
 	BEGIN_READ( pbuf, iSize );
-	
+
 	WEAPON Weapon;
 
 	strcpy( Weapon.szName, READ_STRING() );
-	Weapon.iAmmoType = (int)READ_CHAR();	
-	
+	Weapon.iAmmoType = (int)READ_CHAR();
+
 	Weapon.iMax1 = READ_BYTE();
 	if (Weapon.iMax1 == 255)
 		Weapon.iMax1 = -1;
@@ -761,7 +761,7 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 		pos = gpActiveSel->iSlotPos - 1;
 		slot = gpActiveSel->iSlot;
 	}
-	
+
 	for ( int loop = 0; loop <= 1; loop++ )
 	{
 		for ( ; slot >= 0; slot-- )
@@ -779,7 +779,7 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 
 			pos = MAX_WEAPON_POSITIONS-1;
 		}
-		
+
 		slot = MAX_WEAPON_SLOTS;
 	}
 
@@ -838,7 +838,9 @@ int CHudAmmo::Draw(float flTime)
 
 	UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
 
-	ScaleColors(r, g, b, a );
+	gHUD.GetHudColorsWithAlpha(r, g, b, a);
+
+	//ScaleColors(r, g, b, a );
 
 	// Does this weapon have a clip?
 	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight/2;
@@ -847,7 +849,7 @@ int CHudAmmo::Draw(float flTime)
 	iCrossLength = gHUD.m_scrinfo.charWidths[ *chCrossHair ];
 	iCrossY = ScreenHeight / 2 - gHUD.m_scrinfo.iCharHeight / 2;
 	iCrossX = ScreenWidth / 2 - iCrossLength / 2;
-	
+
 	gHUD.DrawHudString( iCrossX, iCrossY, iCrossX + 50, chCrossHair, 170, 170, 170 );
 	/******************* DRAW CROSSHAIR *********************/
 
@@ -855,15 +857,16 @@ int CHudAmmo::Draw(float flTime)
 	if (m_pWeapon->iAmmoType > 0)
 	{
 		int iIconWidth = m_pWeapon->rcAmmo.right - m_pWeapon->rcAmmo.left;
-		
+
 		if (pw->iClip >= 0)
 		{
 			x = ScreenWidth - (8 * AmmoWidth) - iIconWidth;
 
 			UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
+			gHUD.GetHudColorsWithAlpha(r, g, b, a); // used for both number and bar
 			// GL Seems to need this
-			ScaleColors( r, g, b, a );
-			m_iNumberXPosition = x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, gWR.CountAmmo(pw->iAmmoType), r, g, b);	
+			//ScaleColors( r, g, b, a );
+			m_iNumberXPosition = x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, gWR.CountAmmo(pw->iAmmoType), r, g, b);
 		}
 
 		// Draw the ammo Icon
@@ -916,14 +919,14 @@ void DrawAmmoBar(WEAPON *p, int x, int y, int width, int height)
 {
 	if ( !p )
 		return;
-	
+
 	if (p->iAmmoType != -1)
 	{
 		if (!gWR.CountAmmo(p->iAmmoType))
 			return;
 
 		float f = (float)gWR.CountAmmo(p->iAmmoType)/(float)p->iMax1;
-		
+
 		x = DrawBar(x, y, width, height, f);
 	}
 }
@@ -945,12 +948,12 @@ int CHudAmmo::DrawWList(float flTime)
 
 	if ( gpActiveSel == (WEAPON *)1 )
 		iActiveSlot = -1;	// current slot has no weapons
-	else 
+	else
 		iActiveSlot = gpActiveSel->iSlot;
 
 	x = 10; //!!!
 	y = 10; //!!!
-	
+
 
 	// Ensure that there are available choices in the active slot
 	if ( iActiveSlot > 0 )
@@ -961,20 +964,21 @@ int CHudAmmo::DrawWList(float flTime)
 			iActiveSlot = -1;
 		}
 	}
-		
+
 	// Draw top line
 	for ( i = 0; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		int iWidth;
 
 		UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
-	
+
 		if ( iActiveSlot == i )
 			a = 255;
 		else
 			a = 192;
 
-		ScaleColors(r, g, b, 255);
+		//ScaleColors(r, g, b, 255);
+		gHUD.GetHudColorsWithAlpha(r, g, b);
 		SPR_Set(gHUD.GetSprite(m_HUD_bucket0 + i), r, g, b );
 
 		// make active slot wide enough to accomodate gun pictures
@@ -988,11 +992,11 @@ int CHudAmmo::DrawWList(float flTime)
 		else
 			iWidth = giBucketWidth;
 
-		if ( i == iActiveSlot ) 
+		if ( i == iActiveSlot )
 			SPR_DrawAdditive(0, x + 104, y, &gHUD.GetSpriteRect(m_HUD_bucket0 + i));
 		else
 			SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_bucket0 + i));
-		
+
 		x += iWidth + 5;
 	}
 
@@ -1022,17 +1026,19 @@ int CHudAmmo::DrawWList(float flTime)
 					continue;
 
 				UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
-			
+
 				// if active, then we must have ammo.
 
 				if ( gpActiveSel == p )
 				{
 					if ( gWR.HasAmmo(p) )
-						ScaleColors(r, g, b, 192);
+						//ScaleColors(r, g, b, 192);
+						gHUD.GetHudColorsWithAlpha(r, g, b, 192);
 					else
 					{
 						UnpackRGB(r,g,b, RGB_REDISH);
-						ScaleColors(r, g, b, 128);
+						//ScaleColors(r, g, b, 128);
+						gHUD.GetHudColorsWithAlpha(r, g, b, 128);
 					}
 
 					SPR_Set(p->hActive, r, g, b );
@@ -1057,7 +1063,7 @@ int CHudAmmo::DrawWList(float flTime)
 				// Draw Ammo Bar
 
 				DrawAmmoBar(p, x + giABWidth/2, y, giABWidth, giABHeight);
-				
+
 				y += p->rcActive.bottom - p->rcActive.top + 5;
 			}
 
@@ -1073,7 +1079,7 @@ int CHudAmmo::DrawWList(float flTime)
 			for ( int iPos = 0; iPos < MAX_WEAPON_POSITIONS; iPos++ )
 			{
 				WEAPON *p = gWR.GetWeaponSlot( i, iPos );
-				
+
 				if ( !p || !p->iId )
 					continue;
 
@@ -1095,7 +1101,7 @@ int CHudAmmo::DrawWList(float flTime)
 
 			x += giBucketWidth + 5;
 		}
-	}	
+	}
 
 	return 1;
 
@@ -1105,7 +1111,7 @@ int CHudAmmo::DrawWList(float flTime)
 /* =================================
 	GetSpriteList
 
-Finds and returns the matching 
+Finds and returns the matching
 sprite name 'psz' and resolution 'iRes'
 in the given sprite list 'pList'
 iCount is the number of items in the pList

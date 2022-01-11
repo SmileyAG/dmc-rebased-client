@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1999, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -53,7 +53,7 @@ void CHudMessage::Reset( void )
 {
  	memset( m_pMessages, 0, sizeof( m_pMessages[0] ) * maxHUDMessages );
 	memset( m_startTime, 0, sizeof( m_startTime[0] ) * maxHUDMessages );
-	
+
 	m_gameTitleTime = 0;
 	m_pGameTitle = NULL;
 }
@@ -145,6 +145,8 @@ void CHudMessage::MessageScanNextChar( void )
 	blend = 0;	// Pure source
 	destRed = destGreen = destBlue = 0;
 
+	gHUD.GetHudColorsWithAlpha(srcRed, srcGreen, srcBlue);
+
 	switch( m_parms.pMessage->effect )
 	{
 	// Fade-in / Fade-out
@@ -205,7 +207,7 @@ void CHudMessage::MessageScanStart( void )
 	case 1:
 	case 0:
 		m_parms.fadeTime = m_parms.pMessage->fadein + m_parms.pMessage->holdtime;
-		
+
 
 		if ( m_parms.time < m_parms.pMessage->fadein )
 		{
@@ -228,7 +230,7 @@ void CHudMessage::MessageScanStart( void )
 
 	case 2:
 		m_parms.fadeTime = (m_parms.pMessage->fadein * m_parms.length) + m_parms.pMessage->holdtime;
-		
+
 		if ( m_parms.time > m_parms.fadeTime && m_parms.pMessage->fadeout > 0 )
 			m_parms.fadeBlend = (((m_parms.time - m_parms.fadeTime) / m_parms.pMessage->fadeout) * 255);
 		else
@@ -299,7 +301,7 @@ void CHudMessage::MessageDrawScan( client_textmessage_t *pMessage, float time )
 			m_parms.text = line[j];
 			int next = m_parms.x + gHUD.m_scrinfo.charWidths[ m_parms.text ];
 			MessageScanNextChar();
-			
+
 			if ( m_parms.x >= 0 && m_parms.y >= 0 && next <= ScreenWidth )
 				TextMessageDrawChar( m_parms.x, m_parms.y, m_parms.text, m_parms.r, m_parms.g, m_parms.b );
 			m_parms.x = next;
@@ -375,7 +377,7 @@ int CHudMessage::Draw( float fTime )
 			case 1:
 				endTime = m_startTime[i] + pMessage->fadein + pMessage->fadeout + pMessage->holdtime;
 				break;
-			
+
 			// Fade in is per character in scanning messages
 			case 2:
 				endTime = m_startTime[i] + (pMessage->fadein * strlen( pMessage->pMessage )) + pMessage->fadeout + pMessage->holdtime;
@@ -467,7 +469,7 @@ void CHudMessage::MessageAdd(client_textmessage_t * newMessage )
 	// Turn on drawing
 	if ( !(m_iFlags & HUD_ACTIVE) )
 		m_iFlags |= HUD_ACTIVE;
-	
+
 	for ( int i = 0; i < maxHUDMessages; i++ )
 	{
 		if ( !m_pMessages[i] )

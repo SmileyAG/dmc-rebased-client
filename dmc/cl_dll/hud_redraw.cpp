@@ -190,6 +190,7 @@ int CHud::DrawHudNumberString(int xpos, int ypos, int iMinX, int iNumber, int r,
 
 int CHud :: DrawHudNumberStringFixed( int xpos, int ypos, int iNumber, int r, int g, int b )
 {
+	GetHudColorsWithAlpha(r, g, b);
 	char szString[32];
 	sprintf( szString, "%d", iNumber );
 	return DrawHudStringRightAligned( xpos, ypos, szString, r, g, b );
@@ -198,11 +199,28 @@ int CHud :: DrawHudNumberStringFixed( int xpos, int ypos, int iNumber, int r, in
 // draws a string from right to left (right-aligned)
 int CHud::DrawHudStringReverse(int xpos, int ypos, int iMinX, const char* szString, int r, int g, int b)
 {
+	GetHudColorsWithAlpha(r, g, b);
 	return xpos - gEngfuncs.pfnDrawStringReverse(xpos, ypos, szString, r, g, b);
+}
+
+void CHud :: GetHudColorsWithAlpha( int &r, int &g, int &b, int a )
+{
+	// scales the colors by a, only if hud_alpha is a non-empty and is an integer
+	// if a is not given, defaults to 255
+
+	if ( sscanf(m_pCvarHudAlpha->string, "%d", &a) == 1)
+	{
+		a = m_pCvarHudAlpha->value;
+		a = (int) max(a, 1);
+		a = (int) min(a, 255);
+	}
+
+	ScaleColors( r, g, b, a );
 }
 
 int CHud::DrawHudString(int xpos, int ypos, int iMaxX, const char *szIt, int r, int g, int b )
 {
+	GetHudColorsWithAlpha(r, g, b);
 	return xpos + gEngfuncs.pfnDrawString( xpos, ypos, szIt, r, g, b);
 }
 
@@ -308,6 +326,7 @@ int CHud::DrawHudNumberCentered(int x, int y, int number, int r, int g, int b)
 {
 	auto digit_width = GetSpriteRect(m_HUD_number_0).right - GetSpriteRect(m_HUD_number_0).left;
 	auto digit_count = count_digits(number);
+	GetHudColorsWithAlpha(r, g, b);
 
 	return DrawHudNumber(x - (digit_width * digit_count) / 2, y, number, r, g, b);
 }
@@ -484,12 +503,14 @@ int CHud::GetNumWidth( int iNumber, int iFlags )
 int CHud::DrawHudStringCentered(int x, int y, const char* string, int r, int g, int b)
 {
 	auto width = GetHudStringWidth(string);
+	GetHudColorsWithAlpha(r, g, b);
 	return x + gEngfuncs.pfnDrawString(x - width / 2, y, string, r, g, b);
 }
 
 int CHud::DrawHudStringRightAligned(int x, int y, const char* string, int r, int g, int b)
 {
 	auto width = GetHudStringWidth(string);
+	GetHudColorsWithAlpha(r, g, b);
 	gEngfuncs.pfnDrawString(x - width, y, string, r, g, b);
 	return x;
 }
