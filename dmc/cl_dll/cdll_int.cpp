@@ -1,17 +1,17 @@
 /***
-*
-*	Copyright (c) 1999, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
-*	All Rights Reserved.
-*
-*   Use, distribution, and modification of this source code and/or resulting
-*   object code is restricted to non-commercial enhancements to products from
-*   Valve LLC.  All other use, distribution, or modification is prohibited
-*   without written permission from Valve LLC.
-*
-****/
+ *
+ *	Copyright (c) 1999, Valve LLC. All rights reserved.
+ *
+ *	This product contains software technology licensed from Id
+ *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
+ *	All Rights Reserved.
+ *
+ *   Use, distribution, and modification of this source code and/or resulting
+ *   object code is restricted to non-commercial enhancements to products from
+ *   Valve LLC.  All other use, distribution, or modification is prohibited
+ *   without written permission from Valve LLC.
+ *
+ ****/
 //
 //  cdll_int.c
 //
@@ -36,50 +36,48 @@
 #include "winsani_out.h"
 #endif
 
-CSysModule *g_pFileSystemModule = NULL;
-IFileSystem *g_pFileSystem = NULL;
+CSysModule* g_pFileSystemModule = NULL;
+IFileSystem* g_pFileSystem = NULL;
 
-CSysModule *g_hTrackerModule = NULL;
+CSysModule* g_hTrackerModule = NULL;
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
-TeamFortressViewport *gViewPort = NULL;
+TeamFortressViewport* gViewPort = NULL;
 
-extern "C"
-{
+extern "C" {
 #include "pm_shared.h"
 }
 
 #include "hud_servers.h"
 
-void InitInput (void);
-void EV_HookEvents( void );
-void IN_Commands( void );
+void InitInput(void);
+void EV_HookEvents(void);
+void IN_Commands(void);
 
 /*
-========================== 
-    Initialize
+==========================
+	Initialize
 
 Called when the DLL is first loaded.
 ==========================
 */
-extern "C" 
-{
-int EXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion );
-int EXPORT HUD_VidInit( void );
-int EXPORT HUD_Init( void );
-int EXPORT HUD_Redraw( float flTime, int intermission );
-int EXPORT HUD_UpdateClientData( client_data_t *cdata, float flTime );
-int EXPORT HUD_Reset ( void );
-void EXPORT HUD_PlayerMove( struct playermove_s *ppmove, int server );
-void EXPORT HUD_PlayerMoveInit( struct playermove_s *ppmove );
-char EXPORT HUD_PlayerMoveTexture( char *name );
-int EXPORT HUD_ConnectionlessPacket( struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
-int EXPORT HUD_GetHullBounds( int hullnumber, float *mins, float *maxs );
-void EXPORT HUD_Frame( double time );
-void EXPORT HUD_PostRunCmd( struct local_state_s *from, struct local_state_s *to, struct usercmd_s *cmd, int runfuncs, double time, unsigned int random_seed );
+extern "C" {
+int EXPORT Initialize(cl_enginefunc_t* pEnginefuncs, int iVersion);
+int EXPORT HUD_VidInit(void);
+int EXPORT HUD_Init(void);
+int EXPORT HUD_Redraw(float flTime, int intermission);
+int EXPORT HUD_UpdateClientData(client_data_t* cdata, float flTime);
+int EXPORT HUD_Reset(void);
+void EXPORT HUD_PlayerMove(struct playermove_s* ppmove, int server);
+void EXPORT HUD_PlayerMoveInit(struct playermove_s* ppmove);
+char EXPORT HUD_PlayerMoveTexture(char* name);
+int EXPORT HUD_ConnectionlessPacket(struct netadr_s* net_from, const char* args, char* response_buffer, int* response_buffer_size);
+int EXPORT HUD_GetHullBounds(int hullnumber, float* mins, float* maxs);
+void EXPORT HUD_Frame(double time);
+void EXPORT HUD_PostRunCmd(struct local_state_s* from, struct local_state_s* to, struct usercmd_s* cmd, int runfuncs, double time, unsigned int random_seed);
 void EXPORT HUD_VoiceStatus(int entindex, qboolean bTalking);
-void	EXPORT HUD_DirectorMessage( int iSize, void *pbuf );
+void EXPORT HUD_DirectorMessage(int iSize, void* pbuf);
 }
 
 /*
@@ -89,25 +87,25 @@ HUD_GetHullBounds
   Engine calls this to enumerate player collision hulls, for prediction.  Return 0 if the hullnumber doesn't exist.
 ================================
 */
-int EXPORT HUD_GetHullBounds( int hullnumber, float *mins, float *maxs )
+int EXPORT HUD_GetHullBounds(int hullnumber, float* mins, float* maxs)
 {
 	int iret = 0;
 
-	switch ( hullnumber )
+	switch (hullnumber)
 	{
-	case 0:				// Normal player
+	case 0: // Normal player
 		mins = Vector(-16, -16, -32);
 		maxs = Vector(16, 16, 32);
 		iret = 1;
 		break;
-	case 1:				// Crouched player
+	case 1: // Crouched player
 		mins = Vector(-16, -16, -32);
 		maxs = Vector(16, 16, 32);
 		iret = 1;
 		break;
-	case 2:				// Point based hull
-		mins = Vector( 0, 0, 0 );
-		maxs = Vector( 0, 0, 0 );
+	case 2: // Point based hull
+		mins = Vector(0, 0, 0);
+		maxs = Vector(0, 0, 0);
 		iret = 1;
 		break;
 	}
@@ -123,7 +121,7 @@ HUD_ConnectionlessPacket
   size of the response_buffer, so you must zero it out if you choose not to respond.
 ================================
 */
-int	EXPORT HUD_ConnectionlessPacket( struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size )
+int EXPORT HUD_ConnectionlessPacket(struct netadr_s* net_from, const char* args, char* response_buffer, int* response_buffer_size)
 {
 	// Parse stuff from args
 	int max_buffer_size = *response_buffer_size;
@@ -137,22 +135,22 @@ int	EXPORT HUD_ConnectionlessPacket( struct netadr_s *net_from, const char *args
 	return 0;
 }
 
-void EXPORT HUD_PlayerMoveInit( struct playermove_s *ppmove )
+void EXPORT HUD_PlayerMoveInit(struct playermove_s* ppmove)
 {
-	PM_Init( ppmove );
+	PM_Init(ppmove);
 }
 
-char EXPORT HUD_PlayerMoveTexture( char *name )
+char EXPORT HUD_PlayerMoveTexture(char* name)
 {
-	return PM_FindTextureType( name );
+	return PM_FindTextureType(name);
 }
 
-void EXPORT HUD_PlayerMove( struct playermove_s *ppmove, int server )
+void EXPORT HUD_PlayerMove(struct playermove_s* ppmove, int server)
 {
-	PM_Move( ppmove, server );
+	PM_Move(ppmove, server);
 }
 
-int EXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
+int EXPORT Initialize(cl_enginefunc_t* pEnginefuncs, int iVersion)
 {
 	gEngfuncs = *pEnginefuncs;
 
@@ -166,14 +164,14 @@ int EXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	memcpy(&gEngfuncs, pEnginefuncs, sizeof(cl_enginefunc_t));
 
 	EV_HookEvents();
-	
+
 	// Determine which filesystem to use.
-#if defined ( _WIN32 )
-	char *szFsModule = "filesystem_stdio.dll";
+#if defined(_WIN32)
+	char* szFsModule = "filesystem_stdio.dll";
 #elif defined(OSX)
-	char *szFsModule = "filesystem_stdio.dylib";	
+	char* szFsModule = "filesystem_stdio.dylib";
 #elif defined(LINUX)
-	char *szFsModule = "filesystem_stdio.so";
+	char* szFsModule = "filesystem_stdio.so";
 #else
 #error
 #endif
@@ -181,28 +179,28 @@ int EXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 
 	char szFSDir[MAX_PATH];
 	szFSDir[0] = 0;
-	if ( gEngfuncs.COM_ExpandFilename( szFsModule, szFSDir, sizeof( szFSDir ) ) == FALSE )
+	if (gEngfuncs.COM_ExpandFilename(szFsModule, szFSDir, sizeof(szFSDir)) == FALSE)
 	{
 		return false;
 	}
-	
+
 	// Get filesystem interface.
-	g_pFileSystemModule = Sys_LoadModule( szFSDir );
-	assert( g_pFileSystemModule );
-	if( !g_pFileSystemModule )
+	g_pFileSystemModule = Sys_LoadModule(szFSDir);
+	assert(g_pFileSystemModule);
+	if (!g_pFileSystemModule)
 	{
 		return false;
 	}
 
-	CreateInterfaceFn fileSystemFactory = Sys_GetFactory( g_pFileSystemModule );
-	if( !fileSystemFactory )
+	CreateInterfaceFn fileSystemFactory = Sys_GetFactory(g_pFileSystemModule);
+	if (!fileSystemFactory)
 	{
 		return false;
 	}
 
-	g_pFileSystem = ( IFileSystem * )fileSystemFactory( FILESYSTEM_INTERFACE_VERSION, NULL );
-	assert( g_pFileSystem );
-	if( !g_pFileSystem )
+	g_pFileSystem = (IFileSystem*)fileSystemFactory(FILESYSTEM_INTERFACE_VERSION, NULL);
+	assert(g_pFileSystem);
+	if (!g_pFileSystem)
 	{
 		return false;
 	}
@@ -221,7 +219,7 @@ so the HUD can reinitialize itself.
 ==========================
 */
 
-int EXPORT HUD_VidInit( void )
+int EXPORT HUD_VidInit(void)
 {
 	gHUD.VidInit();
 
@@ -235,12 +233,12 @@ int EXPORT HUD_VidInit( void )
 	HUD_Init
 
 Called whenever the client connects
-to a server.  Reinitializes all 
+to a server.  Reinitializes all
 the hud variables.
 ==========================
 */
 
-int EXPORT HUD_Init( void )
+int EXPORT HUD_Init(void)
 {
 	InitInput();
 	gHUD.Init();
@@ -259,9 +257,9 @@ redraw the HUD.
 ===========================
 */
 
-int EXPORT HUD_Redraw( float time, int intermission )
+int EXPORT HUD_Redraw(float time, int intermission)
 {
-	gHUD.Redraw( time, intermission );
+	gHUD.Redraw(time, intermission);
 
 	return 1;
 }
@@ -280,9 +278,9 @@ returns 1 if anything has been changed, 0 otherwise.
 ==========================
 */
 
-int EXPORT HUD_UpdateClientData(client_data_t *pcldata, float flTime )
+int EXPORT HUD_UpdateClientData(client_data_t* pcldata, float flTime)
 {
-	return gHUD.UpdateClientData(pcldata, flTime );
+	return gHUD.UpdateClientData(pcldata, flTime);
 }
 
 /*
@@ -293,7 +291,7 @@ Called at start and end of demos to restore to "non"HUD state.
 ==========================
 */
 
-int EXPORT HUD_Reset( void )
+int EXPORT HUD_Reset(void)
 {
 	gHUD.VidInit();
 	return 1;
@@ -307,11 +305,11 @@ Called by engine every frame that client .dll is loaded
 ==========================
 */
 
-void EXPORT HUD_Frame( double time )
+void EXPORT HUD_Frame(double time)
 {
 	IN_Commands();
 
-	ServersThink( time );
+	ServersThink(time);
 
 	GetClientVoiceMgr()->Frame(time);
 }
@@ -338,7 +336,7 @@ Called when a director event message was received
 ==========================
 */
 
-void EXPORT HUD_DirectorMessage( int iSize, void *pbuf )
+void EXPORT HUD_DirectorMessage(int iSize, void* pbuf)
 {
-	 gHUD.m_Spectator.DirectorMessage( iSize, pbuf );
+	gHUD.m_Spectator.DirectorMessage(iSize, pbuf);
 }

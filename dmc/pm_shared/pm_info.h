@@ -1,12 +1,12 @@
 //========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
 //
-// Purpose: 
+// Purpose:
 //
 // $NoKeywords: $
 //=============================================================================
 
 // Physics info string definition
-#if !defined( PM_INFOH )
+#if !defined(PM_INFOH)
 #define PM_INFOH
 #pragma once
 

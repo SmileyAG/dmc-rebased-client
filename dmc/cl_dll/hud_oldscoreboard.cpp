@@ -12,28 +12,28 @@
 // Those who play on killed-off 32bit Apple don't deserve old_scoreboard looking good
 // as I am too lazy to build & test in a MacOS, sorry.
 #ifdef LINUX
-	#define ROW_RANGE_MIN (gHUD.m_scrinfo.iCharHeight + 3)
+#define ROW_RANGE_MIN (gHUD.m_scrinfo.iCharHeight + 3)
 
-	/* The scoreboard's default width is set to 380 on Linux
-	 * since it doesn't look good (Ping/loss doesn't fit and overlaps "Deaths" etc.)
-	 * on the (original) 320 default, like it does on Windows,
-	 * since the engine's Trebuchet MS is bigger than on Windows
-	 * WINDOWS = Trebuchet MS = 9x8
-	 * LINUX = Trebuchet MS = 11x10
-	 */
-	#define DEFAULT_WIDTH "380"
+/* The scoreboard's default width is set to 380 on Linux
+ * since it doesn't look good (Ping/loss doesn't fit and overlaps "Deaths" etc.)
+ * on the (original) 320 default, like it does on Windows,
+ * since the engine's Trebuchet MS is bigger than on Windows
+ * WINDOWS = Trebuchet MS = 9x8
+ * LINUX = Trebuchet MS = 11x10
+ */
+#define DEFAULT_WIDTH "380"
 #else
-	#define ROW_RANGE_MIN (gHUD.m_scrinfo.iCharHeight + 2)
-	#define DEFAULT_WIDTH "320"
+#define ROW_RANGE_MIN (gHUD.m_scrinfo.iCharHeight + 2)
+#define DEFAULT_WIDTH "320"
 #endif // LINUX
 
 #define ROW_GAP (gHUD.m_scrinfo.iCharHeight - 5)
-#define ROW_RANGE_MAX ( ScreenHeight - 50 )
+#define ROW_RANGE_MAX (ScreenHeight - 50)
 
-#define TEAM_NO             0
-#define TEAM_YES            1
-#define TEAM_SPECTATORS     2
-#define TEAM_BLANK          3
+#define TEAM_NO 0
+#define TEAM_YES 1
+#define TEAM_SPECTATORS 2
+#define TEAM_BLANK 3
 
 int CHudOldScoreboard::Init(void)
 {
@@ -48,7 +48,7 @@ int CHudOldScoreboard::Init(void)
 
 int CHudOldScoreboard::VidInit(void)
 {
-	m_iFlags &= ~HUD_ACTIVE; // m_iFlags |= HUD_ACTIVE;
+	m_iFlags &= ~HUD_ACTIVE;	  // m_iFlags |= HUD_ACTIVE;
 	m_iFlags |= HUD_INTERMISSION; // is always drawn during an intermission
 
 	int m_iSprite = 0;
@@ -104,14 +104,14 @@ int CHudOldScoreboard::Draw(float fTime)
 	int NAME_RANGE_MAX = 145 * m_WidthScale;
 	int KILLS_RANGE_MIN = 130 * m_WidthScale;
 	int KILLS_RANGE_MAX = 160 * m_WidthScale;
-	int DIVIDER_POS     = 180 * m_WidthScale;
+	int DIVIDER_POS = 180 * m_WidthScale;
 	int DEATHS_RANGE_MIN = 190 * m_WidthScale; // og 185
 	int DEATHS_RANGE_MAX = 220 * m_WidthScale;
-	int PING_RANGE_MAX  = 295 * m_WidthScale;
+	int PING_RANGE_MAX = 295 * m_WidthScale;
 	int END = 315 * m_WidthScale;
 
 	int r, g, b;
-	UnpackRGB(r,g,b, gHUD.m_iDefaultHUDColor);
+	UnpackRGB(r, g, b, gHUD.m_iDefaultHUDColor);
 
 	int xpos = 0;
 	int ypos = 0;
@@ -167,7 +167,7 @@ int CHudOldScoreboard::Draw(float fTime)
 			ypos = ROW_TOP + ROW_RANGE_MIN + (list_slot * ROW_GAP);
 
 			// check we haven't drawn too far down
-			if ( ypos > ROW_RANGE_MAX )  // don't draw to close to the lower border
+			if (ypos > ROW_RANGE_MAX) // don't draw to close to the lower border
 				break;
 
 			xpos = NAME_RANGE_MIN + xpos_rel;
@@ -181,7 +181,7 @@ int CHudOldScoreboard::Draw(float fTime)
 
 			// Cut off the name if it'd overlap score
 			// - 5 to allow for some more space between the name and kills
-			while ( gHUD.GetHudStringWidth(szTeamName) + nameoffset + NAME_RANGE_MIN > KILLS_RANGE_MIN - 5 )
+			while (gHUD.GetHudStringWidth(szTeamName) + nameoffset + NAME_RANGE_MIN > KILLS_RANGE_MIN - 5)
 			{
 				szTeamName[strlen(szTeamName) - 1] = '\0';
 			}
@@ -219,7 +219,7 @@ int CHudOldScoreboard::Draw(float fTime)
 			ypos = ROW_TOP + ROW_RANGE_MIN + (list_slot * ROW_GAP);
 
 			// check we haven't drawn too far down
-			if ( ypos > ROW_RANGE_MAX )  // don't draw to close to the lower border
+			if (ypos > ROW_RANGE_MAX) // don't draw to close to the lower border
 				break;
 
 			r = iTeamColors[pl_info_extra->teamnumber][0];
@@ -245,7 +245,7 @@ int CHudOldScoreboard::Draw(float fTime)
 			snprintf(szName, ARRAYSIZE(szName), "%s", name);
 
 			// cut off the name if it'd overlap score
-			while ( gHUD.GetHudStringWidth(szName) + nameoffset + NAME_RANGE_MIN + specoffset > KILLS_RANGE_MIN )
+			while (gHUD.GetHudStringWidth(szName) + nameoffset + NAME_RANGE_MIN + specoffset > KILLS_RANGE_MIN)
 			{
 				szName[strlen(szName) - 1] = '\0';
 			}
@@ -269,7 +269,7 @@ int CHudOldScoreboard::Draw(float fTime)
 			xpos = width + xpos_rel - (width - PING_RANGE_MAX);
 			static char buf[64];
 			snprintf(buf, ARRAYSIZE(buf), "%d/%d", (int)pl_info->ping, (int)pl_info->packetloss);
-			gHUD.DrawHudStringRightAligned(xpos , ypos, buf, r, g, b);
+			gHUD.DrawHudStringRightAligned(xpos, ypos, buf, r, g, b);
 
 			list_slot++;
 		}

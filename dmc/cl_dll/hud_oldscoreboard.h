@@ -4,16 +4,17 @@
 
 #include "cl_entity.h"
 
-class CHudOldScoreboard: public CHudBase
+class CHudOldScoreboard : public CHudBase
 {
 public:
-	int Init( void );
-	int VidInit( void );
-	int Draw( float flTime );
-	void Reset( void );
+	int Init(void);
+	int VidInit(void);
+	int Draw(float flTime);
+	void Reset(void);
 
-	bool IsVisible( );
-	void ShowScoreboard( bool bShow );
+	bool IsVisible();
+	void ShowScoreboard(bool bShow);
+
 private:
 	typedef struct
 	{
@@ -23,10 +24,10 @@ private:
 
 	icon_flagstatus_t m_IconFlagScore;
 
-	cvar_t *m_pCvarOldScoreboard;
-	cvar_t *m_pCvarOldScoreboardWidth;
+	cvar_t* m_pCvarOldScoreboard;
+	cvar_t* m_pCvarOldScoreboardWidth;
 
 	float m_WidthScale;
 };
 
-#endif //OLD_SCOREBOARD_H
+#endif // OLD_SCOREBOARD_H

@@ -9,23 +9,23 @@ on:
 
 env:
   RELEASE_CONFIGURATION: Release
-  PROJECT_FILE_PATH: projects/vs2019/dmc_cdll.vcxproj
+  PROJECT_FILE_PATH: projects/vs2022/dmc_cdll.vcxproj
 
 jobs:
   game-dlls:
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.0.3
     - name: Build release game dlls
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m ${{env.PROJECT_FILE_PATH}} /p:Configuration=${{env.RELEASE_CONFIGURATION}}
     - name: Upload release game libs (Client)
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: dmc-client
-        path: projects/vs2019/${{env.RELEASE_CONFIGURATION}}/dmc_cdll/client.dll
+        path: projects/vs2022/${{env.RELEASE_CONFIGURATION}}/dmc_cdll/client.dll
 
   game-so-libs:
     runs-on: ubuntu-18.04

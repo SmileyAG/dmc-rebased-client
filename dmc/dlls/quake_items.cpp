@@ -31,46 +31,46 @@ extern unsigned short g_usPowerUp;
 class CQuakeItem : public CBaseEntity
 {
 public:
-	void	Spawn( void );
+	void Spawn(void);
 
 	// Respawning
-	void	EXPORT Materialize( void );
-	void	Respawn( float flTime );
+	void EXPORT Materialize(void);
+	void Respawn(float flTime);
 
-	virtual void SetObjectCollisionBox ( void );
+	virtual void SetObjectCollisionBox(void);
 
 	// Touch
-	void	EXPORT ItemTouch( CBaseEntity *pOther );
-	virtual	BOOL MyTouch( CBasePlayer *pOther ) { return FALSE; };
+	void EXPORT ItemTouch(CBaseEntity* pOther);
+	virtual BOOL MyTouch(CBasePlayer* pOther) { return FALSE; };
 
-	float	m_flRespawnTime;
+	float m_flRespawnTime;
 };
 
 //-----------------------------------------------------------------------------
 // Purpose: Spawn and drop to the floor
 //-----------------------------------------------------------------------------
 
-void CQuakeItem :: SetObjectCollisionBox( void )
+void CQuakeItem ::SetObjectCollisionBox(void)
 {
 	pev->absmin = pev->origin + Vector(-32, -32, 0);
-	pev->absmax = pev->origin + Vector(32, 32, 56); 
+	pev->absmax = pev->origin + Vector(32, 32, 56);
 }
 
 void CQuakeItem::Spawn()
-{ 
+{
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_TRIGGER;
-	
+
 	SetTouch(&CQuakeItem::ItemTouch);
 
 	if (DROP_TO_FLOOR(ENT(pev)) == 0)
 	{
-		ALERT(at_error, "Item %s fell out of level at %f,%f,%f", STRING( pev->classname ), pev->origin.x, pev->origin.y, pev->origin.z);
-		UTIL_Remove( this );
+		ALERT(at_error, "Item %s fell out of level at %f,%f,%f", STRING(pev->classname), pev->origin.x, pev->origin.y, pev->origin.z);
+		UTIL_Remove(this);
 		return;
 	}
 
-	//UTIL_SetOrigin( pev, pev->origin + Vector(0,0,16) );
+	// UTIL_SetOrigin( pev, pev->origin + Vector(0,0,16) );
 
 	if (!m_flRespawnTime)
 		m_flRespawnTime = 20;
@@ -83,22 +83,22 @@ void CQuakeItem::Materialize()
 {
 	// Become visible and touchable
 	pev->effects &= ~EF_NODRAW;
-	SetTouch( &CQuakeItem::ItemTouch );
+	SetTouch(&CQuakeItem::ItemTouch);
 
 	// Play respawn sound
-	EMIT_SOUND( ENT(pev), CHAN_WEAPON, "items/itembk2.wav", 1, ATTN_NORM );
+	EMIT_SOUND(ENT(pev), CHAN_WEAPON, "items/itembk2.wav", 1, ATTN_NORM);
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: Setup the item's respawn in the time set
 //-----------------------------------------------------------------------------
-void CQuakeItem::Respawn( float flTime )
+void CQuakeItem::Respawn(float flTime)
 {
 	pev->effects |= EF_NODRAW;
-	SetTouch( NULL );
+	SetTouch(NULL);
 
 	// Come back in time
-	SetThink ( &CQuakeItem::Materialize );
+	SetThink(&CQuakeItem::Materialize);
 	pev->nextthink = gpGlobals->time + flTime;
 }
 
@@ -106,31 +106,31 @@ void CQuakeItem::Respawn( float flTime )
 //-----------------------------------------------------------------------------
 // Purpose: Touch function that calls the virtual touch function
 //-----------------------------------------------------------------------------
-void CQuakeItem::ItemTouch( CBaseEntity *pOther )
+void CQuakeItem::ItemTouch(CBaseEntity* pOther)
 {
 	// if it's not a player, ignore
-	if ( !pOther->IsPlayer() )
+	if (!pOther->IsPlayer())
 		return;
 
-	//Dead?
+	// Dead?
 	if (pOther->pev->health <= 0)
 		return;
 
-	CBasePlayer *pPlayer = (CBasePlayer *)pOther;
+	CBasePlayer* pPlayer = (CBasePlayer*)pOther;
 
 	// Call the virtual touch function
-	if ( MyTouch( pPlayer ) )
+	if (MyTouch(pPlayer))
 	{
-		SUB_UseTargets( pOther, USE_TOGGLE, 0 );
+		SUB_UseTargets(pOther, USE_TOGGLE, 0);
 
 		// Respawn if it's not DM==2
 		if (gpGlobals->deathmatch != 2)
 		{
-			Respawn( m_flRespawnTime );
+			Respawn(m_flRespawnTime);
 		}
 		else
 		{
-			UTIL_Remove( this );
+			UTIL_Remove(this);
 		}
 	}
 }
@@ -138,26 +138,26 @@ void CQuakeItem::ItemTouch( CBaseEntity *pOther )
 //======================================================================================
 // HEALTH ITEMS
 //======================================================================================
-#define H_ROTTEN	1
-#define H_MEGA 		2
+#define H_ROTTEN 1
+#define H_MEGA 2
 
 class CItemHealth : public CQuakeItem
 {
 public:
-	void Spawn( void );
-	void Precache( void );
-	BOOL MyTouch( CBasePlayer *pPlayer );
-	void EXPORT MegahealthRot( void );
+	void Spawn(void);
+	void Precache(void);
+	BOOL MyTouch(CBasePlayer* pPlayer);
+	void EXPORT MegahealthRot(void);
 
-	EHANDLE	m_hRotTarget;
-	int		m_iHealAmount;
-	int		m_iHealType;
+	EHANDLE m_hRotTarget;
+	int m_iHealAmount;
+	int m_iHealType;
 };
 LINK_ENTITY_TO_CLASS(item_health, CItemHealth);
 
 //--------------------------------------------
 // Spawn
-void CItemHealth::Spawn( void )
+void CItemHealth::Spawn(void)
 {
 	Precache();
 
@@ -165,21 +165,21 @@ void CItemHealth::Spawn( void )
 	if (pev->spawnflags & H_ROTTEN)
 	{
 		SET_MODEL(ENT(pev), "models/w_medkits.mdl");
-		pev->noise = MAKE_STRING( "items/r_item1.wav" );
+		pev->noise = MAKE_STRING("items/r_item1.wav");
 		m_iHealAmount = 15;
 		m_iHealType = H_ROTTEN;
 	}
 	else if (pev->spawnflags & H_MEGA)
 	{
 		SET_MODEL(ENT(pev), "models/w_medkitl.mdl");
-		pev->noise = MAKE_STRING( "items/r_item2.wav" );
+		pev->noise = MAKE_STRING("items/r_item2.wav");
 		m_iHealAmount = 100;
 		m_iHealType = H_MEGA;
 	}
 	else
 	{
 		SET_MODEL(ENT(pev), "models/w_medkit.mdl");
-		pev->noise = MAKE_STRING( "items/health1.wav" );
+		pev->noise = MAKE_STRING("items/health1.wav");
 		m_iHealAmount = 25;
 		m_iHealType = H_ROTTEN;
 	}
@@ -201,7 +201,7 @@ void CItemHealth::Precache()
 
 //--------------------------------------------
 // Health Touch
-BOOL CItemHealth::MyTouch( CBasePlayer *pPlayer )
+BOOL CItemHealth::MyTouch(CBasePlayer* pPlayer)
 {
 	// Don't heal in DM==4 if they're invincible
 	if (gpGlobals->deathmatch == 4 && pPlayer->m_flInvincibleFinished > 0)
@@ -214,31 +214,31 @@ BOOL CItemHealth::MyTouch( CBasePlayer *pPlayer )
 	{
 		if (pPlayer->pev->health >= 250)
 			return FALSE;
-		if ( !pPlayer->TakeHealth( m_iHealAmount, DMG_GENERIC | DMG_IGNORE_MAXHEALTH) )
+		if (!pPlayer->TakeHealth(m_iHealAmount, DMG_GENERIC | DMG_IGNORE_MAXHEALTH))
 			return FALSE;
 	}
 	else
 	{
 		// Heal the Player
-		if ( !pPlayer->TakeHealth( m_iHealAmount, DMG_GENERIC ) )
+		if (!pPlayer->TakeHealth(m_iHealAmount, DMG_GENERIC))
 			return FALSE;
 	}
 
-	ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#Get_Health", UTIL_dtos1(m_iHealAmount) );
-	EMIT_SOUND( ENT(pev), CHAN_ITEM, STRING(pev->noise), 1, ATTN_NORM );
+	ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#Get_Health", UTIL_dtos1(m_iHealAmount));
+	EMIT_SOUND(ENT(pev), CHAN_ITEM, STRING(pev->noise), 1, ATTN_NORM);
 
 	// Setup for respawn
 	if (m_iHealType == H_MEGA)
 	{
 		// Go invisible and fire targets
 		pev->effects |= EF_NODRAW;
-		SetTouch( NULL );
-		SUB_UseTargets( pPlayer, USE_TOGGLE, 0 );
+		SetTouch(NULL);
+		SUB_UseTargets(pPlayer, USE_TOGGLE, 0);
 
 		pPlayer->m_iQuakeItems |= IT_SUPERHEALTH;
 		if (gpGlobals->deathmatch != 4)
 		{
-			SetThink( &CItemHealth::MegahealthRot );
+			SetThink(&CItemHealth::MegahealthRot);
 			pev->nextthink = gpGlobals->time + 5;
 		}
 		m_hRotTarget = pPlayer;
@@ -253,31 +253,31 @@ BOOL CItemHealth::MyTouch( CBasePlayer *pPlayer )
 
 //--------------------------------------------
 // Megahealth Rot function. Reduce player's health until it's below 100. Then respawn.
-void CItemHealth::MegahealthRot( void )
+void CItemHealth::MegahealthRot(void)
 {
 	if (m_hRotTarget)
 	{
-		CBasePlayer *pPlayer = ((CBasePlayer *)((CBaseEntity *)m_hRotTarget));
+		CBasePlayer* pPlayer = ((CBasePlayer*)((CBaseEntity*)m_hRotTarget));
 
-		if (pPlayer->pev->health > pPlayer->pev->max_health )
+		if (pPlayer->pev->health > pPlayer->pev->max_health)
 		{
 			pPlayer->pev->health--;
 			pev->nextthink = gpGlobals->time + 1;
 			return;
 		}
-		
+
 		pPlayer->m_iQuakeItems &= ~IT_SUPERHEALTH;
 	}
 
 	// Respawn if it's not DM==2
 	if (gpGlobals->deathmatch != 2)
 	{
-		SetThink ( &CItemHealth::Materialize );
+		SetThink(&CItemHealth::Materialize);
 		pev->nextthink = gpGlobals->time + 20;
 	}
 	else
 	{
-		UTIL_Remove( this );
+		UTIL_Remove(this);
 	}
 }
 
@@ -287,15 +287,15 @@ void CItemHealth::MegahealthRot( void )
 class CItemArmor : public CQuakeItem
 {
 public:
-	BOOL MyTouch( CBasePlayer *pPlayer );
+	BOOL MyTouch(CBasePlayer* pPlayer);
 
 	float m_flArmorValue;
 	float m_flArmorType;
-	int	  m_iArmorBit;
+	int m_iArmorBit;
 };
 
 // Armor Touch
-BOOL CItemArmor::MyTouch( CBasePlayer *pPlayer )
+BOOL CItemArmor::MyTouch(CBasePlayer* pPlayer)
 {
 	if (pPlayer->pev->health <= 0)
 		return FALSE;
@@ -305,15 +305,15 @@ BOOL CItemArmor::MyTouch( CBasePlayer *pPlayer )
 		return FALSE;
 
 	// Don't pickup if this armor isn't as good as the stuff we've got
-	if ( (pPlayer->pev->armortype * pPlayer->pev->armorvalue) >= (m_flArmorType * m_flArmorValue) )
+	if ((pPlayer->pev->armortype * pPlayer->pev->armorvalue) >= (m_flArmorType * m_flArmorValue))
 		return FALSE;
-		
+
 	pPlayer->pev->armortype = m_flArmorType;
 	pPlayer->pev->armorvalue = m_flArmorValue;
 	pPlayer->m_iQuakeItems &= ~(IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3);
 	pPlayer->m_iQuakeItems |= m_iArmorBit;
 
-	EMIT_SOUND( ENT( pPlayer->pev ), CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM );
+	EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/armor1.wav", 1, ATTN_NORM);
 
 	return TRUE;
 }
@@ -323,15 +323,15 @@ BOOL CItemArmor::MyTouch( CBasePlayer *pPlayer )
 class CItemArmorGreen : public CItemArmor
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(item_armor1, CItemArmorGreen);
 
 // Spawn
-void CItemArmorGreen::Spawn( void )
+void CItemArmorGreen::Spawn(void)
 {
-	Precache();	
+	Precache();
 	SET_MODEL(ENT(pev), "models/armour_g.mdl");
 	CItemArmor::Spawn();
 
@@ -341,10 +341,10 @@ void CItemArmorGreen::Spawn( void )
 }
 
 // Precache
-void CItemArmorGreen::Precache( void )
+void CItemArmorGreen::Precache(void)
 {
-	PRECACHE_MODEL( "models/armour_g.mdl" );
-	PRECACHE_SOUND( "items/armor1.wav" );
+	PRECACHE_MODEL("models/armour_g.mdl");
+	PRECACHE_SOUND("items/armor1.wav");
 }
 
 //===============
@@ -352,13 +352,13 @@ void CItemArmorGreen::Precache( void )
 class CItemArmorYellow : public CItemArmor
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(item_armor2, CItemArmorYellow);
 
 // Spawn
-void CItemArmorYellow::Spawn( void )
+void CItemArmorYellow::Spawn(void)
 {
 	Precache();
 	SET_MODEL(ENT(pev), "models/armour_y.mdl");
@@ -370,10 +370,10 @@ void CItemArmorYellow::Spawn( void )
 }
 
 // Precache
-void CItemArmorYellow::Precache( void )
+void CItemArmorYellow::Precache(void)
 {
-	PRECACHE_MODEL( "models/armour_y.mdl" );
-	PRECACHE_SOUND( "items/armor1.wav" );
+	PRECACHE_MODEL("models/armour_y.mdl");
+	PRECACHE_SOUND("items/armor1.wav");
 }
 
 //===============
@@ -381,14 +381,14 @@ void CItemArmorYellow::Precache( void )
 class CItemArmorRed : public CItemArmor
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(item_armor3, CItemArmorRed);
 LINK_ENTITY_TO_CLASS(item_armorInv, CItemArmorRed);
 
 // Spawn
-void CItemArmorRed::Spawn( void )
+void CItemArmorRed::Spawn(void)
 {
 	Precache();
 	SET_MODEL(ENT(pev), "models/armour_r.mdl");
@@ -400,10 +400,10 @@ void CItemArmorRed::Spawn( void )
 }
 
 // Precache
-void CItemArmorRed::Precache( void )
+void CItemArmorRed::Precache(void)
 {
-	PRECACHE_MODEL( "models/armour_r.mdl" );
-	PRECACHE_SOUND( "items/armor1.wav" );
+	PRECACHE_MODEL("models/armour_r.mdl");
+	PRECACHE_SOUND("items/armor1.wav");
 }
 
 //======================================================================================
@@ -416,9 +416,9 @@ void CBasePlayer::CheckAmmo()
 	if (m_iAmmoNails > 200)
 		m_iAmmoNails = 200;
 	if (m_iAmmoRockets > 100)
-		m_iAmmoRockets = 100;               
+		m_iAmmoRockets = 100;
 	if (m_iAmmoCells > 100)
-		m_iAmmoCells = 100;         
+		m_iAmmoCells = 100;
 }
 
 int RankForWeapon(int iWeapon)
@@ -426,17 +426,23 @@ int RankForWeapon(int iWeapon)
 	switch (iWeapon)
 	{
 	case IT_LIGHTNING:
-		return 1; break;
+		return 1;
+		break;
 	case IT_ROCKET_LAUNCHER:
-		return 2; break;
+		return 2;
+		break;
 	case IT_SUPER_NAILGUN:
-		return 3; break;
+		return 3;
+		break;
 	case IT_GRENADE_LAUNCHER:
-		return 4; break;
+		return 4;
+		break;
 	case IT_SUPER_SHOTGUN:
-		return 5; break;
+		return 5;
+		break;
 	case IT_NAILGUN:
-		return 6; break;
+		return 6;
+		break;
 
 	default:
 		break;
@@ -450,17 +456,23 @@ int WeaponCode(int iWeapon)
 	switch (iWeapon)
 	{
 	case IT_SUPER_SHOTGUN:
-		return 3; break;
+		return 3;
+		break;
 	case IT_NAILGUN:
-		return 4; break;
+		return 4;
+		break;
 	case IT_SUPER_NAILGUN:
-		return 5; break;
+		return 5;
+		break;
 	case IT_GRENADE_LAUNCHER:
-		return 6; break;
+		return 6;
+		break;
 	case IT_ROCKET_LAUNCHER:
-		return 7; break;
+		return 7;
+		break;
 	case IT_LIGHTNING:
-		return 8; break;
+		return 8;
+		break;
 
 	default:
 		break;
@@ -469,20 +481,20 @@ int WeaponCode(int iWeapon)
 	return 1;
 }
 
-int GetWeaponValue ( int iWeapon )
+int GetWeaponValue(int iWeapon)
 {
 	int iWepValue;
 
-	switch ( iWeapon )
+	switch (iWeapon)
 	{
-		case IT_AXE: iWepValue = 1; break;
-		case IT_SHOTGUN: iWepValue = 2; break;
-		case IT_SUPER_SHOTGUN: iWepValue = 3; break;
-		case IT_NAILGUN: iWepValue = 4; break;
-		case IT_SUPER_NAILGUN: iWepValue = 5; break;
-		case IT_GRENADE_LAUNCHER: iWepValue = 6; break;
-		case IT_ROCKET_LAUNCHER: iWepValue = 7; break;
-		case IT_LIGHTNING: iWepValue = 8; break;
+	case IT_AXE: iWepValue = 1; break;
+	case IT_SHOTGUN: iWepValue = 2; break;
+	case IT_SUPER_SHOTGUN: iWepValue = 3; break;
+	case IT_NAILGUN: iWepValue = 4; break;
+	case IT_SUPER_NAILGUN: iWepValue = 5; break;
+	case IT_GRENADE_LAUNCHER: iWepValue = 6; break;
+	case IT_ROCKET_LAUNCHER: iWepValue = 7; break;
+	case IT_LIGHTNING: iWepValue = 8; break;
 	}
 
 	return iWepValue;
@@ -490,22 +502,21 @@ int GetWeaponValue ( int iWeapon )
 // Change weapon only if the new one's better
 void CBasePlayer::Deathmatch_Weapon(int iOldWeapon, int iNewWeapon)
 {
-	int iPickedWep = GetWeaponValue( iNewWeapon );
-	int iOldWep = GetWeaponValue( m_iQuakeWeapon );
+	int iPickedWep = GetWeaponValue(iNewWeapon);
+	int iOldWep = GetWeaponValue(m_iQuakeWeapon);
 
-	switch ( m_iAutoWepSwitch )
+	switch (m_iAutoWepSwitch)
 	{
-		case 0: return; break;
-		case 1: 
-			W_ChangeWeapon( iPickedWep ); break;
-		case 2:
+	case 0: return; break;
+	case 1:
+		W_ChangeWeapon(iPickedWep);
+		break;
+	case 2:
 
-			if ( iPickedWep == 8 && !FBitSet(pev->flags , FL_INWATER) || iPickedWep > iOldWep )
-				W_ChangeWeapon( iPickedWep );
-			break;
+		if (iPickedWep == 8 && !FBitSet(pev->flags, FL_INWATER) || iPickedWep > iOldWep)
+			W_ChangeWeapon(iPickedWep);
+		break;
 	}
-		
-
 }
 
 //-----------------------------------------------
@@ -513,23 +524,23 @@ void CBasePlayer::Deathmatch_Weapon(int iOldWeapon, int iNewWeapon)
 class CItemWeapon : public CQuakeItem
 {
 public:
-	BOOL MyTouch( CBasePlayer *pPlayer );
+	BOOL MyTouch(CBasePlayer* pPlayer);
 
-	int	m_iWeapon;
+	int m_iWeapon;
 };
 
-BOOL CItemWeapon::MyTouch( CBasePlayer *pPlayer )
+BOOL CItemWeapon::MyTouch(CBasePlayer* pPlayer)
 {
 	BOOL bLeaveWeapon = FALSE;
 
-	if (gpGlobals->deathmatch == 2 || gpGlobals->deathmatch == 3 || gpGlobals->deathmatch == 5 || CVAR_GET_FLOAT("mp_weaponstay") > 0  )
+	if (gpGlobals->deathmatch == 2 || gpGlobals->deathmatch == 3 || gpGlobals->deathmatch == 5 || CVAR_GET_FLOAT("mp_weaponstay") > 0)
 		bLeaveWeapon = TRUE;
 
 	// Leave the weapon if the player's already got it
-	if ( bLeaveWeapon && (pPlayer->m_iQuakeItems & m_iWeapon) )
+	if (bLeaveWeapon && (pPlayer->m_iQuakeItems & m_iWeapon))
 		return FALSE;
 
-	if ( pPlayer->pev->health <= 0)
+	if (pPlayer->pev->health <= 0)
 		return FALSE;
 
 	// Give the player some ammo
@@ -558,18 +569,18 @@ BOOL CItemWeapon::MyTouch( CBasePlayer *pPlayer )
 	}
 	pPlayer->CheckAmmo();
 
-	EMIT_SOUND( ENT(pev), CHAN_ITEM, "weapons/pkup.wav", 1, ATTN_NORM );
+	EMIT_SOUND(ENT(pev), CHAN_ITEM, "weapons/pkup.wav", 1, ATTN_NORM);
 
 	// Change to new weapon?
 	int iOldItems = pPlayer->m_iQuakeWeapon;
 	pPlayer->m_iQuakeItems |= m_iWeapon;
-	
+
 	pPlayer->Deathmatch_Weapon(iOldItems, m_iWeapon);
 
 
 	// Update HUD
 	pPlayer->W_SetCurrentAmmo();
-	pPlayer->m_iClientQuakeWeapon  = -1;
+	pPlayer->m_iClientQuakeWeapon = -1;
 	pPlayer->m_fWeapon = FALSE;
 	pPlayer->m_fKnownItem = FALSE;
 	pPlayer->UpdateClientData();
@@ -588,15 +599,15 @@ BOOL CItemWeapon::MyTouch( CBasePlayer *pPlayer )
 class CItemWeaponSuperShotgun : public CItemWeapon
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(weapon_supershotgun, CItemWeaponSuperShotgun);
 
 // Spawn
-void CItemWeaponSuperShotgun::Spawn( void )
+void CItemWeaponSuperShotgun::Spawn(void)
 {
-	if ( gpGlobals->deathmatch > 3)
+	if (gpGlobals->deathmatch > 3)
 	{
 		UTIL_Remove(this);
 		return;
@@ -611,9 +622,9 @@ void CItemWeaponSuperShotgun::Spawn( void )
 }
 
 // Precache
-void CItemWeaponSuperShotgun::Precache( void )
+void CItemWeaponSuperShotgun::Precache(void)
 {
-	PRECACHE_MODEL( "models/g_shot2.mdl" );
+	PRECACHE_MODEL("models/g_shot2.mdl");
 }
 
 //===============
@@ -621,15 +632,15 @@ void CItemWeaponSuperShotgun::Precache( void )
 class CItemWeaponNailgun : public CItemWeapon
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(weapon_nailgun, CItemWeaponNailgun);
 
 // Spawn
-void CItemWeaponNailgun::Spawn( void )
+void CItemWeaponNailgun::Spawn(void)
 {
-	if ( gpGlobals->deathmatch > 3)
+	if (gpGlobals->deathmatch > 3)
 	{
 		UTIL_Remove(this);
 		return;
@@ -644,9 +655,9 @@ void CItemWeaponNailgun::Spawn( void )
 }
 
 // Precache
-void CItemWeaponNailgun::Precache( void )
+void CItemWeaponNailgun::Precache(void)
 {
-	PRECACHE_MODEL( "models/g_nail.mdl" );
+	PRECACHE_MODEL("models/g_nail.mdl");
 }
 
 //===============
@@ -654,15 +665,15 @@ void CItemWeaponNailgun::Precache( void )
 class CItemWeaponSuperNailgun : public CItemWeapon
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(weapon_supernailgun, CItemWeaponSuperNailgun);
 
 // Spawn
-void CItemWeaponSuperNailgun::Spawn( void )
+void CItemWeaponSuperNailgun::Spawn(void)
 {
-	if ( gpGlobals->deathmatch > 3)
+	if (gpGlobals->deathmatch > 3)
 	{
 		UTIL_Remove(this);
 		return;
@@ -677,9 +688,9 @@ void CItemWeaponSuperNailgun::Spawn( void )
 }
 
 // Precache
-void CItemWeaponSuperNailgun::Precache( void )
+void CItemWeaponSuperNailgun::Precache(void)
 {
-	PRECACHE_MODEL( "models/g_nail2.mdl" );
+	PRECACHE_MODEL("models/g_nail2.mdl");
 }
 
 //===============
@@ -687,15 +698,15 @@ void CItemWeaponSuperNailgun::Precache( void )
 class CItemWeaponGrenadeLauncher : public CItemWeapon
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(weapon_grenadelauncher, CItemWeaponGrenadeLauncher);
 
 // Spawn
-void CItemWeaponGrenadeLauncher::Spawn( void )
+void CItemWeaponGrenadeLauncher::Spawn(void)
 {
-	if ( gpGlobals->deathmatch > 3)
+	if (gpGlobals->deathmatch > 3)
 	{
 		UTIL_Remove(this);
 		return;
@@ -710,9 +721,9 @@ void CItemWeaponGrenadeLauncher::Spawn( void )
 }
 
 // Precache
-void CItemWeaponGrenadeLauncher::Precache( void )
+void CItemWeaponGrenadeLauncher::Precache(void)
 {
-	PRECACHE_MODEL( "models/g_rock.mdl" );
+	PRECACHE_MODEL("models/g_rock.mdl");
 }
 
 //===============
@@ -720,15 +731,15 @@ void CItemWeaponGrenadeLauncher::Precache( void )
 class CItemWeaponRocketLauncher : public CItemWeapon
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(weapon_rocketlauncher, CItemWeaponRocketLauncher);
 
 // Spawn
-void CItemWeaponRocketLauncher::Spawn( void )
+void CItemWeaponRocketLauncher::Spawn(void)
 {
-	if ( gpGlobals->deathmatch > 3)
+	if (gpGlobals->deathmatch > 3)
 	{
 		UTIL_Remove(this);
 		return;
@@ -743,9 +754,9 @@ void CItemWeaponRocketLauncher::Spawn( void )
 }
 
 // Precache
-void CItemWeaponRocketLauncher::Precache( void )
+void CItemWeaponRocketLauncher::Precache(void)
 {
-	PRECACHE_MODEL( "models/g_rock2.mdl" );
+	PRECACHE_MODEL("models/g_rock2.mdl");
 }
 
 //===============
@@ -753,15 +764,15 @@ void CItemWeaponRocketLauncher::Precache( void )
 class CItemWeaponLightning : public CItemWeapon
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(weapon_lightning, CItemWeaponLightning);
 
 // Spawn
-void CItemWeaponLightning::Spawn( void )
+void CItemWeaponLightning::Spawn(void)
 {
-	if ( gpGlobals->deathmatch > 3)
+	if (gpGlobals->deathmatch > 3)
 	{
 		UTIL_Remove(this);
 		return;
@@ -776,40 +787,40 @@ void CItemWeaponLightning::Spawn( void )
 }
 
 // Precache
-void CItemWeaponLightning::Precache( void )
+void CItemWeaponLightning::Precache(void)
 {
-	PRECACHE_MODEL( "models/g_light.mdl" );
+	PRECACHE_MODEL("models/g_light.mdl");
 }
 
 //======================================================================================
 // AMMO ITEMS
 //======================================================================================
-#define BIG_AMMOBOX		1 
+#define BIG_AMMOBOX 1
 
 class CItemAmmo : public CQuakeItem
 {
 public:
-	void Spawn( void );
-	void Precache( void );
-	BOOL MyTouch( CBasePlayer *pPlayer );
+	void Spawn(void);
+	void Precache(void);
+	BOOL MyTouch(CBasePlayer* pPlayer);
 
-	int	 m_isSmallBox;
-	int  m_isLargeBox;
-	int	 ammo_shells;
-	int	 ammo_nails;
-	int  ammo_rockets;
-	int	 ammo_cells;
+	int m_isSmallBox;
+	int m_isLargeBox;
+	int ammo_shells;
+	int ammo_nails;
+	int ammo_rockets;
+	int ammo_cells;
 };
 
 // Spawn
-void CItemAmmo::Spawn( void )
+void CItemAmmo::Spawn(void)
 {
 	Precache();
 
 	// Set the box size
 	if (pev->spawnflags & BIG_AMMOBOX)
 	{
-		SET_MODEL( ENT(pev), STRING(m_isLargeBox) );
+		SET_MODEL(ENT(pev), STRING(m_isLargeBox));
 		ammo_shells *= 2;
 		ammo_nails *= 2;
 		ammo_rockets *= 2;
@@ -817,11 +828,11 @@ void CItemAmmo::Spawn( void )
 	}
 	else
 	{
-		SET_MODEL( ENT(pev), STRING(m_isSmallBox) );
+		SET_MODEL(ENT(pev), STRING(m_isSmallBox));
 	}
 
 	// Halve respawn times in DM==3 and DM==5
-	if (gpGlobals->deathmatch == 3 || gpGlobals->deathmatch == 5)        
+	if (gpGlobals->deathmatch == 3 || gpGlobals->deathmatch == 5)
 		m_flRespawnTime = 15;
 	else
 		m_flRespawnTime = 30;
@@ -830,15 +841,15 @@ void CItemAmmo::Spawn( void )
 }
 
 // Precache
-void CItemAmmo::Precache( void )
+void CItemAmmo::Precache(void)
 {
 	if (pev->spawnflags & BIG_AMMOBOX)
-		PRECACHE_MODEL( (char*)STRING(m_isLargeBox) );
+		PRECACHE_MODEL((char*)STRING(m_isLargeBox));
 	else
-		PRECACHE_MODEL( (char*)STRING(m_isSmallBox) );
+		PRECACHE_MODEL((char*)STRING(m_isSmallBox));
 }
 
-BOOL CItemAmmo::MyTouch( CBasePlayer *pPlayer )
+BOOL CItemAmmo::MyTouch(CBasePlayer* pPlayer)
 {
 	if (pPlayer->pev->health <= 0)
 		return FALSE;
@@ -862,12 +873,12 @@ BOOL CItemAmmo::MyTouch( CBasePlayer *pPlayer )
 	pPlayer->m_iAmmoCells += ammo_cells;
 	pPlayer->CheckAmmo();
 
-	EMIT_SOUND( ENT(pev), CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM );
+	EMIT_SOUND(ENT(pev), CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
 
 	// Change to a better weapon if possible
-	if ( pPlayer->m_iQuakeWeapon == iBestWeapon )
+	if (pPlayer->m_iQuakeWeapon == iBestWeapon)
 	{
-		 pPlayer->m_iQuakeWeapon = pPlayer->W_BestWeapon();
+		pPlayer->m_iQuakeWeapon = pPlayer->W_BestWeapon();
 	}
 
 	pPlayer->W_SetCurrentAmmo();
@@ -879,14 +890,14 @@ BOOL CItemAmmo::MyTouch( CBasePlayer *pPlayer )
 class CItemAmmoShells : public CItemAmmo
 {
 public:
-	void Spawn( void );
+	void Spawn(void);
 };
 LINK_ENTITY_TO_CLASS(item_shells, CItemAmmoShells);
 
 // Spawn
-void CItemAmmoShells::Spawn( void )
+void CItemAmmoShells::Spawn(void)
 {
-	if ( gpGlobals->deathmatch == 4)
+	if (gpGlobals->deathmatch == 4)
 	{
 		UTIL_Remove(this);
 		return;
@@ -896,7 +907,7 @@ void CItemAmmoShells::Spawn( void )
 	m_isLargeBox = MAKE_STRING("models/w_shotbox_big.mdl");
 	pev->netname = MAKE_STRING("shells");
 	ammo_shells = 20;
-	
+
 	CItemAmmo::Spawn();
 }
 
@@ -905,14 +916,14 @@ void CItemAmmoShells::Spawn( void )
 class CItemAmmoSpikes : public CItemAmmo
 {
 public:
-	void Spawn( void );
+	void Spawn(void);
 };
 LINK_ENTITY_TO_CLASS(item_spikes, CItemAmmoSpikes);
 
 // Spawn
-void CItemAmmoSpikes::Spawn( void )
+void CItemAmmoSpikes::Spawn(void)
 {
-	if ( gpGlobals->deathmatch == 4)
+	if (gpGlobals->deathmatch == 4)
 	{
 		UTIL_Remove(this);
 		return;
@@ -922,7 +933,7 @@ void CItemAmmoSpikes::Spawn( void )
 	m_isLargeBox = MAKE_STRING("models/b_nail1.mdl");
 	pev->netname = MAKE_STRING("nails");
 	ammo_nails = 25;
-	
+
 	CItemAmmo::Spawn();
 }
 
@@ -931,14 +942,14 @@ void CItemAmmoSpikes::Spawn( void )
 class CItemAmmoRockets : public CItemAmmo
 {
 public:
-	void Spawn( void );
+	void Spawn(void);
 };
 LINK_ENTITY_TO_CLASS(item_rockets, CItemAmmoRockets);
 
 // Spawn
-void CItemAmmoRockets::Spawn( void )
+void CItemAmmoRockets::Spawn(void)
 {
-	if ( gpGlobals->deathmatch == 4)
+	if (gpGlobals->deathmatch == 4)
 	{
 		UTIL_Remove(this);
 		return;
@@ -948,7 +959,7 @@ void CItemAmmoRockets::Spawn( void )
 	m_isLargeBox = MAKE_STRING("models/w_rpgammo_big.mdl");
 	pev->netname = MAKE_STRING("rockets");
 	ammo_rockets = 5;
-	
+
 	CItemAmmo::Spawn();
 }
 
@@ -957,14 +968,14 @@ void CItemAmmoRockets::Spawn( void )
 class CItemAmmoCells : public CItemAmmo
 {
 public:
-	void Spawn( void );
+	void Spawn(void);
 };
 LINK_ENTITY_TO_CLASS(item_cells, CItemAmmoCells);
 
 // Spawn
-void CItemAmmoCells::Spawn( void )
+void CItemAmmoCells::Spawn(void)
 {
-	if ( gpGlobals->deathmatch == 4)
+	if (gpGlobals->deathmatch == 4)
 	{
 		UTIL_Remove(this);
 		return;
@@ -974,29 +985,29 @@ void CItemAmmoCells::Spawn( void )
 	m_isLargeBox = MAKE_STRING("models/w_battery.mdl");
 	pev->netname = MAKE_STRING("cells");
 	ammo_cells = 6;
-	
+
 	CItemAmmo::Spawn();
 }
 
 //===============
 // Weapon ammo
 // Another method of placing ammo. Quake still uses it in some maps.
-#define AW_SHOTGUN	1
-#define AW_ROCKET	2
-#define AW_SPIKES	4
-#define AW_BIG		8
+#define AW_SHOTGUN 1
+#define AW_ROCKET 2
+#define AW_SPIKES 4
+#define AW_BIG 8
 
 class CItemAmmoWeapon : public CItemAmmo
 {
 public:
-	void Spawn( void );
+	void Spawn(void);
 };
 LINK_ENTITY_TO_CLASS(item_weapon, CItemAmmoWeapon);
 
 // Spawn
-void CItemAmmoWeapon::Spawn( void )
+void CItemAmmoWeapon::Spawn(void)
 {
-	if ( gpGlobals->deathmatch == 4)
+	if (gpGlobals->deathmatch == 4)
 	{
 		UTIL_Remove(this);
 		return;
@@ -1044,25 +1055,25 @@ void CItemAmmoWeapon::Spawn( void )
 class CItemPowerup : public CQuakeItem
 {
 public:
-	BOOL MyTouch( CBasePlayer *pPlayer );
+	BOOL MyTouch(CBasePlayer* pPlayer);
 
-	int		m_iPowerupBit;
-	float	invincible_finished;
-	float	radsuit_finished;
-	float	invisible_finished;
-	float	super_damage_finished;
+	int m_iPowerupBit;
+	float invincible_finished;
+	float radsuit_finished;
+	float invisible_finished;
+	float super_damage_finished;
 };
 
 // Powerup Touch
-BOOL CItemPowerup::MyTouch( CBasePlayer *pPlayer )
+BOOL CItemPowerup::MyTouch(CBasePlayer* pPlayer)
 {
 	if (pPlayer->pev->health <= 0)
 		return FALSE;
 
-	EMIT_SOUND( ENT(pev), CHAN_ITEM, STRING(pev->noise), 1, ATTN_NORM );
+	EMIT_SOUND(ENT(pev), CHAN_ITEM, STRING(pev->noise), 1, ATTN_NORM);
 
 	pPlayer->m_iQuakeItems |= m_iPowerupBit;
-	
+
 	int iPowerUp = 0;
 
 	// Invincibility
@@ -1070,55 +1081,54 @@ BOOL CItemPowerup::MyTouch( CBasePlayer *pPlayer )
 	{
 		// Make them glow red
 
-		if ( pPlayer->m_iQuakeItems & IT_QUAD )
+		if (pPlayer->m_iQuakeItems & IT_QUAD)
 		{
 			pPlayer->pev->renderfx = kRenderFxGlowShell;
-			pPlayer->pev->rendercolor = Vector( 255, 125, 255 );	// RGB
-			pPlayer->pev->renderamt = 100;	// Shell size
-			
+			pPlayer->pev->rendercolor = Vector(255, 125, 255); // RGB
+			pPlayer->pev->renderamt = 100;					   // Shell size
+
 			iPowerUp = 3;
 		}
 		else
 		{
 			pPlayer->pev->renderfx = kRenderFxGlowShell;
-			pPlayer->pev->rendercolor = Vector( 255, 128, 0 );	// RGB
-			pPlayer->pev->renderamt = 100;	// Shell size
+			pPlayer->pev->rendercolor = Vector(255, 128, 0); // RGB
+			pPlayer->pev->renderamt = 100;					 // Shell size
 
 			iPowerUp = 2;
 		}
 
-		if ( pPlayer->m_iQuakeItems & IT_INVISIBILITY )
+		if (pPlayer->m_iQuakeItems & IT_INVISIBILITY)
 		{
 			pPlayer->pev->rendermode = kRenderTransColor;
 			pPlayer->pev->renderamt = 1;
 		}
 		pPlayer->m_flInvincibleFinished = gpGlobals->time + invincible_finished;
-
 	}
-	
+
 	// Quad Damage
 	if (super_damage_finished)
 	{
 		// Make them glow blue
 
-		if ( pPlayer->m_iQuakeItems & IT_INVULNERABILITY )
+		if (pPlayer->m_iQuakeItems & IT_INVULNERABILITY)
 		{
 			pPlayer->pev->renderfx = kRenderFxGlowShell;
-			pPlayer->pev->rendercolor = Vector( 255, 125, 255 );	// RGB
-			pPlayer->pev->renderamt = 100;	// Shell size
+			pPlayer->pev->rendercolor = Vector(255, 125, 255); // RGB
+			pPlayer->pev->renderamt = 100;					   // Shell size
 
 			iPowerUp = 3;
 		}
 		else
 		{
 			pPlayer->pev->renderfx = kRenderFxGlowShell;
-			pPlayer->pev->rendercolor = Vector( 128, 128, 255 );	// RGB
-			pPlayer->pev->renderamt = 100;	// Shell size
+			pPlayer->pev->rendercolor = Vector(128, 128, 255); // RGB
+			pPlayer->pev->renderamt = 100;					   // Shell size
 
 			iPowerUp = 1;
 		}
 
-		if ( pPlayer->m_iQuakeItems & IT_INVISIBILITY )
+		if (pPlayer->m_iQuakeItems & IT_INVISIBILITY)
 		{
 			pPlayer->pev->rendermode = kRenderTransColor;
 			pPlayer->pev->renderamt = 1;
@@ -1131,7 +1141,7 @@ BOOL CItemPowerup::MyTouch( CBasePlayer *pPlayer )
 		if (gpGlobals->deathmatch == 4)
 		{
 			pPlayer->pev->armortype = 0;
-			pPlayer->pev->armorvalue = 0; 
+			pPlayer->pev->armorvalue = 0;
 			pPlayer->m_iAmmoCells = 0;
 		}
 	}
@@ -1146,25 +1156,24 @@ BOOL CItemPowerup::MyTouch( CBasePlayer *pPlayer )
 		pPlayer->m_flInvisibleFinished = gpGlobals->time + invisible_finished;
 
 		pPlayer->pev->renderfx = kRenderFxGlowShell;
-		pPlayer->pev->rendercolor = Vector( 128, 128, 128 );	// RGB
-		pPlayer->pev->renderamt = 5;	// Shell size
-	
+		pPlayer->pev->rendercolor = Vector(128, 128, 128); // RGB
+		pPlayer->pev->renderamt = 5;					   // Shell size
 	}
-	
+
 	// tell director about it
-	MESSAGE_BEGIN( MSG_SPEC, SVC_DIRECTOR );
-		WRITE_BYTE ( 9 );	// command length in bytes
-		WRITE_BYTE ( DRC_CMD_EVENT );	// powerup pickup
-		WRITE_SHORT( ENTINDEX(pPlayer->edict()) );	// player is primary target
-		WRITE_SHORT( ENTINDEX(this->edict()) );	// powerup as second target
-		WRITE_LONG( 9 );   // highst prio in game
+	MESSAGE_BEGIN(MSG_SPEC, SVC_DIRECTOR);
+	WRITE_BYTE(9);							 // command length in bytes
+	WRITE_BYTE(DRC_CMD_EVENT);				 // powerup pickup
+	WRITE_SHORT(ENTINDEX(pPlayer->edict())); // player is primary target
+	WRITE_SHORT(ENTINDEX(this->edict()));	 // powerup as second target
+	WRITE_LONG(9);							 // highst prio in game
 	MESSAGE_END();
 
 	pPlayer->W_SetCurrentAmmo();
 
-	PLAYBACK_EVENT_FULL( FEV_GLOBAL | FEV_RELIABLE, 
-	pPlayer->edict(), g_usPowerUp, 0, (float *)&g_vecZero, (float *)&g_vecZero, 
-	(float)iPowerUp, 0.0, pPlayer->entindex(), pPlayer->pev->team, 0, 0 );
+	PLAYBACK_EVENT_FULL(FEV_GLOBAL | FEV_RELIABLE,
+		pPlayer->edict(), g_usPowerUp, 0, (float*)&g_vecZero, (float*)&g_vecZero,
+		(float)iPowerUp, 0.0, pPlayer->entindex(), pPlayer->pev->team, 0, 0);
 
 	return TRUE;
 }
@@ -1175,13 +1184,13 @@ BOOL CItemPowerup::MyTouch( CBasePlayer *pPlayer )
 class CItemPowerupInvincible : public CItemPowerup
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(item_artifact_invulnerability, CItemPowerupInvincible);
 
 // Spawn
-void CItemPowerupInvincible::Spawn( void )
+void CItemPowerupInvincible::Spawn(void)
 {
 	Precache();
 	CQuakeItem::Spawn();
@@ -1196,12 +1205,12 @@ void CItemPowerupInvincible::Spawn( void )
 
 	// Make it glow red
 	pev->renderfx = kRenderFxGlowShell;
-	pev->rendercolor = Vector( 255, 128, 0 );	// RGB
-	pev->renderamt = 100; // Shellsize
+	pev->rendercolor = Vector(255, 128, 0); // RGB
+	pev->renderamt = 100;					// Shellsize
 }
 
 // Precache
-void CItemPowerupInvincible::Precache( void )
+void CItemPowerupInvincible::Precache(void)
 {
 	PRECACHE_MODEL("models/pow_invuln.mdl");
 	PRECACHE_SOUND("items/protect.wav");
@@ -1214,13 +1223,13 @@ void CItemPowerupInvincible::Precache( void )
 class CItemPowerupRadsuit : public CItemPowerup
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(item_artifact_envirosuit, CItemPowerupRadsuit);
 
 // Spawn
-void CItemPowerupRadsuit::Spawn( void )
+void CItemPowerupRadsuit::Spawn(void)
 {
 	Precache();
 	CQuakeItem::Spawn();
@@ -1235,7 +1244,7 @@ void CItemPowerupRadsuit::Spawn( void )
 }
 
 // Precache
-void CItemPowerupRadsuit::Precache( void )
+void CItemPowerupRadsuit::Precache(void)
 {
 	PRECACHE_MODEL("models/suit.mdl");
 	PRECACHE_SOUND("items/suit.wav");
@@ -1247,13 +1256,13 @@ void CItemPowerupRadsuit::Precache( void )
 class CItemPowerupInvisibility : public CItemPowerup
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(item_artifact_invisibility, CItemPowerupInvisibility);
 
 // Spawn
-void CItemPowerupInvisibility::Spawn( void )
+void CItemPowerupInvisibility::Spawn(void)
 {
 	Precache();
 	CQuakeItem::Spawn();
@@ -1267,15 +1276,15 @@ void CItemPowerupInvisibility::Spawn( void )
 	m_iPowerupBit = IT_INVISIBILITY;
 
 	pev->renderfx = kRenderFxGlowShell;
-	pev->rendercolor = Vector( 128, 128, 128 );	// RGB
-	pev->renderamt = 25;	// Shell size
+	pev->rendercolor = Vector(128, 128, 128); // RGB
+	pev->renderamt = 25;					  // Shell size
 
 	pev->rendermode = kRenderTransColor;
 	pev->renderamt = 30;
 }
 
 // Precache
-void CItemPowerupInvisibility::Precache( void )
+void CItemPowerupInvisibility::Precache(void)
 {
 	PRECACHE_MODEL("models/pow_invis.mdl");
 	PRECACHE_SOUND("items/inv1.wav");
@@ -1288,13 +1297,13 @@ void CItemPowerupInvisibility::Precache( void )
 class CItemPowerupQuad : public CItemPowerup
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn(void);
+	void Precache(void);
 };
 LINK_ENTITY_TO_CLASS(item_artifact_super_damage, CItemPowerupQuad);
 
 // Spawn
-void CItemPowerupQuad::Spawn( void )
+void CItemPowerupQuad::Spawn(void)
 {
 	Precache();
 	CQuakeItem::Spawn();
@@ -1309,12 +1318,12 @@ void CItemPowerupQuad::Spawn( void )
 
 	// Make it glow blue
 	pev->renderfx = kRenderFxGlowShell;
-	pev->rendercolor = Vector( 128, 128, 255 );	// RGB
-	pev->renderamt = 100;	// Shell size
+	pev->rendercolor = Vector(128, 128, 255); // RGB
+	pev->renderamt = 100;					  // Shell size
 }
 
 // Precache
-void CItemPowerupQuad::Precache( void )
+void CItemPowerupQuad::Precache(void)
 {
 	PRECACHE_MODEL("models/pow_quad.mdl");
 	PRECACHE_SOUND("items/damage.wav");
@@ -1328,24 +1337,24 @@ void CItemPowerupQuad::Precache( void )
 class CItemBackpack : public CQuakeItem
 {
 public:
-	void Spawn( void );
-//	void SetBox ( void );
-	virtual void SetObjectCollisionBox ( void );
+	void Spawn(void);
+	//	void SetBox ( void );
+	virtual void SetObjectCollisionBox(void);
 
-	BOOL MyTouch( CBasePlayer *pPlayer );
+	BOOL MyTouch(CBasePlayer* pPlayer);
 
-	int  m_iItems;
-	int	 ammo_shells;
-	int	 ammo_nails;
-	int  ammo_rockets;
-	int	 ammo_cells;
+	int m_iItems;
+	int ammo_shells;
+	int ammo_nails;
+	int ammo_rockets;
+	int ammo_cells;
 };
 LINK_ENTITY_TO_CLASS(item_backpack, CItemBackpack);
 
-void CItemBackpack :: SetObjectCollisionBox( void )
+void CItemBackpack ::SetObjectCollisionBox(void)
 {
 	pev->absmin = pev->origin + Vector(-32, -32, 0);
-	pev->absmax = pev->origin + Vector(32, 32, 56); 
+	pev->absmax = pev->origin + Vector(32, 32, 56);
 }
 
 // Spawn
@@ -1353,7 +1362,7 @@ void CItemBackpack::Spawn()
 {
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_TRIGGER;
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin(pev, pev->origin);
 	SET_MODEL(ENT(pev), "models/backpack.mdl");
 
 	SetTouch(&CItemBackpack::ItemTouch);
@@ -1363,36 +1372,45 @@ void CItemBackpack::Spawn()
 void CBasePlayer::DropBackpack()
 {
 	// Any ammo to drop?
-	if ( !(m_iAmmoShells + m_iAmmoNails + m_iAmmoRockets + m_iAmmoCells) )
+	if (!(m_iAmmoShells + m_iAmmoNails + m_iAmmoRockets + m_iAmmoCells))
 		return;
 
 	// Create the pack
-	CItemBackpack *pPack = (CItemBackpack *)CBaseEntity::Create( "item_backpack", pev->origin - Vector(0, 0, 24), g_vecZero, edict() );
-	pPack->pev->velocity = Vector( RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), 300 );
+	CItemBackpack* pPack = (CItemBackpack*)CBaseEntity::Create("item_backpack", pev->origin - Vector(0, 0, 24), g_vecZero, edict());
+	pPack->pev->velocity = Vector(RANDOM_FLOAT(-100, 100), RANDOM_FLOAT(-100, 100), 300);
 	pPack->Spawn();
-	
+
 	// Put the player's weapon in the pack
 	pPack->m_iItems = m_iQuakeWeapon;
 	switch (pPack->m_iItems)
 	{
 	case IT_AXE:
-		pPack->pev->netname = MAKE_STRING("Crowbar"); break;
+		pPack->pev->netname = MAKE_STRING("Crowbar");
+		break;
 	case IT_SHOTGUN:
-		pPack->pev->netname = MAKE_STRING("Shotgun"); break;
+		pPack->pev->netname = MAKE_STRING("Shotgun");
+		break;
 	case IT_SUPER_SHOTGUN:
-		pPack->pev->netname = MAKE_STRING("Double-barrelled Shotgun"); break;
+		pPack->pev->netname = MAKE_STRING("Double-barrelled Shotgun");
+		break;
 	case IT_NAILGUN:
-		pPack->pev->netname = MAKE_STRING("Nailgun"); break;
+		pPack->pev->netname = MAKE_STRING("Nailgun");
+		break;
 	case IT_SUPER_NAILGUN:
-		pPack->pev->netname = MAKE_STRING("Super Nailgun"); break;
+		pPack->pev->netname = MAKE_STRING("Super Nailgun");
+		break;
 	case IT_GRENADE_LAUNCHER:
-		pPack->pev->netname = MAKE_STRING("Grenade Launcher"); break;
+		pPack->pev->netname = MAKE_STRING("Grenade Launcher");
+		break;
 	case IT_ROCKET_LAUNCHER:
-		pPack->pev->netname = MAKE_STRING("Rocket Launcher"); break;
+		pPack->pev->netname = MAKE_STRING("Rocket Launcher");
+		break;
 	case IT_LIGHTNING:
-		pPack->pev->netname = MAKE_STRING("Thunderbolt"); break;
+		pPack->pev->netname = MAKE_STRING("Thunderbolt");
+		break;
 	default:
-		pPack->pev->netname = MAKE_STRING("Invalid weapon."); break;
+		pPack->pev->netname = MAKE_STRING("Invalid weapon.");
+		break;
 	}
 
 	// Put the ammo in
@@ -1401,12 +1419,12 @@ void CBasePlayer::DropBackpack()
 	pPack->ammo_rockets = m_iAmmoRockets;
 	pPack->ammo_cells = m_iAmmoCells;
 
-	//Remove them from the player
+	// Remove them from the player
 	m_iAmmoShells = m_iAmmoNails = m_iAmmoRockets = m_iAmmoCells = 0;
 
 	// Remove after 2 mins
 	pPack->pev->nextthink = gpGlobals->time + 120;
-	pPack->SetThink( &CItemBackpack::SUB_Remove );
+	pPack->SetThink(&CItemBackpack::SUB_Remove);
 
 	// Remove all weapons
 	m_iQuakeItems = 0;
@@ -1414,7 +1432,7 @@ void CBasePlayer::DropBackpack()
 }
 
 // Pickup backpack
-BOOL CItemBackpack::MyTouch( CBasePlayer *pPlayer )
+BOOL CItemBackpack::MyTouch(CBasePlayer* pPlayer)
 {
 	if (pPlayer->pev->health <= 0)
 		return FALSE;
@@ -1422,38 +1440,38 @@ BOOL CItemBackpack::MyTouch( CBasePlayer *pPlayer )
 		return FALSE;
 
 
- 
+
 	if (gpGlobals->deathmatch == 4)
-	{       
+	{
 		pPlayer->pev->health += 10;
-		ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#Additional_Health" );
+		ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#Additional_Health");
 		if ((pPlayer->pev->health > 250) && (pPlayer->pev->health < 300))
-			EMIT_SOUND( ENT(pPlayer->pev), CHAN_ITEM, "items/protect3.wav", 1, ATTN_NORM );
+			EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "items/protect3.wav", 1, ATTN_NORM);
 		else
-			EMIT_SOUND( ENT(pPlayer->pev), CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM );
-		
+			EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
+
 		// Become invulnerable if the player's reached 300 health
 		if (pPlayer->pev->health > 299)
-		{               
+		{
 			if (pPlayer->m_flInvincibleFinished == 0)
-			{                       
+			{
 				// Give player invincibility and quad
 				pPlayer->m_flInvincibleFinished = gpGlobals->time + 30;
 				pPlayer->m_flSuperDamageFinished = gpGlobals->time + 30;
 				pPlayer->m_iQuakeItems |= (IT_INVULNERABILITY | IT_QUAD);
-				pPlayer->m_iAmmoCells = 0;		
+				pPlayer->m_iAmmoCells = 0;
 
 				// Make player glow red
 				pPlayer->pev->renderfx = kRenderFxGlowShell;
-				pPlayer->pev->rendercolor = Vector( 255, 128, 0 );	// RGB
-				pPlayer->pev->renderamt = 100;	// Shell size
+				pPlayer->pev->rendercolor = Vector(255, 128, 0); // RGB
+				pPlayer->pev->renderamt = 100;					 // Shell size
 
-				EMIT_SOUND( ENT(pPlayer->pev), CHAN_VOICE, "items/sight1.wav", 1, ATTN_NORM );
-				UTIL_ClientPrintAll( HUD_PRINTNOTIFY, "#Bonus_Power", STRING(pPlayer->pev->netname) );
+				EMIT_SOUND(ENT(pPlayer->pev), CHAN_VOICE, "items/sight1.wav", 1, ATTN_NORM);
+				UTIL_ClientPrintAll(HUD_PRINTNOTIFY, "#Bonus_Power", STRING(pPlayer->pev->netname));
 			}
 		}
 
-		UTIL_Remove( this );
+		UTIL_Remove(this);
 
 		// We've removed ourself, so don't let CQuakeItem handle respawn
 		return FALSE;
@@ -1464,30 +1482,36 @@ BOOL CItemBackpack::MyTouch( CBasePlayer *pPlayer )
 	// Get the weapon from the pack
 	if (m_iItems)
 	{
-		if ( !(pPlayer->m_iQuakeItems & m_iItems) )
+		if (!(pPlayer->m_iQuakeItems & m_iItems))
 		{
 			bPrintComma = TRUE;
 
-			switch ( m_iItems )
+			switch (m_iItems)
 			{
 			case IT_SUPER_SHOTGUN:
-				ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_SS", UTIL_dtos1( ammo_shells ), UTIL_dtos2 ( ammo_nails ), UTIL_dtos3 ( ammo_rockets ), UTIL_dtos4 ( ammo_cells ) ); break;
+				ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_SS", UTIL_dtos1(ammo_shells), UTIL_dtos2(ammo_nails), UTIL_dtos3(ammo_rockets), UTIL_dtos4(ammo_cells));
+				break;
 			case IT_NAILGUN:
-				ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_NG", UTIL_dtos1( ammo_shells ), UTIL_dtos2 ( ammo_nails ), UTIL_dtos3 ( ammo_rockets ), UTIL_dtos4 ( ammo_cells ) ); break;
+				ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_NG", UTIL_dtos1(ammo_shells), UTIL_dtos2(ammo_nails), UTIL_dtos3(ammo_rockets), UTIL_dtos4(ammo_cells));
+				break;
 			case IT_SUPER_NAILGUN:
-				ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_SG", UTIL_dtos1( ammo_shells ), UTIL_dtos2 ( ammo_nails ), UTIL_dtos3 ( ammo_rockets ), UTIL_dtos4 ( ammo_cells ) ); break;
+				ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_SG", UTIL_dtos1(ammo_shells), UTIL_dtos2(ammo_nails), UTIL_dtos3(ammo_rockets), UTIL_dtos4(ammo_cells));
+				break;
 			case IT_GRENADE_LAUNCHER:
-				ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_GL", UTIL_dtos1( ammo_shells ), UTIL_dtos2 ( ammo_nails ), UTIL_dtos3 ( ammo_rockets ), UTIL_dtos4 ( ammo_cells ) ); break;
+				ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_GL", UTIL_dtos1(ammo_shells), UTIL_dtos2(ammo_nails), UTIL_dtos3(ammo_rockets), UTIL_dtos4(ammo_cells));
+				break;
 			case IT_ROCKET_LAUNCHER:
-				ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_RL", UTIL_dtos1( ammo_shells ), UTIL_dtos2 ( ammo_nails ), UTIL_dtos3 ( ammo_rockets ), UTIL_dtos4 ( ammo_cells ) ); break;
+				ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_RL", UTIL_dtos1(ammo_shells), UTIL_dtos2(ammo_nails), UTIL_dtos3(ammo_rockets), UTIL_dtos4(ammo_cells));
+				break;
 			case IT_LIGHTNING:
-				ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_LG", UTIL_dtos1( ammo_shells ), UTIL_dtos2 ( ammo_nails ), UTIL_dtos3 ( ammo_rockets ), UTIL_dtos4 ( ammo_cells ) ); break;
+				ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_LG", UTIL_dtos1(ammo_shells), UTIL_dtos2(ammo_nails), UTIL_dtos3(ammo_rockets), UTIL_dtos4(ammo_cells));
+				break;
 			}
 		}
 		else
-			ClientPrint( pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_NoGun", UTIL_dtos1( ammo_shells ), UTIL_dtos2 ( ammo_nails ), UTIL_dtos3 ( ammo_rockets ), UTIL_dtos4 ( ammo_cells ) );
+			ClientPrint(pPlayer->pev, HUD_PRINTNOTIFY, "#You_Get_NoGun", UTIL_dtos1(ammo_shells), UTIL_dtos2(ammo_nails), UTIL_dtos3(ammo_rockets), UTIL_dtos4(ammo_cells));
 	}
- 
+
 	// Get ammo from pack
 	pPlayer->m_iAmmoShells += ammo_shells;
 	pPlayer->m_iAmmoNails += ammo_nails;
@@ -1502,13 +1526,13 @@ BOOL CItemBackpack::MyTouch( CBasePlayer *pPlayer )
 	pPlayer->m_iQuakeItems |= m_iItems;
 
 	// Give them at least 5 rockets in DM==3 and DM==5
-	if ( (gpGlobals->deathmatch==3 || gpGlobals->deathmatch == 5) & ( (WeaponCode(iNewWeapon)==6) || (WeaponCode(iNewWeapon)==7) ) & (pPlayer->m_iAmmoRockets < 5) )
+	if ((gpGlobals->deathmatch == 3 || gpGlobals->deathmatch == 5) & ((WeaponCode(iNewWeapon) == 6) || (WeaponCode(iNewWeapon) == 7)) & (pPlayer->m_iAmmoRockets < 5))
 		pPlayer->m_iAmmoRockets = 5;
 
-	EMIT_SOUND( ENT(pPlayer->pev), CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM );
+	EMIT_SOUND(ENT(pPlayer->pev), CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
 
 	// Switch to a better weapon
-	if ( WeaponCode(iNewWeapon) <= pPlayer->m_iBackpackSwitch )
+	if (WeaponCode(iNewWeapon) <= pPlayer->m_iBackpackSwitch)
 	{
 		if (pPlayer->pev->flags & FL_INWATER)
 		{
@@ -1518,17 +1542,17 @@ BOOL CItemBackpack::MyTouch( CBasePlayer *pPlayer )
 			}
 		}
 		else
-		{                
+		{
 			pPlayer->Deathmatch_Weapon(iOldWeapon, iNewWeapon);
 		}
 	}
 	pPlayer->W_SetCurrentAmmo();
-	pPlayer->m_iClientQuakeWeapon  = -1;
+	pPlayer->m_iClientQuakeWeapon = -1;
 	pPlayer->m_fWeapon = FALSE;
 	pPlayer->m_fKnownItem = FALSE;
 	pPlayer->UpdateClientData();
 
-	UTIL_Remove( this );
+	UTIL_Remove(this);
 
 	// We've removed ourself, so don't let CQuakeItem handle respawn
 	return FALSE;
