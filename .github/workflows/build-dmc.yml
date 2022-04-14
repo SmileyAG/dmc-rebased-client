@@ -30,7 +30,7 @@ jobs:
   game-so-libs:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Update sources to include xenial main
       run: sudo su -c "echo 'deb http://dk.archive.ubuntu.com/ubuntu/ xenial main' >> /etc/apt/sources.list"
     - name: Update sources to include xenial universe
@@ -46,7 +46,7 @@ jobs:
     - name: Build DMC
       run: cd linux && make dmc CFG=${{env.RELEASE_CONFIGURATION}}
     - name: Upload release game libs (Server)
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: dmc-server
         path: linux/${{env.RELEASE_CONFIGURATION}}/dmc.so
