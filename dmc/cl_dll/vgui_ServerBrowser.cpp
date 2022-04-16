@@ -42,7 +42,7 @@ namespace
 
 class ServerBrowserTablePanel;
 
-class CBrowser_InputSignal : public InputSignal
+class CBrowser_InputSignal: public InputSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -68,14 +68,14 @@ public:
 	virtual void keyFocusTicked(Panel* panel){};
 };
 
-class ServerBrowserTablePanel : public TablePanel
+class ServerBrowserTablePanel: public TablePanel
 {
 private:
 	Label* m_pLabel;
 	int m_nMouseOverRow;
 
 public:
-	ServerBrowserTablePanel(int x, int y, int wide, int tall, int columnCount) : TablePanel(x, y, wide, tall, columnCount)
+	ServerBrowserTablePanel(int x, int y, int wide, int tall, int columnCount): TablePanel(x, y, wide, tall, columnCount)
 	{
 		m_pLabel = new Label("", 0, 0 /*,wide, tall*/);
 
@@ -274,7 +274,7 @@ public:
 	}
 };
 
-class ConnectHandler : public ActionSignal
+class ConnectHandler: public ActionSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -291,7 +291,7 @@ public:
 	}
 };
 
-class RefreshHandler : public ActionSignal
+class RefreshHandler: public ActionSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -308,7 +308,7 @@ public:
 	}
 };
 
-class BroadcastRefreshHandler : public ActionSignal
+class BroadcastRefreshHandler: public ActionSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -325,7 +325,7 @@ public:
 	}
 };
 
-class StopHandler : public ActionSignal
+class StopHandler: public ActionSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -342,7 +342,7 @@ public:
 	}
 };
 
-class CancelHandler : public ActionSignal
+class CancelHandler: public ActionSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -359,7 +359,7 @@ public:
 	}
 };
 
-class PingHandler : public ActionSignal
+class PingHandler: public ActionSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -376,7 +376,7 @@ public:
 	}
 };
 
-class SortHandler : public ActionSignal
+class SortHandler: public ActionSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -395,7 +395,7 @@ public:
 
 }
 
-class LabelSortInputHandler : public InputSignal
+class LabelSortInputHandler: public InputSignal
 {
 private:
 	ServerBrowserTablePanel* m_pBrowser;
@@ -430,7 +430,7 @@ public:
 	virtual void keyFocusTicked(Panel* panel){};
 };
 
-class CSBLabel : public Label
+class CSBLabel: public Label
 {
 
 private:
@@ -438,7 +438,7 @@ private:
 	ServerBrowserTablePanel* m_pBrowser;
 
 public:
-	CSBLabel(char* name, char* sortkey) : Label(name)
+	CSBLabel(char* name, char* sortkey): Label(name)
 	{
 		m_pBrowser = NULL;
 
@@ -468,7 +468,7 @@ public:
 	}
 };
 
-ServerBrowser::ServerBrowser(int x, int y, int wide, int tall) : CTransparentPanel(100, x, y, wide, tall)
+ServerBrowser::ServerBrowser(int x, int y, int wide, int tall): CTransparentPanel(100, x, y, wide, tall)
 {
 	int i;
 

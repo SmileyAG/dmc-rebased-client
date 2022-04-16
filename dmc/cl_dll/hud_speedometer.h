@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-class CHudSpeedometer : public CHudBase
+class CHudSpeedometer: public CHudBase
 {
 	int speed;
 

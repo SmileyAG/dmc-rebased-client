@@ -15,7 +15,7 @@
 // ---------------------------------------------------------------------- //
 // Helper class for loading tga files.
 // ---------------------------------------------------------------------- //
-class MemoryInputStream : public vgui::InputStream
+class MemoryInputStream: public vgui::InputStream
 {
 public:
 	MemoryInputStream()

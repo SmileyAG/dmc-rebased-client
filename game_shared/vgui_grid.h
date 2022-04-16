@@ -21,7 +21,7 @@ namespace vgui
 // The grid control simply manages a grid of panels. You can adjust column sizes and spacings and
 // configure and fill the panels however you want.
 // To use this control, call SetDimensions, SetSpacing and fill the controls.
-class CGrid : public Panel
+class CGrid: public Panel
 {
 public:
 	CGrid();

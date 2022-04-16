@@ -43,7 +43,7 @@ enum SS_INTERRUPT
 #define SCRIPT_FINISHSCHED_DEFAULT 0
 #define SCRIPT_FINISHSCHED_AMBUSH 1
 
-class CCineMonster : public CBaseMonster
+class CCineMonster: public CBaseMonster
 {
 public:
 	void Spawn(void);
@@ -95,7 +95,7 @@ public:
 	BOOL m_interruptable;
 };
 
-class CCineAI : public CCineMonster
+class CCineAI: public CCineMonster
 {
 	BOOL StartSequence(CBaseMonster* pTarget, int iszSeq, BOOL completeOnEmpty);
 	void PossessEntity(void);

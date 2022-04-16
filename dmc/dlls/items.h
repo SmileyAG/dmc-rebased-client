@@ -16,7 +16,7 @@
 #define ITEMS_H
 
 
-class CItem : public CBaseEntity
+class CItem: public CBaseEntity
 {
 public:
 	void Spawn(void);

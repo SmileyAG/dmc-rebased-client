@@ -29,7 +29,7 @@ extern void SetMovedir(entvars_t* ev);
 #define noiseMoving noise1
 #define noiseArrived noise2
 
-class CBaseDoor : public CBaseToggle
+class CBaseDoor: public CBaseToggle
 {
 public:
 	void Spawn(void);
@@ -557,7 +557,7 @@ int CBaseDoor::DoorActivate()
 	{ // door should open
 
 		if (m_hActivator != NULL && m_hActivator->IsPlayer())
-		{	// give health if player opened the door (medikit)
+		{ // give health if player opened the door (medikit)
 			// VARS( m_eoActivator )->health += m_bHealthValue;
 
 			m_hActivator->TakeHealth(m_bHealthValue, DMG_GENERIC);
@@ -876,7 +876,7 @@ button or trigger field activates the door.
 3)	stone chain
 4)	screechy metal
 */
-class CRotDoor : public CBaseDoor
+class CRotDoor: public CBaseDoor
 {
 public:
 	void Spawn(void);
@@ -947,7 +947,7 @@ void CRotDoor ::SetToggleState(int state)
 }
 
 
-class CMomentaryDoor : public CBaseToggle
+class CMomentaryDoor: public CBaseToggle
 {
 public:
 	void Spawn(void);

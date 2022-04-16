@@ -4,7 +4,7 @@
 
 #include "cl_entity.h"
 
-class CHudOldScoreboard : public CHudBase
+class CHudOldScoreboard: public CHudBase
 {
 public:
 	int Init(void);

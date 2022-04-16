@@ -17,7 +17,7 @@ CGameStudioModelRenderer
 
 ====================
 */
-class CGameStudioModelRenderer : public CStudioModelRenderer
+class CGameStudioModelRenderer: public CStudioModelRenderer
 {
 public:
 	CGameStudioModelRenderer(void);

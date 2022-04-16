@@ -43,7 +43,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: Displays the MOTD and basic server information
 //-----------------------------------------------------------------------------
-class CMessageWindowPanel : public CMenuPanel
+class CMessageWindowPanel: public CMenuPanel
 {
 public:
 	CMessageWindowPanel(const char* szMOTD, const char* szTitle, int iShadeFullScreen, int iRemoveMe, int x, int y, int wide, int tall);
@@ -64,7 +64,7 @@ CMenuPanel* CMessageWindowPanel_Create(const char* szMOTD, const char* szTitle, 
 //-----------------------------------------------------------------------------
 // Purpose: Constructs a message panel
 //-----------------------------------------------------------------------------
-CMessageWindowPanel::CMessageWindowPanel(const char* szMOTD, const char* szTitle, int iShadeFullscreen, int iRemoveMe, int x, int y, int wide, int tall) : CMenuPanel(iShadeFullscreen ? 100 : 255, iRemoveMe, x, y, wide, tall)
+CMessageWindowPanel::CMessageWindowPanel(const char* szMOTD, const char* szTitle, int iShadeFullscreen, int iRemoveMe, int x, int y, int wide, int tall): CMenuPanel(iShadeFullscreen ? 100 : 255, iRemoveMe, x, y, wide, tall)
 {
 	// Get the scheme used for the Titles
 	CSchemeManager* pSchemes = gViewPort->GetSchemeManager();

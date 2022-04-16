@@ -31,7 +31,7 @@
 #include "vgui_ScorePanel.h"
 
 
-class CDMCVoiceStatusHelper : public IVoiceStatusHelper
+class CDMCVoiceStatusHelper: public IVoiceStatusHelper
 {
 public:
 	virtual void GetPlayerTextColor(int entindex, int color[3])
@@ -271,7 +271,7 @@ void CHud ::Init(void)
 	MsgFunc_ResetHUD(0, 0, NULL);
 }
 
-CHud::CHud() : m_iSpriteCount(0), m_pHudList(NULL)
+CHud::CHud(): m_iSpriteCount(0), m_pHudList(NULL)
 {
 }
 

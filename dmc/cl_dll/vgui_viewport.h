@@ -119,7 +119,7 @@ enum
 // VIEWPORT PIECES
 //============================================================
 // Wrapper for an Image Label without a background
-class CImageLabel : public Label
+class CImageLabel: public Label
 {
 public:
 	BitmapTGA* m_pTGA;
@@ -139,13 +139,13 @@ public:
 
 // Command Label
 // Overridden label so we can darken it when submenus open
-class CommandLabel : public Label
+class CommandLabel: public Label
 {
 private:
 	int m_iState;
 
 public:
-	CommandLabel(const char* text, int x, int y, int wide, int tall) : Label(text, x, y, wide, tall)
+	CommandLabel(const char* text, int x, int y, int wide, int tall): Label(text, x, y, wide, tall)
 	{
 		m_iState = false;
 	}
@@ -165,7 +165,7 @@ public:
 
 //============================================================
 // Command Buttons
-class CommandButton : public Button
+class CommandButton: public Button
 {
 private:
 	int m_iPlayerClass;
@@ -225,7 +225,7 @@ public:
 
 //============================================================
 // Command Menus
-class CCommandMenu : public Panel
+class CCommandMenu: public Panel
 {
 private:
 	CCommandMenu* m_pParentMenu;
@@ -240,7 +240,7 @@ private:
 	int m_iDirection;
 
 public:
-	CCommandMenu(CCommandMenu* pParentMenu, int x, int y, int wide, int tall) : Panel(x, y, wide, tall)
+	CCommandMenu(CCommandMenu* pParentMenu, int x, int y, int wide, int tall): Panel(x, y, wide, tall)
 	{
 		m_pParentMenu = pParentMenu;
 		m_iXOffset = x;
@@ -249,7 +249,7 @@ public:
 		m_iDirection = 0;
 	}
 
-	CCommandMenu(CCommandMenu* pParentMenu, int direction, int x, int y, int wide, int tall) : Panel(x, y, wide, tall)
+	CCommandMenu(CCommandMenu* pParentMenu, int direction, int x, int y, int wide, int tall): Panel(x, y, wide, tall)
 	{
 		m_pParentMenu = pParentMenu;
 		m_iXOffset = x;
@@ -279,7 +279,7 @@ public:
 };
 
 //==============================================================================
-class TeamFortressViewport : public Panel
+class TeamFortressViewport: public Panel
 {
 private:
 	vgui::Cursor* _cursorNone;
@@ -431,7 +431,7 @@ public:
 // Command Menu Button Handlers
 #define MAX_COMMAND_SIZE 256
 
-class CMenuHandler_StringCommand : public ActionSignal
+class CMenuHandler_StringCommand: public ActionSignal
 {
 protected:
 	char m_pszCommand[MAX_COMMAND_SIZE];
@@ -465,15 +465,15 @@ public:
 
 // This works the same as CMenuHandler_StringCommand, except it watches the string command
 // for specific commands, and modifies client vars based upon them.
-class CMenuHandler_StringCommandWatch : public CMenuHandler_StringCommand
+class CMenuHandler_StringCommandWatch: public CMenuHandler_StringCommand
 {
 private:
 public:
-	CMenuHandler_StringCommandWatch(char* pszCommand) : CMenuHandler_StringCommand(pszCommand)
+	CMenuHandler_StringCommandWatch(char* pszCommand): CMenuHandler_StringCommand(pszCommand)
 	{
 	}
 
-	CMenuHandler_StringCommandWatch(char* pszCommand, int iClose) : CMenuHandler_StringCommand(pszCommand, iClose)
+	CMenuHandler_StringCommandWatch(char* pszCommand, int iClose): CMenuHandler_StringCommand(pszCommand, iClose)
 	{
 	}
 
@@ -495,22 +495,22 @@ public:
 
 // Used instead of CMenuHandler_StringCommand for Class Selection buttons.
 // Checks the state of hud_classautokill and kills the player if set
-class CMenuHandler_StringCommandClassSelect : public CMenuHandler_StringCommand
+class CMenuHandler_StringCommandClassSelect: public CMenuHandler_StringCommand
 {
 private:
 public:
-	CMenuHandler_StringCommandClassSelect(char* pszCommand) : CMenuHandler_StringCommand(pszCommand)
+	CMenuHandler_StringCommandClassSelect(char* pszCommand): CMenuHandler_StringCommand(pszCommand)
 	{
 	}
 
-	CMenuHandler_StringCommandClassSelect(char* pszCommand, int iClose) : CMenuHandler_StringCommand(pszCommand, iClose)
+	CMenuHandler_StringCommandClassSelect(char* pszCommand, int iClose): CMenuHandler_StringCommand(pszCommand, iClose)
 	{
 	}
 
 	virtual void actionPerformed(Panel* panel);
 };
 
-class CMenuHandler_PopupSubMenuInput : public InputSignal
+class CMenuHandler_PopupSubMenuInput: public InputSignal
 {
 private:
 	CCommandMenu* m_pSubMenu;
@@ -546,7 +546,7 @@ public:
 	virtual void keyFocusTicked(Panel* panel){};
 };
 
-class CMenuHandler_LabelInput : public InputSignal
+class CMenuHandler_LabelInput: public InputSignal
 {
 private:
 	ActionSignal* m_pActionSignal;
@@ -580,7 +580,7 @@ public:
 #define SHOW_MOTD 3
 #define SHOW_SPECHELP 4
 
-class CMenuHandler_TextWindow : public ActionSignal
+class CMenuHandler_TextWindow: public ActionSignal
 {
 private:
 	int m_iState;
@@ -605,7 +605,7 @@ public:
 	}
 };
 
-class CMenuHandler_ToggleCvar : public ActionSignal
+class CMenuHandler_ToggleCvar: public ActionSignal
 {
 private:
 	struct cvar_s* m_cvar;
@@ -626,7 +626,7 @@ public:
 		gViewPort->UpdateSpectatorPanel();
 	}
 };
-class CDragNDropHandler : public InputSignal
+class CDragNDropHandler: public InputSignal
 {
 private:
 	DragNDropPanel* m_pPanel;
@@ -655,7 +655,7 @@ public:
 	void keyFocusTicked(Panel* panel){};
 };
 
-class CHandler_MenuButtonOver : public InputSignal
+class CHandler_MenuButtonOver: public InputSignal
 {
 private:
 	int m_iButton;
@@ -682,7 +682,7 @@ public:
 	void keyFocusTicked(Panel* panel){};
 };
 
-class CHandler_ButtonHighlight : public InputSignal
+class CHandler_ButtonHighlight: public InputSignal
 {
 private:
 	Button* m_pButton;
@@ -715,13 +715,13 @@ public:
 //-----------------------------------------------------------------------------
 // Purpose: Special handler for highlighting of command menu buttons
 //-----------------------------------------------------------------------------
-class CHandler_CommandButtonHighlight : public CHandler_ButtonHighlight
+class CHandler_CommandButtonHighlight: public CHandler_ButtonHighlight
 {
 private:
 	CommandButton* m_pCommandButton;
 
 public:
-	CHandler_CommandButtonHighlight(CommandButton* pButton) : CHandler_ButtonHighlight(pButton)
+	CHandler_CommandButtonHighlight(CommandButton* pButton): CHandler_ButtonHighlight(pButton)
 	{
 		m_pCommandButton = pButton;
 	}
@@ -740,13 +740,13 @@ public:
 
 //================================================================
 // Overidden Command Buttons for special visibilities
-class ClassButton : public CommandButton
+class ClassButton: public CommandButton
 {
 protected:
 	int m_iPlayerClass;
 
 public:
-	ClassButton(int iClass, const char* text, int x, int y, int wide, int tall, bool bNoHighlight) : CommandButton(text, x, y, wide, tall, bNoHighlight)
+	ClassButton(int iClass, const char* text, int x, int y, int wide, int tall, bool bNoHighlight): CommandButton(text, x, y, wide, tall, bNoHighlight)
 	{
 		m_iPlayerClass = iClass;
 	}
@@ -754,13 +754,13 @@ public:
 	virtual int IsNotValid();
 };
 
-class TeamButton : public CommandButton
+class TeamButton: public CommandButton
 {
 private:
 	int m_iTeamNumber;
 
 public:
-	TeamButton(int iTeam, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall)
+	TeamButton(int iTeam, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall)
 	{
 		m_iTeamNumber = iTeam;
 	}
@@ -783,13 +783,13 @@ public:
 	}
 };
 
-class FeignButton : public CommandButton
+class FeignButton: public CommandButton
 {
 private:
 	int m_iFeignState;
 
 public:
-	FeignButton(int iState, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall)
+	FeignButton(int iState, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall)
 	{
 		m_iFeignState = iState;
 	}
@@ -800,10 +800,10 @@ public:
 	}
 };
 
-class SpectateButton : public CommandButton
+class SpectateButton: public CommandButton
 {
 public:
-	SpectateButton(const char* text, int x, int y, int wide, int tall, bool bNoHighlight) : CommandButton(text, x, y, wide, tall, bNoHighlight)
+	SpectateButton(const char* text, int x, int y, int wide, int tall, bool bNoHighlight): CommandButton(text, x, y, wide, tall, bNoHighlight)
 	{
 	}
 
@@ -822,14 +822,14 @@ public:
 #define DISGUISE_TEAM3 (1 << 2)
 #define DISGUISE_TEAM4 (1 << 3)
 
-class DisguiseButton : public CommandButton
+class DisguiseButton: public CommandButton
 {
 private:
 	int m_iValidTeamsBits;
 	int m_iThisTeam;
 
 public:
-	DisguiseButton(int iValidTeamNumsBits, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall, false)
+	DisguiseButton(int iValidTeamNumsBits, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall, false)
 	{
 		m_iValidTeamsBits = iValidTeamNumsBits;
 	}
@@ -849,13 +849,13 @@ public:
 	}
 };
 
-class DetpackButton : public CommandButton
+class DetpackButton: public CommandButton
 {
 private:
 	int m_iDetpackState;
 
 public:
-	DetpackButton(int iState, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall)
+	DetpackButton(int iState, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall)
 	{
 		m_iDetpackState = iState;
 	}
@@ -872,7 +872,7 @@ extern int iBuildingCosts[];
 #define BUILDSTATE_BASE (1 << 2)
 #define BUILDSTATE_CANBUILD (1 << 3) // Data is building ID (0 = Dispenser, 1 = Sentry)
 
-class BuildButton : public CommandButton
+class BuildButton: public CommandButton
 {
 private:
 	int m_iBuildState;
@@ -885,7 +885,7 @@ public:
 		SENTRYGUN = 1,
 	};
 
-	BuildButton(int iState, int iData, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall)
+	BuildButton(int iState, int iData, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall)
 	{
 		m_iBuildState = iState;
 		m_iBuildData = iData;
@@ -899,13 +899,13 @@ public:
 
 #define MAX_MAPNAME 256
 
-class MapButton : public CommandButton
+class MapButton: public CommandButton
 {
 private:
 	char m_szMapName[MAX_MAPNAME];
 
 public:
-	MapButton(const char* pMapName, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall)
+	MapButton(const char* pMapName, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall)
 	{
 		sprintf(m_szMapName, "maps/%s.bsp", pMapName);
 	}
@@ -927,13 +927,13 @@ public:
 //-----------------------------------------------------------------------------
 // Purpose: CommandButton which is only displayed if the player is on team X
 //-----------------------------------------------------------------------------
-class TeamOnlyCommandButton : public CommandButton
+class TeamOnlyCommandButton: public CommandButton
 {
 private:
 	int m_iTeamNum;
 
 public:
-	TeamOnlyCommandButton(int iTeamNum, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall), m_iTeamNum(iTeamNum) {}
+	TeamOnlyCommandButton(int iTeamNum, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall), m_iTeamNum(iTeamNum) {}
 
 	virtual int IsNotValid()
 	{
@@ -947,7 +947,7 @@ public:
 //-----------------------------------------------------------------------------
 // Purpose: CommandButton which is only displayed if the player is on team X
 //-----------------------------------------------------------------------------
-class ToggleCommandButton : public CommandButton, public InputSignal
+class ToggleCommandButton: public CommandButton, public InputSignal
 {
 private:
 	struct cvar_s* m_cvar;
@@ -956,7 +956,7 @@ private:
 
 
 public:
-	ToggleCommandButton(const char* cvarname, const char* text, int x, int y, int wide, int tall) : CommandButton(text, x, y, wide, tall)
+	ToggleCommandButton(const char* cvarname, const char* text, int x, int y, int wide, int tall): CommandButton(text, x, y, wide, tall)
 	{
 		m_cvar = gEngfuncs.pfnGetCvarPointer(cvarname);
 
@@ -1030,14 +1030,14 @@ public:
 };
 //============================================================
 // Panel that can be dragged around
-class DragNDropPanel : public Panel
+class DragNDropPanel: public Panel
 {
 private:
 	bool m_bBeingDragged;
 	LineBorder* m_pBorder;
 
 public:
-	DragNDropPanel(int x, int y, int wide, int tall) : Panel(x, y, wide, tall)
+	DragNDropPanel(int x, int y, int wide, int tall): Panel(x, y, wide, tall)
 	{
 		m_bBeingDragged = false;
 
@@ -1061,13 +1061,13 @@ public:
 
 //================================================================
 // Panel that draws itself with a transparent black background
-class CTransparentPanel : public Panel
+class CTransparentPanel: public Panel
 {
 private:
 	int m_iTransparency;
 
 public:
-	CTransparentPanel(int iTrans, int x, int y, int wide, int tall) : Panel(x, y, wide, tall)
+	CTransparentPanel(int iTrans, int x, int y, int wide, int tall): Panel(x, y, wide, tall)
 	{
 		m_iTransparency = iTrans;
 	}
@@ -1085,7 +1085,7 @@ public:
 
 //================================================================
 // Menu Panel that supports buffering of menus
-class CMenuPanel : public CTransparentPanel
+class CMenuPanel: public CTransparentPanel
 {
 private:
 	CMenuPanel* m_pNextMenu;
@@ -1095,13 +1095,13 @@ private:
 	float m_flOpenTime;
 
 public:
-	CMenuPanel(int iRemoveMe, int x, int y, int wide, int tall) : CTransparentPanel(100, x, y, wide, tall)
+	CMenuPanel(int iRemoveMe, int x, int y, int wide, int tall): CTransparentPanel(100, x, y, wide, tall)
 	{
 		Reset();
 		m_iRemoveMe = iRemoveMe;
 	}
 
-	CMenuPanel(int iTrans, int iRemoveMe, int x, int y, int wide, int tall) : CTransparentPanel(iTrans, x, y, wide, tall)
+	CMenuPanel(int iTrans, int iRemoveMe, int x, int y, int wide, int tall): CTransparentPanel(iTrans, x, y, wide, tall)
 	{
 		Reset();
 		m_iRemoveMe = iRemoveMe;
@@ -1169,7 +1169,7 @@ public:
 
 //================================================================
 // Custom drawn scroll bars
-class CTFScrollButton : public CommandButton
+class CTFScrollButton: public CommandButton
 {
 private:
 	BitmapTGA* m_pTGA;
@@ -1182,16 +1182,16 @@ public:
 };
 
 // Custom drawn slider bar
-class CTFSlider : public Slider
+class CTFSlider: public Slider
 {
 public:
-	CTFSlider(int x, int y, int wide, int tall, bool vertical) : Slider(x, y, wide, tall, vertical){};
+	CTFSlider(int x, int y, int wide, int tall, bool vertical): Slider(x, y, wide, tall, vertical){};
 
 	virtual void paintBackground(void);
 };
 
 // Custom drawn scrollpanel
-class CTFScrollPanel : public ScrollPanel
+class CTFScrollPanel: public ScrollPanel
 {
 public:
 	CTFScrollPanel(int x, int y, int wide, int tall);
@@ -1267,14 +1267,14 @@ public:
 */
 //=========================================================
 // Specific Menus to handle old HUD sections
-class CHealthPanel : public DragNDropPanel
+class CHealthPanel: public DragNDropPanel
 {
 private:
 	BitmapTGA* m_pHealthTGA;
 	Label* m_pHealthLabel;
 
 public:
-	CHealthPanel(int x, int y, int wide, int tall) : DragNDropPanel(x, y, wide, tall)
+	CHealthPanel(int x, int y, int wide, int tall): DragNDropPanel(x, y, wide, tall)
 	{
 		// Load the Health icon
 		FileInputStream* fis = new FileInputStream(GetVGUITGAName("%d_hud_health"), false);

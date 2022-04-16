@@ -20,7 +20,7 @@ class InputStream;
 class Label;
 }
 
-class ControlConfigPanel : public vgui::Panel
+class ControlConfigPanel: public vgui::Panel
 {
 private:
 	vgui::HeaderPanel* _headerPanel;

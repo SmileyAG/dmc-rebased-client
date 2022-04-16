@@ -262,7 +262,7 @@ public:
 // Nodes start out as ents in the level. The node graph
 // is built, then these ents are discarded.
 //=========================================================
-class CNodeEnt : public CBaseEntity
+class CNodeEnt: public CBaseEntity
 {
 	void Spawn(void);
 	void KeyValue(KeyValueData* pkvd);

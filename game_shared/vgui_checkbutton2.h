@@ -35,7 +35,7 @@ public:
 // - Provides access to the checkbox images.
 // - Provides an easy callback mechanism for state changes.
 // - Default background is invisible, and default text color is white.
-class CCheckButton2 : public Panel, public CDefaultInputSignal
+class CCheckButton2: public Panel, public CDefaultInputSignal
 {
 public:
 	CCheckButton2();

@@ -392,7 +392,7 @@ public:
 #endif
 
 
-class CPointEntity : public CBaseEntity
+class CPointEntity: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -427,7 +427,7 @@ void PlayLockSounds(entvars_t* pev, locksound_t* pls, int flocked, int fbutton);
 #define MAX_MULTI_TARGETS 16 // maximum number of targets a single multi_manager entity may be assigned.
 #define MS_MAX_TARGETS 32
 
-class CMultiSource : public CPointEntity
+class CMultiSource: public CPointEntity
 {
 public:
 	void Spawn();
@@ -452,7 +452,7 @@ public:
 //
 // generic Delay entity.
 //
-class CBaseDelay : public CBaseEntity
+class CBaseDelay: public CBaseEntity
 {
 public:
 	float m_flDelay;
@@ -469,7 +469,7 @@ public:
 };
 
 
-class CBaseAnimating : public CBaseDelay
+class CBaseAnimating: public CBaseDelay
 {
 public:
 	virtual int Save(CSave& save);
@@ -512,7 +512,7 @@ public:
 //
 #define SF_ITEM_USE_ONLY 256 //  ITEM_USE_ONLY = BUTTON_USE_ONLY = DOOR_USE_ONLY!!!
 
-class CBaseToggle : public CBaseAnimating
+class CBaseToggle: public CBaseAnimating
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -687,7 +687,7 @@ char* ButtonSound(int sound); // get string of button sound number
 //
 // Generic Button
 //
-class CBaseButton : public CBaseToggle
+class CBaseButton: public CBaseToggle
 {
 public:
 	void Spawn(void);
@@ -809,7 +809,7 @@ typedef struct _SelAmmo
 //
 // This spawns first when each level begins.
 //=======================
-class CWorld : public CBaseEntity
+class CWorld: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -817,7 +817,7 @@ public:
 	void KeyValue(KeyValueData* pkvd);
 };
 
-class CClientFog : public CBaseEntity
+class CClientFog: public CBaseEntity
 {
 public:
 	void Spawn(void);

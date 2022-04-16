@@ -28,7 +28,7 @@ using namespace vgui;
 #define SPECTATOR_PANEL_CMD_TOGGLE_INSET 5
 
 
-class SpectatorPanel : public Panel //, public vgui::CDefaultInputSignal
+class SpectatorPanel: public Panel //, public vgui::CDefaultInputSignal
 {
 
 public:
@@ -68,7 +68,7 @@ public:
 
 
 
-class CSpectatorHandler_Command : public ActionSignal
+class CSpectatorHandler_Command: public ActionSignal
 {
 
 private:

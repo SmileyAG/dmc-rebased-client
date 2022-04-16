@@ -43,7 +43,7 @@ enum TANKBULLET
 //			rockets
 //			explosion?
 
-class CFuncTank : public CBaseEntity
+class CFuncTank: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -722,7 +722,7 @@ void CFuncTank::StopRotSound(void)
 	pev->spawnflags &= ~SF_TANK_SOUNDON;
 }
 
-class CFuncTankGun : public CFuncTank
+class CFuncTankGun: public CFuncTank
 {
 public:
 	void Fire(const Vector& barrelEnd, const Vector& forward, entvars_t* pevAttacker);
@@ -771,7 +771,7 @@ void CFuncTankGun::Fire(const Vector& barrelEnd, const Vector& forward, entvars_
 
 
 
-class CFuncTankLaser : public CFuncTank
+class CFuncTankLaser: public CFuncTank
 {
 public:
 	void Activate(void);
@@ -890,7 +890,7 @@ void CFuncTankLaser::Fire(const Vector& barrelEnd, const Vector& forward, entvar
 	}
 }
 
-class CFuncTankRocket : public CFuncTank
+class CFuncTankRocket: public CFuncTank
 {
 public:
 	void Precache(void);
@@ -927,7 +927,7 @@ void CFuncTankRocket::Fire(const Vector& barrelEnd, const Vector& forward, entva
 }
 
 
-class CFuncTankMortar : public CFuncTank
+class CFuncTankMortar: public CFuncTank
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -977,7 +977,7 @@ void CFuncTankMortar::Fire(const Vector& barrelEnd, const Vector& forward, entva
 //============================================================================
 // FUNC TANK CONTROLS
 //============================================================================
-class CFuncTankControls : public CBaseEntity
+class CFuncTankControls: public CBaseEntity
 {
 public:
 	virtual int ObjectCaps(void);

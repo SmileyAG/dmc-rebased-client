@@ -22,7 +22,7 @@
 */
 #include "effects.h"
 
-class CQuakeGun : public CBasePlayerWeapon
+class CQuakeGun: public CBasePlayerWeapon
 {
 public:
 	void Spawn(void);

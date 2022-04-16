@@ -36,7 +36,7 @@
 char* GetTeamName(int team);
 #endif
 
-class CDMCGameMgrHelper : public IVoiceGameMgrHelper
+class CDMCGameMgrHelper: public IVoiceGameMgrHelper
 {
 public:
 	virtual bool CanPlayerHearPlayer(CBasePlayer* pPlayer1, CBasePlayer* pPlayer2)

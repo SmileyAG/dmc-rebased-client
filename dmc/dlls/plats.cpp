@@ -30,7 +30,7 @@ static void PlatSpawnInsideTrigger(entvars_t* pevPlatform);
 
 #define SF_PLAT_TOGGLE 0x0001
 
-class CBasePlatTrain : public CBaseToggle
+class CBasePlatTrain: public CBaseToggle
 {
 public:
 	virtual int ObjectCaps(void) { return CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
@@ -220,7 +220,7 @@ void CBasePlatTrain::Precache(void)
 #define noiseMovement noise
 #define noiseStopMoving noise1
 
-class CFuncPlat : public CBasePlatTrain
+class CFuncPlat: public CBasePlatTrain
 {
 public:
 	void Spawn(void);
@@ -245,7 +245,7 @@ LINK_ENTITY_TO_CLASS(func_plat, CFuncPlat);
 
 
 // UNDONE: Need to save this!!! It needs class & linkage
-class CPlatTrigger : public CBaseEntity
+class CPlatTrigger: public CBaseEntity
 {
 public:
 	virtual int ObjectCaps(void) { return (CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DONT_SAVE; }
@@ -512,7 +512,7 @@ void CFuncPlat ::Blocked(CBaseEntity* pOther)
 }
 
 
-class CFuncPlatRot : public CFuncPlat
+class CFuncPlatRot: public CFuncPlat
 {
 public:
 	void Spawn(void);
@@ -625,7 +625,7 @@ void CFuncPlatRot ::RotMove(Vector& destAngle, float time)
 //====================== TRAIN code ==================================================
 //
 
-class CFuncTrain : public CBasePlatTrain
+class CFuncTrain: public CBasePlatTrain
 {
 public:
 	void Spawn(void);
@@ -1566,7 +1566,7 @@ void CFuncTrackTrain ::Precache(void)
 }
 
 // This class defines the volume of space that the player must stand in to control the train
-class CFuncTrainControls : public CBaseEntity
+class CFuncTrainControls: public CBaseEntity
 {
 public:
 	virtual int ObjectCaps(void) { return CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
@@ -1637,7 +1637,7 @@ typedef enum
 	TRAIN_FOLLOWING
 } TRAIN_CODE;
 
-class CFuncTrackChange : public CFuncPlatRot
+class CFuncTrackChange: public CFuncPlatRot
 {
 public:
 	void Spawn(void);
@@ -2032,7 +2032,7 @@ void CFuncTrackChange ::HitTop(void)
 
 
 
-class CFuncTrackAuto : public CFuncTrackChange
+class CFuncTrackAuto: public CFuncTrackChange
 {
 public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
@@ -2124,7 +2124,7 @@ void CFuncTrackAuto ::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYP
 
 #define FGUNTARGET_START_ON 0x0001
 
-class CGunTarget : public CBaseMonster
+class CGunTarget: public CBaseMonster
 {
 public:
 	void Spawn(void);

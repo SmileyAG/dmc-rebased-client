@@ -30,7 +30,7 @@
 #include "cbase.h"
 #include "player.h"
 
-class CRuleEntity : public CBaseEntity
+class CRuleEntity: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -91,7 +91,7 @@ BOOL CRuleEntity::CanFireForActivator(CBaseEntity* pActivator)
 //
 // CRulePointEntity -- base class for all rule "point" entities (not brushes)
 //
-class CRulePointEntity : public CRuleEntity
+class CRulePointEntity: public CRuleEntity
 {
 public:
 	void Spawn(void);
@@ -108,7 +108,7 @@ void CRulePointEntity::Spawn(void)
 // CRuleBrushEntity -- base class for all rule "brush" entities (not brushes)
 // Default behavior is to set up like a trigger, invisible, but keep the model for volume testing
 //
-class CRuleBrushEntity : public CRuleEntity
+class CRuleBrushEntity: public CRuleEntity
 {
 public:
 	void Spawn(void);
@@ -131,7 +131,7 @@ void CRuleBrushEntity::Spawn(void)
 #define SF_SCORE_NEGATIVE 0x0001
 #define SF_SCORE_TEAM 0x0002
 
-class CGameScore : public CRulePointEntity
+class CGameScore: public CRulePointEntity
 {
 public:
 	void Spawn(void);
@@ -191,7 +191,7 @@ void CGameScore::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE use
 
 // CGameEnd / game_end	-- Ends the game in MP
 
-class CGameEnd : public CRulePointEntity
+class CGameEnd: public CRulePointEntity
 {
 public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
@@ -220,7 +220,7 @@ void CGameEnd::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useTy
 #define SF_ENVTEXT_ALLPLAYERS 0x0001
 
 
-class CGameText : public CRulePointEntity
+class CGameText: public CRulePointEntity
 {
 public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
@@ -348,7 +348,7 @@ void CGameText::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useT
 #define SF_TEAMMASTER_FIREONCE 0x0001
 #define SF_TEAMMASTER_ANYTEAM 0x0002
 
-class CGameTeamMaster : public CRulePointEntity
+class CGameTeamMaster: public CRulePointEntity
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -460,7 +460,7 @@ BOOL CGameTeamMaster::TeamMatch(CBaseEntity* pActivator)
 #define SF_TEAMSET_FIREONCE 0x0001
 #define SF_TEAMSET_CLEARTEAM 0x0002
 
-class CGameTeamSet : public CRulePointEntity
+class CGameTeamSet: public CRulePointEntity
 {
 public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
@@ -498,7 +498,7 @@ void CGameTeamSet::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE u
 // CGamePlayerZone / game_player_zone -- players in the zone fire my target when I'm fired
 //
 // Needs master?
-class CGamePlayerZone : public CRuleBrushEntity
+class CGamePlayerZone: public CRuleBrushEntity
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -615,7 +615,7 @@ void CGamePlayerZone::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYP
 // Flag: Fire once
 
 #define SF_PKILL_FIREONCE 0x0001
-class CGamePlayerHurt : public CRulePointEntity
+class CGamePlayerHurt: public CRulePointEntity
 {
 public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
@@ -658,7 +658,7 @@ void CGamePlayerHurt::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYP
 #define SF_GAMECOUNT_FIREONCE 0x0001
 #define SF_GAMECOUNT_RESET 0x0002
 
-class CGameCounter : public CRulePointEntity
+class CGameCounter: public CRulePointEntity
 {
 public:
 	void Spawn(void);
@@ -733,7 +733,7 @@ void CGameCounter::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE u
 
 #define SF_GAMECOUNTSET_FIREONCE 0x0001
 
-class CGameCounterSet : public CRulePointEntity
+class CGameCounterSet: public CRulePointEntity
 {
 public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
@@ -766,7 +766,7 @@ void CGameCounterSet::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYP
 #define SF_PLAYEREQUIP_USEONLY 0x0001
 #define MAX_EQUIP 32
 
-class CGamePlayerEquip : public CRulePointEntity
+class CGamePlayerEquip: public CRulePointEntity
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -861,7 +861,7 @@ void CGamePlayerEquip::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TY
 #define SF_PTEAM_KILL 0x0002
 #define SF_PTEAM_GIB 0x0004
 
-class CGamePlayerTeam : public CRulePointEntity
+class CGamePlayerTeam: public CRulePointEntity
 {
 public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);

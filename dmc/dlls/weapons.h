@@ -20,7 +20,7 @@ class CBasePlayer;
 extern int gmsgWeapPickup;
 
 // Contact Grenade / Timed grenade / Satchel Charge
-class CGrenade : public CBaseMonster
+class CGrenade: public CBaseMonster
 {
 public:
 	void Spawn(void);
@@ -217,7 +217,7 @@ typedef struct
 } AmmoInfo;
 
 // Items that the player has in their inventory that they can use
-class CBasePlayerItem : public CBaseAnimating
+class CBasePlayerItem: public CBaseAnimating
 {
 public:
 	virtual void SetObjectCollisionBox(void);
@@ -287,7 +287,7 @@ public:
 
 
 // inventory items that
-class CBasePlayerWeapon : public CBasePlayerItem
+class CBasePlayerWeapon: public CBasePlayerItem
 {
 public:
 	virtual int Save(CSave& save);
@@ -362,7 +362,7 @@ public:
 };
 
 
-class CBasePlayerAmmo : public CBaseEntity
+class CBasePlayerAmmo: public CBaseEntity
 {
 public:
 	virtual void Spawn(void);
@@ -435,7 +435,7 @@ extern MULTIDAMAGE gMultiDamage;
 // CWeaponBox - a single entity that can store weapons
 // and ammo.
 //=========================================================
-class CWeaponBox : public CBaseEntity
+class CWeaponBox: public CBaseEntity
 {
 	void Precache(void);
 	void Spawn(void);
@@ -467,7 +467,7 @@ public:
 // QUAKECLASSIC
 void Q_RadiusDamage(CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, CBaseEntity* pIgnore);
 
-class CQuakeRocket : public CBaseEntity
+class CQuakeRocket: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -487,7 +487,7 @@ public:
 	float m_flAttackFinished;
 };
 
-class CQuakeNail : public CBaseEntity
+class CQuakeNail: public CBaseEntity
 {
 public:
 	void Spawn(void);

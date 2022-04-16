@@ -56,7 +56,7 @@ typedef struct overviewEntity_s
 
 #define MAX_OVERVIEW_ENTITIES 128
 
-class CHudSpectator : public CHudBase
+class CHudSpectator: public CHudBase
 {
 public:
 	void Reset();

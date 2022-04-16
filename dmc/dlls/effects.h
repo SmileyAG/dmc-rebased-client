@@ -30,7 +30,7 @@
 #define SF_SPRITE_ONCE 0x0002
 #define SF_SPRITE_TEMPORARY 0x8000
 
-class CSprite : public CPointEntity
+class CSprite: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -103,7 +103,7 @@ private:
 };
 
 
-class CBeam : public CBaseEntity
+class CBeam: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -195,7 +195,7 @@ public:
 #define SF_MESSAGE_ALL 0x0002  // Send to all clients
 
 
-class CLaser : public CBeam
+class CLaser: public CBeam
 {
 public:
 	void Spawn(void);

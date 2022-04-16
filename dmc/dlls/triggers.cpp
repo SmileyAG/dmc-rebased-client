@@ -46,7 +46,7 @@ extern Vector VecBModelOrigin(entvars_t* pevBModel);
 
 extern unsigned short g_sTeleport;
 
-class CFrictionModifier : public CBaseEntity
+class CFrictionModifier: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -110,7 +110,7 @@ void CFrictionModifier ::KeyValue(KeyValueData* pkvd)
 
 #define SF_AUTO_FIREONCE 0x0001
 
-class CAutoTrigger : public CBaseDelay
+class CAutoTrigger: public CBaseDelay
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -193,7 +193,7 @@ void CAutoTrigger::Think(void)
 
 #define SF_RELAY_FIREONCE 0x0001
 
-class CTriggerRelay : public CBaseDelay
+class CTriggerRelay: public CBaseDelay
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -266,7 +266,7 @@ void CTriggerRelay::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE 
 #define SF_MULTIMAN_CLONE 0x80000000
 #define SF_MULTIMAN_THREAD 0x00000001
 
-class CMultiManager : public CBaseToggle
+class CMultiManager: public CBaseToggle
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -483,7 +483,7 @@ void CMultiManager ::ManagerReport(void)
 #define SF_RENDER_MASKMODE (1 << 2)
 #define SF_RENDER_MASKCOLOR (1 << 3)
 
-class CRenderFxManager : public CBaseEntity
+class CRenderFxManager: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -524,7 +524,7 @@ void CRenderFxManager ::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_T
 
 
 
-class CBaseTrigger : public CBaseToggle
+class CBaseTrigger: public CBaseToggle
 {
 public:
 	void EXPORT TeleportTouch(CBaseEntity* pOther);
@@ -588,7 +588,7 @@ void CBaseTrigger ::KeyValue(KeyValueData* pkvd)
 		CBaseToggle::KeyValue(pkvd);
 }
 
-class CTriggerHurt : public CBaseTrigger
+class CTriggerHurt: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -597,7 +597,7 @@ public:
 
 LINK_ENTITY_TO_CLASS(trigger_hurt, CTriggerHurt);
 
-class CTriggerEnvHurt : public CBaseTrigger
+class CTriggerEnvHurt: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -609,7 +609,7 @@ LINK_ENTITY_TO_CLASS(trigger_env_hurt, CTriggerEnvHurt);
 //
 // trigger_monsterjump
 //
-class CTriggerMonsterJump : public CBaseTrigger
+class CTriggerMonsterJump: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -673,7 +673,7 @@ void CTriggerMonsterJump ::Touch(CBaseEntity* pOther)
 //
 // trigger_cdaudio - starts/stops cd audio tracks
 //
-class CTriggerCDAudio : public CBaseTrigger
+class CTriggerCDAudio: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -751,7 +751,7 @@ void CTriggerCDAudio ::PlayTrack(void)
 
 
 // This plays a CD track when fired or when the player enters it's radius
-class CTargetCDAudio : public CPointEntity
+class CTargetCDAudio: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -1198,7 +1198,7 @@ sounds
 NEW
 if a trigger has a NETNAME, that NETNAME will become the TARGET of the triggered object.
 */
-class CTriggerMultiple : public CBaseTrigger
+class CTriggerMultiple: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -1247,7 +1247,7 @@ sounds
 3)      large switch
 4)
 */
-class CTriggerOnce : public CTriggerMultiple
+class CTriggerOnce: public CTriggerMultiple
 {
 public:
 	void Spawn(void);
@@ -1401,7 +1401,7 @@ If nomessage is not set, it will print "1 more.. " etc when triggered and
 "sequence complete" when finished.  After the counter has been triggered "cTriggersLeft"
 times (default 2), it will fire all of it's targets and remove itself.
 */
-class CTriggerCounter : public CBaseTrigger
+class CTriggerCounter: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -1421,7 +1421,7 @@ void CTriggerCounter ::Spawn(void)
 
 // ====================== TRIGGER_CHANGELEVEL ================================
 
-class CTriggerVolume : public CPointEntity // Derive from point entity so this doesn't move across levels
+class CTriggerVolume: public CPointEntity // Derive from point entity so this doesn't move across levels
 {
 public:
 	void Spawn(void);
@@ -1441,7 +1441,7 @@ void CTriggerVolume ::Spawn(void)
 
 
 // Fires a target after level transition and then dies
-class CFireAndDie : public CBaseDelay
+class CFireAndDie: public CBaseDelay
 {
 public:
 	void Spawn(void);
@@ -1473,7 +1473,7 @@ void CFireAndDie::Think(void)
 
 
 #define SF_CHANGELEVEL_USEONLY 0x0002
-class CChangeLevel : public CBaseTrigger
+class CChangeLevel: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -1889,7 +1889,7 @@ void NextLevel(void)
 
 // ============================== LADDER =======================================
 
-class CLadder : public CBaseTrigger
+class CLadder: public CBaseTrigger
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -1933,7 +1933,7 @@ void CLadder ::Spawn(void)
 
 // ========================== A TRIGGER THAT PUSHES YOU ===============================
 
-class CTriggerPush : public CBaseTrigger
+class CTriggerPush: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -2020,7 +2020,7 @@ void CTriggerPush ::Touch(CBaseEntity* pOther)
 //-----------------------------------------------------------------------------
 // Purpose: Teleport Death entity. Kills anything it touches
 //-----------------------------------------------------------------------------
-class CTeleDeath : public CBaseTrigger
+class CTeleDeath: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -2157,7 +2157,7 @@ void CBaseTrigger ::TeleportTouch(CBaseEntity* pOther)
 }
 
 
-class CTriggerTeleport : public CBaseTrigger
+class CTriggerTeleport: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -2183,7 +2183,7 @@ void CTriggerTeleport ::Spawn(void)
 }
 
 
-class CTriggerTeleportDest : public CBaseTrigger
+class CTriggerTeleportDest: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -2200,7 +2200,7 @@ void CTriggerTeleportDest ::Spawn(void)
 LINK_ENTITY_TO_CLASS(info_teleport_destination, CTriggerTeleportDest);
 
 //==========================================================================
-class CTriggerSave : public CBaseTrigger
+class CTriggerSave: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -2236,7 +2236,7 @@ void CTriggerSave::SaveTouch(CBaseEntity* pOther)
 
 #define SF_ENDSECTION_USEONLY 0x0001
 
-class CTriggerEndSection : public CBaseTrigger
+class CTriggerEndSection: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -2307,7 +2307,7 @@ void CTriggerEndSection ::KeyValue(KeyValueData* pkvd)
 }
 
 
-class CTriggerGravity : public CBaseTrigger
+class CTriggerGravity: public CBaseTrigger
 {
 public:
 	void Spawn(void);
@@ -2337,7 +2337,7 @@ void CTriggerGravity::GravityTouch(CBaseEntity* pOther)
 
 
 // this is a really bad idea.
-class CTriggerChangeTarget : public CBaseDelay
+class CTriggerChangeTarget: public CBaseDelay
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -2400,7 +2400,7 @@ void CTriggerChangeTarget::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, US
 #define SF_CAMERA_PLAYER_TARGET 2
 #define SF_CAMERA_PLAYER_TAKECONTROL 4
 
-class CTriggerCamera : public CBaseDelay
+class CTriggerCamera: public CBaseDelay
 {
 public:
 	void Spawn(void);

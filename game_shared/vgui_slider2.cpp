@@ -16,7 +16,7 @@ using namespace vgui;
 
 namespace
 {
-class FooDefaultSliderSignal : public InputSignal
+class FooDefaultSliderSignal: public InputSignal
 {
 private:
 	Slider2* _slider;
@@ -51,7 +51,7 @@ public:
 };
 }
 
-Slider2::Slider2(int x, int y, int wide, int tall, bool vertical) : Panel(x, y, wide, tall)
+Slider2::Slider2(int x, int y, int wide, int tall, bool vertical): Panel(x, y, wide, tall)
 {
 	_vertical = vertical;
 	_dragging = false;

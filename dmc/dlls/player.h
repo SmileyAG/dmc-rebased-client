@@ -90,7 +90,7 @@ enum sbar_data
 
 #define PLAYER_MAX_SPEED 300
 
-class CBasePlayer : public CBaseMonster
+class CBasePlayer: public CBaseMonster
 {
 public:
 	int random_seed; // See that is shared between client & server for shared weapons code

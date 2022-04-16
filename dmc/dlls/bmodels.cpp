@@ -50,7 +50,7 @@ Vector VecBModelOrigin(entvars_t* pevBModel)
 /*QUAKED func_wall (0 .5 .8) ?
 This is just a solid wall if not inhibited
 */
-class CFuncWall : public CBaseEntity
+class CFuncWall: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -83,7 +83,7 @@ void CFuncWall ::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE use
 
 #define SF_WALL_START_OFF 0x0001
 
-class CFuncWallToggle : public CFuncWall
+class CFuncWallToggle: public CFuncWall
 {
 public:
 	void Spawn(void);
@@ -144,7 +144,7 @@ void CFuncWallToggle ::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TY
 #define SF_CONVEYOR_VISUAL 0x0001
 #define SF_CONVEYOR_NOTSOLID 0x0002
 
-class CFuncConveyor : public CFuncWall
+class CFuncConveyor: public CFuncWall
 {
 public:
 	void Spawn(void);
@@ -205,7 +205,7 @@ void CFuncConveyor ::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE
 /*QUAKED func_illusionary (0 .5 .8) ?
 A simple entity that looks solid but lets you walk through it.
 */
-class CFuncIllusionary : public CBaseToggle
+class CFuncIllusionary: public CBaseToggle
 {
 public:
 	void Spawn(void);
@@ -252,7 +252,7 @@ void CFuncIllusionary ::Spawn(void)
 // specific monsters out of certain areas
 //
 // -------------------------------------------------------------------------------
-class CFuncMonsterClip : public CFuncWall
+class CFuncMonsterClip: public CFuncWall
 {
 public:
 	void Spawn(void);
@@ -271,7 +271,7 @@ void CFuncMonsterClip::Spawn(void)
 
 
 // =================== FUNC_ROTATING ==============================================
-class CFuncRotating : public CBaseEntity
+class CFuncRotating: public CBaseEntity
 {
 public:
 	// basic functions
@@ -724,7 +724,7 @@ void CFuncRotating ::Blocked(CBaseEntity* pOther)
 //#endif
 
 
-class CPendulum : public CBaseEntity
+class CPendulum: public CBaseEntity
 {
 public:
 	void Spawn(void);

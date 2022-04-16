@@ -26,7 +26,7 @@
 
 
 
-class CLight : public CPointEntity
+class CLight: public CPointEntity
 {
 public:
 	virtual void KeyValue(KeyValueData* pkvd);
@@ -136,7 +136,7 @@ void CLight ::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useTyp
 LINK_ENTITY_TO_CLASS(light_spot, CLight);
 
 
-class CEnvLight : public CLight
+class CEnvLight: public CLight
 {
 public:
 	void KeyValue(KeyValueData* pkvd);

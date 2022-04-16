@@ -124,7 +124,7 @@ struct HUDLIST
 //
 //-----------------------------------------------------
 //
-class CHudAmmo : public CHudBase
+class CHudAmmo: public CHudBase
 {
 public:
 	int Init(void);
@@ -175,7 +175,7 @@ private:
 //-----------------------------------------------------
 //
 
-class CHudAmmoSecondary : public CHudBase
+class CHudAmmoSecondary: public CHudBase
 {
 public:
 	int Init(void);
@@ -206,7 +206,7 @@ private:
 //
 //-----------------------------------------------------
 //
-class CHudGeiger : public CHudBase
+class CHudGeiger: public CHudBase
 {
 public:
 	int Init(void);
@@ -221,7 +221,7 @@ private:
 //
 //-----------------------------------------------------
 //
-class CHudTrain : public CHudBase
+class CHudTrain: public CHudBase
 {
 public:
 	int Init(void);
@@ -261,7 +261,7 @@ protected:
 //
 //-----------------------------------------------------
 //
-class CHudStatusBar : public CHudBase
+class CHudStatusBar: public CHudBase
 {
 public:
 	int Init(void);
@@ -339,7 +339,7 @@ public:
 //
 //-----------------------------------------------------
 //
-class CHudDeathNotice : public CHudBase
+class CHudDeathNotice: public CHudBase
 {
 public:
 	int Init(void);
@@ -357,7 +357,7 @@ private:
 //
 //-----------------------------------------------------
 //
-class CHudMenu : public CHudBase
+class CHudMenu: public CHudBase
 {
 public:
 	int Init(void);
@@ -378,7 +378,7 @@ public:
 //
 //-----------------------------------------------------
 //
-class CHudSayText : public CHudBase
+class CHudSayText: public CHudBase
 {
 public:
 	int Init(void);
@@ -396,7 +396,7 @@ public:
 //
 //-----------------------------------------------------
 //
-class CHudBattery : public CHudBase
+class CHudBattery: public CHudBase
 {
 public:
 	int Init(void);
@@ -440,7 +440,7 @@ struct message_parms_t
 //-----------------------------------------------------
 //
 
-class CHudTextMessage : public CHudBase
+class CHudTextMessage: public CHudBase
 {
 public:
 	int Init(void);
@@ -454,7 +454,7 @@ public:
 //-----------------------------------------------------
 //
 
-class CHudMessage : public CHudBase
+class CHudMessage: public CHudBase
 {
 public:
 	int Init(void);
@@ -490,7 +490,7 @@ private:
 //
 #define MAX_SPRITE_NAME_LENGTH 24
 
-class CHudStatusIcons : public CHudBase
+class CHudStatusIcons: public CHudBase
 {
 public:
 	int Init(void);

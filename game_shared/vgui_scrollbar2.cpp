@@ -20,7 +20,7 @@ using namespace vgui;
 
 namespace
 {
-class FooDefaultScrollBarIntChangeSignal : public IntChangeSignal
+class FooDefaultScrollBarIntChangeSignal: public IntChangeSignal
 {
 public:
 	FooDefaultScrollBarIntChangeSignal(ScrollBar2* scrollBar)
@@ -36,7 +36,7 @@ protected:
 	ScrollBar2* _scrollBar;
 };
 
-class FooDefaultButtonSignal : public ActionSignal
+class FooDefaultButtonSignal: public ActionSignal
 {
 public:
 	ScrollBar2* _scrollBar;
@@ -62,13 +62,13 @@ public:
 // Purpose: Default scrollbar button
 //			Draws in new scoreboard style
 //-----------------------------------------------------------------------------
-class ScrollBarButton : public Button
+class ScrollBarButton: public Button
 {
 private:
 	LineBorder m_Border;
 
 public:
-	ScrollBarButton(const char* filename, int x, int y, int wide, int tall) : m_Border(Color(60, 60, 60, 0)), Button("", x, y, wide, tall)
+	ScrollBarButton(const char* filename, int x, int y, int wide, int tall): m_Border(Color(60, 60, 60, 0)), Button("", x, y, wide, tall)
 	{
 		Image* image = vgui_LoadTGA(filename);
 		if (image)
@@ -102,7 +102,7 @@ public:
 //			tall -
 //			vertical -
 //-----------------------------------------------------------------------------
-ScrollBar2::ScrollBar2(int x, int y, int wide, int tall, bool vertical) : Panel(x, y, wide, tall)
+ScrollBar2::ScrollBar2(int x, int y, int wide, int tall, bool vertical): Panel(x, y, wide, tall)
 {
 	_slider = null;
 	_button[0] = null;

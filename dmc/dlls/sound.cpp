@@ -115,7 +115,7 @@ dynpitchvol_t rgdpvpreset[CDPVPRESETMAX] =
 		{26, 60, 60, 0, 0, 10, 1, 40, 70, 3, 80, 20, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{27, 128, 90, 10, 10, 10, 1, 20, 40, 1, 5, 10, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
-class CAmbientGeneric : public CBaseEntity
+class CAmbientGeneric: public CBaseEntity
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -831,7 +831,7 @@ void CAmbientGeneric ::KeyValue(KeyValueData* pkvd)
 
 // =================== ROOM SOUND FX ==========================================
 
-class CEnvSound : public CPointEntity
+class CEnvSound: public CPointEntity
 {
 public:
 	void KeyValue(KeyValueData* pkvd);
@@ -1845,7 +1845,7 @@ float TEXTURETYPE_PlaySound(TraceResult* ptr, Vector vecSrc, Vector vecEnd, int 
 // Speaker class. Used for announcements per level, for door lock/unlock spoken voice.
 //
 
-class CSpeaker : public CBaseEntity
+class CSpeaker: public CBaseEntity
 {
 public:
 	void KeyValue(KeyValueData* pkvd);

@@ -38,7 +38,7 @@
 
 #define SF_GLOBAL_SET 1 // Set global state to initial state on spawn
 
-class CEnvGlobal : public CPointEntity
+class CEnvGlobal: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -804,7 +804,7 @@ void CBaseButton::ButtonBackHome(void)
 //
 // Rotating button (aka "lever")
 //
-class CRotButton : public CBaseButton
+class CRotButton: public CBaseButton
 {
 public:
 	void Spawn(void);
@@ -877,7 +877,7 @@ void CRotButton::Spawn(void)
 // collision problems with them...
 #define SF_MOMENTARY_DOOR 0x0001
 
-class CMomentaryRotButton : public CBaseToggle
+class CMomentaryRotButton: public CBaseToggle
 {
 public:
 	void Spawn(void);
@@ -1121,7 +1121,7 @@ void CMomentaryRotButton::UpdateSelfReturn(float value)
 // Spark
 //----------------------------------------------------------------
 
-class CEnvSpark : public CBaseEntity
+class CEnvSpark: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -1227,7 +1227,7 @@ void EXPORT CEnvSpark::SparkStop(CBaseEntity* pActivator, CBaseEntity* pCaller, 
 #define SF_BTARGET_USE 0x0001
 #define SF_BTARGET_ON 0x0002
 
-class CButtonTarget : public CBaseEntity
+class CButtonTarget: public CBaseEntity
 {
 public:
 	void Spawn(void);

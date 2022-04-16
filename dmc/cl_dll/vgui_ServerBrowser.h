@@ -24,7 +24,7 @@ class CommandButton;
 #define SB_X_INDENT (20 * ((float)ScreenHeight / 640))
 #define SB_Y_INDENT (20 * ((float)ScreenHeight / 480))
 
-class ServerBrowser : public CTransparentPanel
+class ServerBrowser: public CTransparentPanel
 {
 private:
 	HeaderPanel* _headerPanel;

@@ -98,7 +98,7 @@ typedef struct
 //
 //-----------------------------------------------------
 //
-class CHudHealth : public CHudBase
+class CHudHealth: public CHudBase
 {
 public:
 	virtual int Init(void);

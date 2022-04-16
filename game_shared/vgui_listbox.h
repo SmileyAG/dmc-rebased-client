@@ -28,7 +28,7 @@ namespace vgui
 // - The scrollbar scrolls one element at a time and the range is correct.
 
 // Note: this listbox does not provide notification when items are
-class CListBox : public Panel
+class CListBox: public Panel
 {
 public:
 	CListBox();
@@ -74,7 +74,7 @@ protected:
 		LBItem *m_pPrev, *m_pNext;
 	};
 
-	class ListBoxSignal : public IntChangeSignal
+	class ListBoxSignal: public IntChangeSignal
 	{
 	public:
 		void intChanged(int value, Panel* panel)

@@ -42,7 +42,7 @@ void CPointEntity ::Spawn(void)
 }
 
 
-class CNullEntity : public CBaseEntity
+class CNullEntity: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -56,7 +56,7 @@ void CNullEntity ::Spawn(void)
 }
 LINK_ENTITY_TO_CLASS(info_null, CNullEntity);
 
-class CBaseDMStart : public CPointEntity
+class CBaseDMStart: public CPointEntity
 {
 public:
 	void KeyValue(KeyValueData* pkvd);

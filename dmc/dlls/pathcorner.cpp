@@ -22,7 +22,7 @@
 #include "trains.h"
 #include "saverestore.h"
 
-class CPathCorner : public CPointEntity
+class CPathCorner: public CPointEntity
 {
 public:
 	void Spawn();

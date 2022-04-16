@@ -141,7 +141,7 @@ enum
 //
 // A gib is a chunk of a body, or a piece of wood/metal/rocks/etc.
 //
-class CGib : public CBaseEntity
+class CGib: public CBaseEntity
 {
 public:
 	void Spawn(const char* szGibModel);

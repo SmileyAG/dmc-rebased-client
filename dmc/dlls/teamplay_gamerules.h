@@ -23,7 +23,7 @@
 
 #define TEAMPLAY_TEAMLISTLENGTH MAX_TEAMS* MAX_TEAMNAME_LENGTH
 
-class CHalfLifeTeamplay : public CHalfLifeMultiplay
+class CHalfLifeTeamplay: public CHalfLifeMultiplay
 {
 public:
 	CHalfLifeTeamplay();

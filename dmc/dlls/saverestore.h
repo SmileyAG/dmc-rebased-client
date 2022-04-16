@@ -44,10 +44,10 @@ protected:
 };
 
 
-class CSave : public CSaveRestoreBuffer
+class CSave: public CSaveRestoreBuffer
 {
 public:
-	CSave(SAVERESTOREDATA* pdata) : CSaveRestoreBuffer(pdata){};
+	CSave(SAVERESTOREDATA* pdata): CSaveRestoreBuffer(pdata){};
 
 	void WriteShort(const char* pname, const short* value, int count);
 	void WriteInt(const char* pname, const int* value, int count);				// Save an int
@@ -79,10 +79,10 @@ typedef struct
 	char* pData;
 } HEADER;
 
-class CRestore : public CSaveRestoreBuffer
+class CRestore: public CSaveRestoreBuffer
 {
 public:
-	CRestore(SAVERESTOREDATA* pdata) : CSaveRestoreBuffer(pdata)
+	CRestore(SAVERESTOREDATA* pdata): CSaveRestoreBuffer(pdata)
 	{
 		m_global = 0;
 		m_precache = TRUE;

@@ -101,7 +101,7 @@ BODY QUE
 
 #define SF_DECAL_NOTINDEATHMATCH 2048
 
-class CDecal : public CBaseEntity
+class CDecal: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -197,7 +197,7 @@ void CDecal ::KeyValue(KeyValueData* pkvd)
 
 
 // Body queue class here.... It's really just CBaseEntity
-class CCorpse : public CBaseEntity
+class CCorpse: public CBaseEntity
 {
 	virtual int ObjectCaps(void) { return FCAP_DONT_SAVE; }
 };

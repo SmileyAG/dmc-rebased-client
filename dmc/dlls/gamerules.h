@@ -166,7 +166,7 @@ extern CGameRules* InstallGameRules(void);
 // CHalfLifeRules - rules for the single player Half-Life
 // game.
 //=========================================================
-class CHalfLifeRules : public CGameRules
+class CHalfLifeRules: public CGameRules
 {
 public:
 	CHalfLifeRules(void);
@@ -255,7 +255,7 @@ public:
 // CHalfLifeMultiplay - rules for the basic half life multiplayer
 // competition
 //=========================================================
-class CHalfLifeMultiplay : public CGameRules
+class CHalfLifeMultiplay: public CGameRules
 {
 public:
 	CHalfLifeMultiplay();

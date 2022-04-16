@@ -100,7 +100,7 @@ extern edict_t* RuneSelectSpawnPoint(void);
 
 
 
-class CThreeWaveGameMgrHelper : public IVoiceGameMgrHelper
+class CThreeWaveGameMgrHelper: public IVoiceGameMgrHelper
 {
 public:
 	virtual bool CanPlayerHearPlayer(CBasePlayer* pPlayer1, CBasePlayer* pPlayer2)
@@ -2084,7 +2084,7 @@ void CItemFlag::Precache(void)
 	PRECACHE_SOUND("ctf/flagret.wav");
 }
 
-class CItemFlagTeam1 : public CItemFlag
+class CItemFlagTeam1: public CItemFlag
 {
 	void Spawn(void)
 	{
@@ -2093,7 +2093,7 @@ class CItemFlagTeam1 : public CItemFlag
 	}
 };
 
-class CItemFlagTeam2 : public CItemFlag
+class CItemFlagTeam2: public CItemFlag
 {
 	void Spawn(void)
 	{
@@ -2174,7 +2174,7 @@ void CCarriedFlag::FlagThink()
 	}
 }
 
-class CCarriedFlagTeam1 : public CCarriedFlag
+class CCarriedFlagTeam1: public CCarriedFlag
 {
 	void Spawn(void)
 	{
@@ -2184,7 +2184,7 @@ class CCarriedFlagTeam1 : public CCarriedFlag
 	}
 };
 
-class CCarriedFlagTeam2 : public CCarriedFlag
+class CCarriedFlagTeam2: public CCarriedFlag
 {
 	void Spawn(void)
 	{

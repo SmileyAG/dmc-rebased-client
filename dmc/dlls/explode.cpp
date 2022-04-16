@@ -26,7 +26,7 @@
 #include "explode.h"
 
 // Spark Shower
-class CShower : public CBaseEntity
+class CShower: public CBaseEntity
 {
 	void Spawn(void);
 	void Think(void);
@@ -81,7 +81,7 @@ void CShower::Touch(CBaseEntity* pOther)
 		pev->speed = 0;
 }
 
-class CEnvExplosion : public CBaseMonster
+class CEnvExplosion: public CBaseMonster
 {
 public:
 	void Spawn();

@@ -28,14 +28,14 @@
 namespace
 {
 
-class TexturePanel : public Panel, public ActionSignal
+class TexturePanel: public Panel, public ActionSignal
 {
 private:
 	int _bindIndex;
 	TextEntry* _textEntry;
 
 public:
-	TexturePanel() : Panel(0, 0, 256, 276)
+	TexturePanel(): Panel(0, 0, 256, 276)
 	{
 		_bindIndex = 2700;
 		_textEntry = new TextEntry("2700", 0, 0, 128, 20);

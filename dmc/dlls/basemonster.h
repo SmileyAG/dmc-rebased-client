@@ -19,7 +19,7 @@
 //
 // generic Monster
 //
-class CBaseMonster : public CBaseToggle
+class CBaseMonster: public CBaseToggle
 {
 private:
 	int m_afConditions;

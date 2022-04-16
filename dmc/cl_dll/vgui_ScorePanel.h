@@ -35,7 +35,7 @@
 
 using namespace vgui;
 
-class CTextImage2 : public Image
+class CTextImage2: public Image
 {
 public:
 	CTextImage2()
@@ -101,10 +101,10 @@ private:
 //-----------------------------------------------------------------------------
 // Purpose: Custom label for cells in the Scoreboard's Table Header
 //-----------------------------------------------------------------------------
-class CLabelHeader : public Label
+class CLabelHeader: public Label
 {
 public:
-	CLabelHeader() : Label("")
+	CLabelHeader(): Label("")
 	{
 		_dualImage = new CTextImage2();
 		_dualImage->setColor2(Color(255, 170, 0, 0));
@@ -227,11 +227,11 @@ class ScoreTablePanel;
 //-----------------------------------------------------------------------------
 // Purpose: Scoreboard back panel
 //-----------------------------------------------------------------------------
-class ScorePanel : public Panel, public vgui::CDefaultInputSignal
+class ScorePanel: public Panel, public vgui::CDefaultInputSignal
 {
 private:
 	// Default panel implementation doesn't forward mouse messages when there is no cursor and we need them.
-	class HitTestPanel : public Panel
+	class HitTestPanel: public Panel
 	{
 	public:
 		virtual void internalMousePressed(MouseCode code);

@@ -59,7 +59,7 @@ public:
 //-----------------------------------------------------------------------------
 // Purpose: Holds a color for the shared image
 //-----------------------------------------------------------------------------
-class VoiceImagePanel : public vgui::ImagePanel
+class VoiceImagePanel: public vgui::ImagePanel
 {
 	virtual void paintBackground()
 	{
@@ -74,7 +74,7 @@ class VoiceImagePanel : public vgui::ImagePanel
 };
 
 
-class CVoiceStatus : public CHudBase, public vgui::CDefaultInputSignal
+class CVoiceStatus: public CHudBase, public vgui::CDefaultInputSignal
 {
 public:
 	CVoiceStatus();

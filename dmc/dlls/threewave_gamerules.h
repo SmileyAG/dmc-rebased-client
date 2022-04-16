@@ -11,7 +11,7 @@
 //=========================================================
 // Flags
 //=========================================================
-class CItemFlag : public CBaseEntity
+class CItemFlag: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -30,7 +30,7 @@ private:
 	// BOOL MyTouch( CBasePlayer *pPlayer );
 };
 
-class CCarriedFlag : public CBaseEntity
+class CCarriedFlag: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -45,7 +45,7 @@ private:
 };
 
 
-class CResistRune : public CBaseEntity
+class CResistRune: public CBaseEntity
 {
 private:
 	void EXPORT RuneRespawn(void);
@@ -61,43 +61,7 @@ public:
 	bool dropped;
 };
 
-class CStrengthRune : public CBaseEntity
-{
-
-private:
-	void EXPORT RuneRespawn(void);
-
-public:
-	void EXPORT RuneTouch(CBaseEntity* pOther);
-	void Spawn(void);
-
-	void EXPORT MakeTouchable(void);
-
-	int m_iRuneFlag;
-	bool m_bTouchable;
-	bool dropped;
-};
-
-
-class CHasteRune : public CBaseEntity
-{
-
-private:
-	void EXPORT RuneRespawn(void);
-
-public:
-	void EXPORT RuneTouch(CBaseEntity* pOther);
-
-	void EXPORT MakeTouchable(void);
-	void Spawn(void);
-
-	int m_iRuneFlag;
-	bool m_bTouchable;
-	bool dropped;
-};
-
-
-class CRegenRune : public CBaseEntity
+class CStrengthRune: public CBaseEntity
 {
 
 private:
@@ -114,7 +78,43 @@ public:
 	bool dropped;
 };
 
-class CGrapple : public CBaseEntity
+
+class CHasteRune: public CBaseEntity
+{
+
+private:
+	void EXPORT RuneRespawn(void);
+
+public:
+	void EXPORT RuneTouch(CBaseEntity* pOther);
+
+	void EXPORT MakeTouchable(void);
+	void Spawn(void);
+
+	int m_iRuneFlag;
+	bool m_bTouchable;
+	bool dropped;
+};
+
+
+class CRegenRune: public CBaseEntity
+{
+
+private:
+	void EXPORT RuneRespawn(void);
+
+public:
+	void EXPORT RuneTouch(CBaseEntity* pOther);
+	void Spawn(void);
+
+	void EXPORT MakeTouchable(void);
+
+	int m_iRuneFlag;
+	bool m_bTouchable;
+	bool dropped;
+};
+
+class CGrapple: public CBaseEntity
 {
 public:
 	// Yes, I have no imagination so I use standard touch, spawn and think function names.
@@ -158,7 +158,7 @@ public:
 
 #define TEAMPLAY_TEAMLISTLENGTH MAX_TEAMS* MAX_TEAMNAME_LENGTH
 
-class CThreeWave : public CHalfLifeMultiplay
+class CThreeWave: public CHalfLifeMultiplay
 {
 public:
 	CThreeWave();

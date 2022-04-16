@@ -1470,7 +1470,7 @@ int CGraph ::RejectInlineLinks(CLink* pLinkPool, FILE* file)
 // TestHull is a modelless clip hull that verifies reachable
 // nodes by walking from every node to each of it's connections
 //=========================================================
-class CTestHull : public CBaseMonster
+class CTestHull: public CBaseMonster
 {
 
 public:
@@ -3538,7 +3538,7 @@ EnoughSaid:
 // to current location (typically the player).  It then draws
 // as many connects as it can per frame, trying not to overflow the buffer
 //=========================================================
-class CNodeViewer : public CBaseEntity
+class CNodeViewer: public CBaseEntity
 {
 public:
 	void Spawn(void);

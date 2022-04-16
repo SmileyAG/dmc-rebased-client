@@ -40,7 +40,7 @@ void* GetModuleHandle(const char* name)
 InterfaceReg* InterfaceReg::s_pInterfaceRegs = NULL;
 
 
-InterfaceReg::InterfaceReg(InstantiateInterfaceFn fn, const char* pName) : m_pName(pName)
+InterfaceReg::InterfaceReg(InstantiateInterfaceFn fn, const char* pName): m_pName(pName)
 {
 	m_CreateFn = fn;
 	m_pNext = s_pInterfaceRegs;

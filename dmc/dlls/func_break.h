@@ -37,7 +37,7 @@ typedef enum
 
 #define NUM_SHARDS 6 // this many shards spawned when breakable objects break;
 
-class CBreakable : public CBaseDelay
+class CBreakable: public CBaseDelay
 {
 public:
 	// basic functions

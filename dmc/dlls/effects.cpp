@@ -32,7 +32,7 @@
 LINK_ENTITY_TO_CLASS(info_target, CPointEntity);
 
 
-class CBubbling : public CBaseEntity
+class CBubbling: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -368,7 +368,7 @@ void CBeam::DoSparks(const Vector& start, const Vector& end)
 }
 
 
-class CLightning : public CBeam
+class CLightning: public CBeam
 {
 public:
 	void Spawn(void);
@@ -418,7 +418,7 @@ LINK_ENTITY_TO_CLASS(env_beam, CLightning);
 
 // UNDONE: Jay -- This is only a test
 #if _DEBUG
-class CTripBeam : public CLightning
+class CTripBeam: public CLightning
 {
 	void Spawn(void);
 };
@@ -1110,7 +1110,7 @@ void CLaser::StrikeThink(void)
 
 
 
-class CGlow : public CPointEntity
+class CGlow: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -1343,7 +1343,7 @@ void CSprite::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useTyp
 }
 
 
-class CGibShooter : public CBaseDelay
+class CGibShooter: public CBaseDelay
 {
 public:
 	void Spawn(void);
@@ -1524,7 +1524,7 @@ void CGibShooter ::ShootThink(void)
 }
 
 
-class CEnvShooter : public CGibShooter
+class CEnvShooter: public CGibShooter
 {
 	void Precache(void);
 	void KeyValue(KeyValueData* pkvd);
@@ -1611,7 +1611,7 @@ CGib* CEnvShooter ::CreateGib(void)
 
 
 
-class CTestEffect : public CBaseDelay
+class CTestEffect: public CBaseDelay
 {
 public:
 	void Spawn(void);
@@ -1717,7 +1717,7 @@ void CTestEffect::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE us
 
 
 // Blood effects
-class CBlood : public CPointEntity
+class CBlood: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -1833,7 +1833,7 @@ void CBlood::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType
 
 
 // Screen shake
-class CShake : public CPointEntity
+class CShake: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -1912,7 +1912,7 @@ void CShake::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType
 }
 
 
-class CFade : public CPointEntity
+class CFade: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -1987,7 +1987,7 @@ void CFade::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType,
 }
 
 
-class CMessage : public CPointEntity
+class CMessage: public CPointEntity
 {
 public:
 	void Spawn(void);
@@ -2095,7 +2095,7 @@ void CMessage::Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useTy
 //=========================================================
 // FunnelEffect
 //=========================================================
-class CEnvFunnel : public CBaseDelay
+class CEnvFunnel: public CBaseDelay
 {
 public:
 	void Spawn(void);
@@ -2149,7 +2149,7 @@ void CEnvFunnel::Spawn(void)
 // overloaded pev->frags, is now a flag for whether or not a can is stuck in the dispenser.
 // overloaded pev->health, is now how many cans remain in the machine.
 //=========================================================
-class CEnvBeverage : public CBaseDelay
+class CEnvBeverage: public CBaseDelay
 {
 public:
 	void Spawn(void);
@@ -2208,7 +2208,7 @@ void CEnvBeverage::Spawn(void)
 //=========================================================
 // Soda can
 //=========================================================
-class CItemSoda : public CBaseEntity
+class CItemSoda: public CBaseEntity
 {
 public:
 	void Spawn(void);

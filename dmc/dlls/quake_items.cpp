@@ -28,7 +28,7 @@
 
 extern unsigned short g_usPowerUp;
 
-class CQuakeItem : public CBaseEntity
+class CQuakeItem: public CBaseEntity
 {
 public:
 	void Spawn(void);
@@ -141,7 +141,7 @@ void CQuakeItem::ItemTouch(CBaseEntity* pOther)
 #define H_ROTTEN 1
 #define H_MEGA 2
 
-class CItemHealth : public CQuakeItem
+class CItemHealth: public CQuakeItem
 {
 public:
 	void Spawn(void);
@@ -284,7 +284,7 @@ void CItemHealth::MegahealthRot(void)
 //======================================================================================
 // ARMOR ITEMS
 //======================================================================================
-class CItemArmor : public CQuakeItem
+class CItemArmor: public CQuakeItem
 {
 public:
 	BOOL MyTouch(CBasePlayer* pPlayer);
@@ -320,7 +320,7 @@ BOOL CItemArmor::MyTouch(CBasePlayer* pPlayer)
 
 //===============
 // Green Armor
-class CItemArmorGreen : public CItemArmor
+class CItemArmorGreen: public CItemArmor
 {
 public:
 	void Spawn(void);
@@ -349,7 +349,7 @@ void CItemArmorGreen::Precache(void)
 
 //===============
 // Yellow Armor
-class CItemArmorYellow : public CItemArmor
+class CItemArmorYellow: public CItemArmor
 {
 public:
 	void Spawn(void);
@@ -378,7 +378,7 @@ void CItemArmorYellow::Precache(void)
 
 //===============
 // Red Armor
-class CItemArmorRed : public CItemArmor
+class CItemArmorRed: public CItemArmor
 {
 public:
 	void Spawn(void);
@@ -521,7 +521,7 @@ void CBasePlayer::Deathmatch_Weapon(int iOldWeapon, int iNewWeapon)
 
 //-----------------------------------------------
 // Base Quake Weapon object
-class CItemWeapon : public CQuakeItem
+class CItemWeapon: public CQuakeItem
 {
 public:
 	BOOL MyTouch(CBasePlayer* pPlayer);
@@ -596,7 +596,7 @@ BOOL CItemWeapon::MyTouch(CBasePlayer* pPlayer)
 
 //===============
 // Super Shotgun
-class CItemWeaponSuperShotgun : public CItemWeapon
+class CItemWeaponSuperShotgun: public CItemWeapon
 {
 public:
 	void Spawn(void);
@@ -629,7 +629,7 @@ void CItemWeaponSuperShotgun::Precache(void)
 
 //===============
 // Nailgun
-class CItemWeaponNailgun : public CItemWeapon
+class CItemWeaponNailgun: public CItemWeapon
 {
 public:
 	void Spawn(void);
@@ -662,7 +662,7 @@ void CItemWeaponNailgun::Precache(void)
 
 //===============
 // Super Nailgun
-class CItemWeaponSuperNailgun : public CItemWeapon
+class CItemWeaponSuperNailgun: public CItemWeapon
 {
 public:
 	void Spawn(void);
@@ -695,7 +695,7 @@ void CItemWeaponSuperNailgun::Precache(void)
 
 //===============
 // Grenade Launcher
-class CItemWeaponGrenadeLauncher : public CItemWeapon
+class CItemWeaponGrenadeLauncher: public CItemWeapon
 {
 public:
 	void Spawn(void);
@@ -728,7 +728,7 @@ void CItemWeaponGrenadeLauncher::Precache(void)
 
 //===============
 // Rocket Launcher
-class CItemWeaponRocketLauncher : public CItemWeapon
+class CItemWeaponRocketLauncher: public CItemWeapon
 {
 public:
 	void Spawn(void);
@@ -761,7 +761,7 @@ void CItemWeaponRocketLauncher::Precache(void)
 
 //===============
 // Lightning Gun
-class CItemWeaponLightning : public CItemWeapon
+class CItemWeaponLightning: public CItemWeapon
 {
 public:
 	void Spawn(void);
@@ -797,7 +797,7 @@ void CItemWeaponLightning::Precache(void)
 //======================================================================================
 #define BIG_AMMOBOX 1
 
-class CItemAmmo : public CQuakeItem
+class CItemAmmo: public CQuakeItem
 {
 public:
 	void Spawn(void);
@@ -887,7 +887,7 @@ BOOL CItemAmmo::MyTouch(CBasePlayer* pPlayer)
 
 //===============
 // Shells
-class CItemAmmoShells : public CItemAmmo
+class CItemAmmoShells: public CItemAmmo
 {
 public:
 	void Spawn(void);
@@ -913,7 +913,7 @@ void CItemAmmoShells::Spawn(void)
 
 //===============
 // Spikes
-class CItemAmmoSpikes : public CItemAmmo
+class CItemAmmoSpikes: public CItemAmmo
 {
 public:
 	void Spawn(void);
@@ -939,7 +939,7 @@ void CItemAmmoSpikes::Spawn(void)
 
 //===============
 // Rockets
-class CItemAmmoRockets : public CItemAmmo
+class CItemAmmoRockets: public CItemAmmo
 {
 public:
 	void Spawn(void);
@@ -965,7 +965,7 @@ void CItemAmmoRockets::Spawn(void)
 
 //===============
 // Cells
-class CItemAmmoCells : public CItemAmmo
+class CItemAmmoCells: public CItemAmmo
 {
 public:
 	void Spawn(void);
@@ -997,7 +997,7 @@ void CItemAmmoCells::Spawn(void)
 #define AW_SPIKES 4
 #define AW_BIG 8
 
-class CItemAmmoWeapon : public CItemAmmo
+class CItemAmmoWeapon: public CItemAmmo
 {
 public:
 	void Spawn(void);
@@ -1052,7 +1052,7 @@ void CItemAmmoWeapon::Spawn(void)
 //===============================================================================
 // POWERUPS
 //===============================================================================
-class CItemPowerup : public CQuakeItem
+class CItemPowerup: public CQuakeItem
 {
 public:
 	BOOL MyTouch(CBasePlayer* pPlayer);
@@ -1181,7 +1181,7 @@ BOOL CItemPowerup::MyTouch(CBasePlayer* pPlayer)
 
 //===============
 // Pentagram
-class CItemPowerupInvincible : public CItemPowerup
+class CItemPowerupInvincible: public CItemPowerup
 {
 public:
 	void Spawn(void);
@@ -1220,7 +1220,7 @@ void CItemPowerupInvincible::Precache(void)
 
 //===============
 // Radiation Suit
-class CItemPowerupRadsuit : public CItemPowerup
+class CItemPowerupRadsuit: public CItemPowerup
 {
 public:
 	void Spawn(void);
@@ -1253,7 +1253,7 @@ void CItemPowerupRadsuit::Precache(void)
 
 //===============
 // Ring of Invisibility
-class CItemPowerupInvisibility : public CItemPowerup
+class CItemPowerupInvisibility: public CItemPowerup
 {
 public:
 	void Spawn(void);
@@ -1294,7 +1294,7 @@ void CItemPowerupInvisibility::Precache(void)
 
 //===============
 // Quad Damage
-class CItemPowerupQuad : public CItemPowerup
+class CItemPowerupQuad: public CItemPowerup
 {
 public:
 	void Spawn(void);
@@ -1334,7 +1334,7 @@ void CItemPowerupQuad::Precache(void)
 //===============================================================================
 // PLAYER BACKPACKS
 //===============================================================================
-class CItemBackpack : public CQuakeItem
+class CItemBackpack: public CQuakeItem
 {
 public:
 	void Spawn(void);

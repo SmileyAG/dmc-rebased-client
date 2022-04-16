@@ -63,7 +63,7 @@ public:
 // the world spawns. The SoundEnt's job is to update the
 // world's Free and Active sound lists.
 //=========================================================
-class CSoundEnt : public CBaseEntity
+class CSoundEnt: public CBaseEntity
 {
 public:
 	void Precache(void);

@@ -453,7 +453,7 @@ void* TeamFortressViewport::operator new(size_t stAllocateBlock)
 //-----------------------------------------------------------------------------
 // Purpose: InputSignal handler for the main viewport
 //-----------------------------------------------------------------------------
-class CViewPortInputHandler : public InputSignal
+class CViewPortInputHandler: public InputSignal
 {
 public:
 	bool bPressed;
@@ -488,7 +488,7 @@ public:
 
 
 //================================================================
-TeamFortressViewport::TeamFortressViewport(int x, int y, int wide, int tall) : Panel(x, y, wide, tall), m_SchemeManager(wide, tall)
+TeamFortressViewport::TeamFortressViewport(int x, int y, int wide, int tall): Panel(x, y, wide, tall), m_SchemeManager(wide, tall)
 {
 	gViewPort = this;
 	m_iInitialized = false;

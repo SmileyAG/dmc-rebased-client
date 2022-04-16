@@ -777,7 +777,7 @@ int CBreakable ::DamageDecal(int bitsDamageType)
 }
 
 
-class CPushable : public CBreakable
+class CPushable: public CBreakable
 {
 public:
 	void Spawn(void);
