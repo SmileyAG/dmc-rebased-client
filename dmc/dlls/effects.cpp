@@ -1382,7 +1382,7 @@ IMPLEMENT_SAVERESTORE(CGibShooter, CBaseDelay);
 LINK_ENTITY_TO_CLASS(gibshooter, CGibShooter);
 
 
-void CGibShooter ::Precache(void)
+void CGibShooter::Precache(void)
 {
 	if (g_Language == LANGUAGE_GERMAN)
 	{
@@ -1451,7 +1451,7 @@ void CGibShooter::Spawn(void)
 }
 
 
-CGib* CGibShooter ::CreateGib(void)
+CGib* CGibShooter::CreateGib(void)
 {
 	if (CVAR_GET_FLOAT("violence_hgibs") == 0)
 		return NULL;
@@ -1471,7 +1471,7 @@ CGib* CGibShooter ::CreateGib(void)
 }
 
 
-void CGibShooter ::ShootThink(void)
+void CGibShooter::ShootThink(void)
 {
 	pev->nextthink = gpGlobals->time + m_flDelay;
 
@@ -1534,7 +1534,7 @@ class CEnvShooter: public CGibShooter
 
 LINK_ENTITY_TO_CLASS(env_shooter, CEnvShooter);
 
-void CEnvShooter ::KeyValue(KeyValueData* pkvd)
+void CEnvShooter::KeyValue(KeyValueData* pkvd)
 {
 	if (FStrEq(pkvd->szKeyName, "shootmodel"))
 	{
@@ -1576,14 +1576,14 @@ void CEnvShooter ::KeyValue(KeyValueData* pkvd)
 }
 
 
-void CEnvShooter ::Precache(void)
+void CEnvShooter::Precache(void)
 {
 	m_iGibModelIndex = PRECACHE_MODEL((char*)STRING(pev->model));
 	CBreakable::MaterialSoundPrecache((Materials)m_iGibMaterial);
 }
 
 
-CGib* CEnvShooter ::CreateGib(void)
+CGib* CEnvShooter::CreateGib(void)
 {
 	CGib* pGib = GetClassPtr((CGib*)NULL);
 
@@ -2105,7 +2105,7 @@ public:
 	int m_iSprite; // Don't save, precache
 };
 
-void CEnvFunnel ::Precache(void)
+void CEnvFunnel::Precache(void)
 {
 	m_iSprite = PRECACHE_MODEL("sprites/flare6.spr");
 }
@@ -2157,7 +2157,7 @@ public:
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
 };
 
-void CEnvBeverage ::Precache(void)
+void CEnvBeverage::Precache(void)
 {
 	PRECACHE_MODEL("models/can.mdl");
 	PRECACHE_SOUND("weapons/g_bounce3.wav");
@@ -2217,7 +2217,7 @@ public:
 	void EXPORT CanTouch(CBaseEntity* pOther);
 };
 
-void CItemSoda ::Precache(void)
+void CItemSoda::Precache(void)
 {
 }
 

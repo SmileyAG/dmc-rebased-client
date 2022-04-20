@@ -37,7 +37,7 @@ WeaponsResource gWR;
 
 int g_weaponselect = 0;
 
-void WeaponsResource ::LoadAllWeaponSprites(void)
+void WeaponsResource::LoadAllWeaponSprites(void)
 {
 	for (int i = 0; i < MAX_WEAPONS; i++)
 	{
@@ -46,7 +46,7 @@ void WeaponsResource ::LoadAllWeaponSprites(void)
 	}
 }
 
-int WeaponsResource ::CountAmmo(int iId)
+int WeaponsResource::CountAmmo(int iId)
 {
 	if (iId < 0)
 		return 0;
@@ -58,7 +58,7 @@ int WeaponsResource ::CountAmmo(int iId)
 	return riAmmo[iId];
 }
 
-int WeaponsResource ::HasAmmo(WEAPON* p)
+int WeaponsResource::HasAmmo(WEAPON* p)
 {
 	if (!p)
 		return FALSE;
@@ -71,7 +71,7 @@ int WeaponsResource ::HasAmmo(WEAPON* p)
 }
 
 
-void WeaponsResource ::LoadWeaponSprites(WEAPON* pWeapon)
+void WeaponsResource::LoadWeaponSprites(WEAPON* pWeapon)
 {
 	int i, iRes;
 
@@ -196,7 +196,7 @@ void WeaponsResource ::LoadWeaponSprites(WEAPON* pWeapon)
 }
 
 // Returns the first weapon for a given slot.
-WEAPON* WeaponsResource ::GetFirstPos(int iSlot)
+WEAPON* WeaponsResource::GetFirstPos(int iSlot)
 {
 	WEAPON* pret = NULL;
 
@@ -213,7 +213,7 @@ WEAPON* WeaponsResource ::GetFirstPos(int iSlot)
 }
 
 
-WEAPON* WeaponsResource ::GetNextActivePos(int iSlot, int iSlotPos)
+WEAPON* WeaponsResource::GetNextActivePos(int iSlot, int iSlotPos)
 {
 	if (iSlotPos >= MAX_WEAPON_POSITIONS || iSlot >= MAX_WEAPON_SLOTS)
 		return NULL;
@@ -392,7 +392,7 @@ void CHudAmmo::Think(void)
 // Helper function to return a Ammo pointer from id
 //
 
-HSPRITE* WeaponsResource ::GetAmmoPicFromWeapon(int iAmmoId, wrect_t& rect)
+HSPRITE* WeaponsResource::GetAmmoPicFromWeapon(int iAmmoId, wrect_t& rect)
 {
 	for (int i = 0; i < MAX_WEAPONS; i++)
 	{
@@ -411,7 +411,7 @@ HSPRITE* WeaponsResource ::GetAmmoPicFromWeapon(int iAmmoId, wrect_t& rect)
 	return NULL;
 }
 
-void WeaponsResource ::SelectSlot(int iSlot, int fAdvance, int iDirection)
+void WeaponsResource::SelectSlot(int iSlot, int fAdvance, int iDirection)
 {
 	if (gHUD.m_Menu.m_fMenuDisplayed && (fAdvance == FALSE) && (iDirection == 1))
 	{ // menu is overriding slot use commands

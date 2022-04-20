@@ -459,7 +459,7 @@ void CHudServers::QueryThink(void)
 		}
 
 		// Start up query on this one
-		NET_API->SendRequest(context_id++, NETAPI_REQUEST_DETAILS, 0, 2.0, &p->remote_address, ::ServerResponse);
+		NET_API->SendRequest(context_id++, NETAPI_REQUEST_DETAILS, 0, 2.0, &p->remote_address,::ServerResponse);
 
 		// Increment active list
 		m_nActiveQueries++;
@@ -930,7 +930,7 @@ void CHudServers::RequestList(void)
 	NET_API->CancelAllRequests();
 
 	// Request Server List from master
-	NET_API->SendRequest(context_id++, NETAPI_REQUEST_SERVERLIST, 0, 5.0, &adr, ::ListResponse);
+	NET_API->SendRequest(context_id++, NETAPI_REQUEST_SERVERLIST, 0, 5.0, &adr,::ListResponse);
 }
 
 void CHudServers::RequestBroadcastList(int clearpending)
@@ -966,12 +966,12 @@ void CHudServers::RequestBroadcastList(int clearpending)
 	adr.type = NA_BROADCAST;
 
 	// Request Servers from LAN via IP
-	NET_API->SendRequest(context_id++, NETAPI_REQUEST_DETAILS, FNETAPI_MULTIPLE_RESPONSE, 5.0, &adr, ::ServerResponse);
+	NET_API->SendRequest(context_id++, NETAPI_REQUEST_DETAILS, FNETAPI_MULTIPLE_RESPONSE, 5.0, &adr,::ServerResponse);
 
 	adr.type = NA_BROADCAST_IPX;
 
 	// Request Servers from LAN via IPX ( if supported )
-	NET_API->SendRequest(context_id++, NETAPI_REQUEST_DETAILS, FNETAPI_MULTIPLE_RESPONSE, 5.0, &adr, ::ServerResponse);
+	NET_API->SendRequest(context_id++, NETAPI_REQUEST_DETAILS, FNETAPI_MULTIPLE_RESPONSE, 5.0, &adr,::ServerResponse);
 }
 
 void CHudServers::ServerPing(int server)
@@ -986,7 +986,7 @@ void CHudServers::ServerPing(int server)
 	NET_API->InitNetworking();
 
 	// Request Server List from master
-	NET_API->SendRequest(context_id++, NETAPI_REQUEST_PING, 0, 5.0, &p->remote_address, ::PingResponse);
+	NET_API->SendRequest(context_id++, NETAPI_REQUEST_PING, 0, 5.0, &p->remote_address,::PingResponse);
 }
 
 void CHudServers::ServerRules(int server)
@@ -1001,7 +1001,7 @@ void CHudServers::ServerRules(int server)
 	NET_API->InitNetworking();
 
 	// Request Server List from master
-	NET_API->SendRequest(context_id++, NETAPI_REQUEST_RULES, 0, 5.0, &p->remote_address, ::RulesResponse);
+	NET_API->SendRequest(context_id++, NETAPI_REQUEST_RULES, 0, 5.0, &p->remote_address,::RulesResponse);
 }
 
 void CHudServers::ServerPlayers(int server)
@@ -1016,7 +1016,7 @@ void CHudServers::ServerPlayers(int server)
 	NET_API->InitNetworking();
 
 	// Request Server List from master
-	NET_API->SendRequest(context_id++, NETAPI_REQUEST_PLAYERS, 0, 5.0, &p->remote_address, ::PlayersResponse);
+	NET_API->SendRequest(context_id++, NETAPI_REQUEST_PLAYERS, 0, 5.0, &p->remote_address,::PlayersResponse);
 }
 
 int CHudServers::isQuerying()

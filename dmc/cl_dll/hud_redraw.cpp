@@ -56,7 +56,7 @@ void CHud::Think(void)
 // Redraw
 // step through the local data,  placing the appropriate graphics & text as appropriate
 // returns 1 if they've changed, 0 otherwise
-int CHud ::Redraw(float flTime, int intermission)
+int CHud::Redraw(float flTime, int intermission)
 {
 	m_fOldTime = m_flTime; // save time of previous redraw
 	m_flTime = flTime;
@@ -186,7 +186,7 @@ int CHud::DrawHudNumberString(int xpos, int ypos, int iMinX, int iNumber, int r,
 	return DrawHudStringReverse(xpos, ypos, iMinX, szString, r, g, b);
 }
 
-int CHud ::DrawHudNumberStringFixed(int xpos, int ypos, int iNumber, int r, int g, int b)
+int CHud::DrawHudNumberStringFixed(int xpos, int ypos, int iNumber, int r, int g, int b)
 {
 	GetHudColorsWithAlpha(r, g, b);
 	char szString[32];
@@ -201,7 +201,7 @@ int CHud::DrawHudStringReverse(int xpos, int ypos, int iMinX, const char* szStri
 	return xpos - gEngfuncs.pfnDrawStringReverse(xpos, ypos, szString, r, g, b);
 }
 
-void CHud ::GetHudColorsWithAlpha(int& r, int& g, int& b, int a)
+void CHud::GetHudColorsWithAlpha(int& r, int& g, int& b, int a)
 {
 	// scales the colors by a, only if hud_alpha is a non-empty and is an integer
 	// if a is not given, defaults to 255
@@ -222,7 +222,7 @@ int CHud::DrawHudString(int xpos, int ypos, int iMaxX, const char* szIt, int r, 
 	return xpos + gEngfuncs.pfnDrawString(xpos, ypos, szIt, r, g, b);
 }
 
-int CHud ::DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b)
+int CHud::DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b)
 {
 	int iWidth = GetSpriteRect(m_HUD_number_0).right - GetSpriteRect(m_HUD_number_0).left;
 	int k;
@@ -337,7 +337,7 @@ int ReturnStringPixelLength ( char *Hihi )
 Returns a integer representing the length of the string passed
 ===========================
 */
-int CHud ::ReturnStringPixelLength(char* Hihi)
+int CHud::ReturnStringPixelLength(char* Hihi)
 {
 	int iNameLength = 0;
 
@@ -351,7 +351,7 @@ int CHud ::ReturnStringPixelLength(char* Hihi)
 
 int LastColor;
 
-int CHud ::DrawHudStringCTF(int xpos, int ypos, int iMaxX, char* szIt, int r, int g, int b)
+int CHud::DrawHudStringCTF(int xpos, int ypos, int iMaxX, char* szIt, int r, int g, int b)
 {
 	int WantColor = 0;
 	int Color = 0;

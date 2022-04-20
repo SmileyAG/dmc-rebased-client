@@ -27,13 +27,13 @@
 
 extern CGraph WorldGraph;
 
-BOOL CBaseMonster ::FHaveSchedule(void) { return FALSE; };
-void CBaseMonster ::ClearSchedule(void){};
-BOOL CBaseMonster ::FScheduleDone(void) { return FALSE; };
-void CBaseMonster ::ChangeSchedule(Schedule_t* pNewSchedule){};
-void CBaseMonster ::NextScheduledTask(void){};
-int CBaseMonster ::IScheduleFlags(void) { return 0; };
-BOOL CBaseMonster ::FScheduleValid(void) { return FALSE; };
-void CBaseMonster ::MaintainSchedule(void){};
-void CBaseMonster ::SetTurnActivity(void){};
-Task_t* CBaseMonster ::GetTask(void) { return NULL; };
+BOOL CBaseMonster::FHaveSchedule(void) { return FALSE; };
+void CBaseMonster::ClearSchedule(void){};
+BOOL CBaseMonster::FScheduleDone(void) { return FALSE; };
+void CBaseMonster::ChangeSchedule(Schedule_t* pNewSchedule){};
+void CBaseMonster::NextScheduledTask(void){};
+int CBaseMonster::IScheduleFlags(void) { return 0; };
+BOOL CBaseMonster::FScheduleValid(void) { return FALSE; };
+void CBaseMonster::MaintainSchedule(void){};
+void CBaseMonster::SetTurnActivity(void){};
+Task_t* CBaseMonster::GetTask(void) { return NULL; };

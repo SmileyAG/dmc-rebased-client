@@ -50,7 +50,7 @@ public:
 // Purpose: Spawn and drop to the floor
 //-----------------------------------------------------------------------------
 
-void CQuakeItem ::SetObjectCollisionBox(void)
+void CQuakeItem::SetObjectCollisionBox(void)
 {
 	pev->absmin = pev->origin + Vector(-32, -32, 0);
 	pev->absmax = pev->origin + Vector(32, 32, 56);
@@ -1351,7 +1351,7 @@ public:
 };
 LINK_ENTITY_TO_CLASS(item_backpack, CItemBackpack);
 
-void CItemBackpack ::SetObjectCollisionBox(void)
+void CItemBackpack::SetObjectCollisionBox(void)
 {
 	pev->absmin = pev->origin + Vector(-32, -32, 0);
 	pev->absmax = pev->origin + Vector(32, 32, 56);

@@ -213,10 +213,10 @@ public:
 	virtual CBaseEntity* GetNextTarget(void);
 
 	// fundamental callbacks
-	void (CBaseEntity ::*m_pfnThink)(void);
-	void (CBaseEntity ::*m_pfnTouch)(CBaseEntity* pOther);
-	void (CBaseEntity ::*m_pfnUse)(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
-	void (CBaseEntity ::*m_pfnBlocked)(CBaseEntity* pOther);
+	void (CBaseEntity::*m_pfnThink)(void);
+	void (CBaseEntity::*m_pfnTouch)(CBaseEntity* pOther);
+	void (CBaseEntity::*m_pfnUse)(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
+	void (CBaseEntity::*m_pfnBlocked)(CBaseEntity* pOther);
 
 	virtual void Think(void)
 	{
@@ -396,7 +396,7 @@ class CPointEntity: public CBaseEntity
 {
 public:
 	void Spawn(void);
-	virtual int ObjectCaps(void) { return CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int ObjectCaps(void) { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 private:
 };

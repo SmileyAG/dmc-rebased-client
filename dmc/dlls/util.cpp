@@ -1833,23 +1833,23 @@ static int gSizes[FIELD_TYPECOUNT] =
 
 
 // Base class includes common SAVERESTOREDATA pointer, and manages the entity table
-CSaveRestoreBuffer ::CSaveRestoreBuffer(void)
+CSaveRestoreBuffer::CSaveRestoreBuffer(void)
 {
 	m_pdata = NULL;
 }
 
 
-CSaveRestoreBuffer ::CSaveRestoreBuffer(SAVERESTOREDATA* pdata)
+CSaveRestoreBuffer::CSaveRestoreBuffer(SAVERESTOREDATA* pdata)
 {
 	m_pdata = pdata;
 }
 
 
-CSaveRestoreBuffer ::~CSaveRestoreBuffer(void)
+CSaveRestoreBuffer::~CSaveRestoreBuffer(void)
 {
 }
 
-int CSaveRestoreBuffer ::EntityIndex(CBaseEntity* pEntity)
+int CSaveRestoreBuffer::EntityIndex(CBaseEntity* pEntity)
 {
 	if (pEntity == NULL)
 		return -1;
@@ -1857,20 +1857,20 @@ int CSaveRestoreBuffer ::EntityIndex(CBaseEntity* pEntity)
 }
 
 
-int CSaveRestoreBuffer ::EntityIndex(entvars_t* pevLookup)
+int CSaveRestoreBuffer::EntityIndex(entvars_t* pevLookup)
 {
 	if (pevLookup == NULL)
 		return -1;
 	return EntityIndex(ENT(pevLookup));
 }
 
-int CSaveRestoreBuffer ::EntityIndex(EOFFSET eoLookup)
+int CSaveRestoreBuffer::EntityIndex(EOFFSET eoLookup)
 {
 	return EntityIndex(ENT(eoLookup));
 }
 
 
-int CSaveRestoreBuffer ::EntityIndex(edict_t* pentLookup)
+int CSaveRestoreBuffer::EntityIndex(edict_t* pentLookup)
 {
 	if (!m_pdata || pentLookup == NULL)
 		return -1;
@@ -1888,7 +1888,7 @@ int CSaveRestoreBuffer ::EntityIndex(edict_t* pentLookup)
 }
 
 
-edict_t* CSaveRestoreBuffer ::EntityFromIndex(int entityIndex)
+edict_t* CSaveRestoreBuffer::EntityFromIndex(int entityIndex)
 {
 	if (!m_pdata || entityIndex < 0)
 		return NULL;
@@ -1906,7 +1906,7 @@ edict_t* CSaveRestoreBuffer ::EntityFromIndex(int entityIndex)
 }
 
 
-int CSaveRestoreBuffer ::EntityFlagsSet(int entityIndex, int flags)
+int CSaveRestoreBuffer::EntityFlagsSet(int entityIndex, int flags)
 {
 	if (!m_pdata || entityIndex < 0)
 		return 0;
@@ -1919,7 +1919,7 @@ int CSaveRestoreBuffer ::EntityFlagsSet(int entityIndex, int flags)
 }
 
 
-void CSaveRestoreBuffer ::BufferRewind(int size)
+void CSaveRestoreBuffer::BufferRewind(int size)
 {
 	if (!m_pdata)
 		return;
@@ -1954,7 +1954,7 @@ unsigned _rotr(unsigned val, int shift)
 }
 #endif
 
-unsigned int CSaveRestoreBuffer ::HashString(const char* pszToken)
+unsigned int CSaveRestoreBuffer::HashString(const char* pszToken)
 {
 	unsigned int hash = 0;
 
@@ -1964,7 +1964,7 @@ unsigned int CSaveRestoreBuffer ::HashString(const char* pszToken)
 	return hash;
 }
 
-unsigned short CSaveRestoreBuffer ::TokenHash(const char* pszToken)
+unsigned short CSaveRestoreBuffer::TokenHash(const char* pszToken)
 {
 	unsigned short hash = (unsigned short)(HashString(pszToken) % (unsigned)m_pdata->tokenCount);
 
@@ -1982,7 +1982,7 @@ unsigned short CSaveRestoreBuffer ::TokenHash(const char* pszToken)
 		if (i > 50 && !beentheredonethat)
 		{
 			beentheredonethat = TRUE;
-			ALERT(at_error, "CSaveRestoreBuffer :: TokenHash() is getting too full!");
+			ALERT(at_error, "CSaveRestoreBuffer:: TokenHash() is getting too full!");
 		}
 #endif
 
@@ -1999,35 +1999,35 @@ unsigned short CSaveRestoreBuffer ::TokenHash(const char* pszToken)
 
 	// Token hash table full!!!
 	// [Consider doing overflow table(s) after the main table & limiting linear hash table search]
-	ALERT(at_error, "CSaveRestoreBuffer :: TokenHash() is COMPLETELY FULL!");
+	ALERT(at_error, "CSaveRestoreBuffer:: TokenHash() is COMPLETELY FULL!");
 	return 0;
 }
 
-void CSave ::WriteData(const char* pname, int size, const char* pdata)
+void CSave::WriteData(const char* pname, int size, const char* pdata)
 {
 	BufferField(pname, size, pdata);
 }
 
 
-void CSave ::WriteShort(const char* pname, const short* data, int count)
+void CSave::WriteShort(const char* pname, const short* data, int count)
 {
 	BufferField(pname, sizeof(short) * count, (const char*)data);
 }
 
 
-void CSave ::WriteInt(const char* pname, const int* data, int count)
+void CSave::WriteInt(const char* pname, const int* data, int count)
 {
 	BufferField(pname, sizeof(int) * count, (const char*)data);
 }
 
 
-void CSave ::WriteFloat(const char* pname, const float* data, int count)
+void CSave::WriteFloat(const char* pname, const float* data, int count)
 {
 	BufferField(pname, sizeof(float) * count, (const char*)data);
 }
 
 
-void CSave ::WriteTime(const char* pname, const float* data, int count)
+void CSave::WriteTime(const char* pname, const float* data, int count)
 {
 	int i;
 	Vector tmp, input;
@@ -2048,7 +2048,7 @@ void CSave ::WriteTime(const char* pname, const float* data, int count)
 }
 
 
-void CSave ::WriteString(const char* pname, const char* pdata)
+void CSave::WriteString(const char* pname, const char* pdata)
 {
 #ifdef TOKENIZE
 	short token = (short)TokenHash(pdata);
@@ -2059,7 +2059,7 @@ void CSave ::WriteString(const char* pname, const char* pdata)
 }
 
 
-void CSave ::WriteString(const char* pname, const int* stringId, int count)
+void CSave::WriteString(const char* pname, const int* stringId, int count)
 {
 	int i, size;
 
@@ -2087,13 +2087,13 @@ void CSave ::WriteString(const char* pname, const int* stringId, int count)
 }
 
 
-void CSave ::WriteVector(const char* pname, const Vector& value)
+void CSave::WriteVector(const char* pname, const Vector& value)
 {
 	WriteVector(pname, &value.x, 1);
 }
 
 
-void CSave ::WriteVector(const char* pname, const float* value, int count)
+void CSave::WriteVector(const char* pname, const float* value, int count)
 {
 	BufferHeader(pname, sizeof(float) * 3 * count);
 	BufferData((const char*)value, sizeof(float) * 3 * count);
@@ -2101,7 +2101,7 @@ void CSave ::WriteVector(const char* pname, const float* value, int count)
 
 
 
-void CSave ::WritePositionVector(const char* pname, const Vector& value)
+void CSave::WritePositionVector(const char* pname, const Vector& value)
 {
 
 	if (m_pdata && m_pdata->fUseLandmark)
@@ -2114,7 +2114,7 @@ void CSave ::WritePositionVector(const char* pname, const Vector& value)
 }
 
 
-void CSave ::WritePositionVector(const char* pname, const float* value, int count)
+void CSave::WritePositionVector(const char* pname, const float* value, int count)
 {
 	int i;
 	Vector tmp, input;
@@ -2133,7 +2133,7 @@ void CSave ::WritePositionVector(const char* pname, const float* value, int coun
 }
 
 
-void CSave ::WriteFunction(const char* pname, void** data, int count)
+void CSave::WriteFunction(const char* pname, void** data, int count)
 {
 	const char* functionName;
 
@@ -2195,14 +2195,14 @@ void EntvarsKeyvalue(entvars_t* pev, KeyValueData* pkvd)
 
 
 
-int CSave ::WriteEntVars(const char* pname, entvars_t* pev)
+int CSave::WriteEntVars(const char* pname, entvars_t* pev)
 {
 	return WriteFields(pname, pev, gEntvarsDescription, ENTVARS_COUNT);
 }
 
 
 
-int CSave ::WriteFields(const char* pname, void* pBaseData, TYPEDESCRIPTION* pFields, int fieldCount)
+int CSave::WriteFields(const char* pname, void* pBaseData, TYPEDESCRIPTION* pFields, int fieldCount)
 {
 	int i, j, actualCount, emptyCount;
 	TYPEDESCRIPTION* pTest;
@@ -2312,7 +2312,7 @@ int CSave ::WriteFields(const char* pname, void* pBaseData, TYPEDESCRIPTION* pFi
 }
 
 
-void CSave ::BufferString(char* pdata, int len)
+void CSave::BufferString(char* pdata, int len)
 {
 	char c = 0;
 
@@ -2321,7 +2321,7 @@ void CSave ::BufferString(char* pdata, int len)
 }
 
 
-int CSave ::DataEmpty(const char* pdata, int size)
+int CSave::DataEmpty(const char* pdata, int size)
 {
 	for (int i = 0; i < size; i++)
 	{
@@ -2332,24 +2332,24 @@ int CSave ::DataEmpty(const char* pdata, int size)
 }
 
 
-void CSave ::BufferField(const char* pname, int size, const char* pdata)
+void CSave::BufferField(const char* pname, int size, const char* pdata)
 {
 	BufferHeader(pname, size);
 	BufferData(pdata, size);
 }
 
 
-void CSave ::BufferHeader(const char* pname, int size)
+void CSave::BufferHeader(const char* pname, int size)
 {
 	short hashvalue = TokenHash(pname);
 	if (size > 1 << (sizeof(short) * 8))
-		ALERT(at_error, "CSave :: BufferHeader() size parameter exceeds 'short'!");
+		ALERT(at_error, "CSave:: BufferHeader() size parameter exceeds 'short'!");
 	BufferData((const char*)&size, sizeof(short));
 	BufferData((const char*)&hashvalue, sizeof(short));
 }
 
 
-void CSave ::BufferData(const char* pdata, int size)
+void CSave::BufferData(const char* pdata, int size)
 {
 	if (!m_pdata)
 		return;

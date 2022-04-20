@@ -121,7 +121,7 @@ CQuakeNail* CQuakeNail::CreateNail(Vector vecOrigin, Vector vecAngles, CBaseEnti
 	return NULL;
 }
 
-void CBasePlayer ::Precache(void)
+void CBasePlayer::Precache(void)
 {
 	m_usShotgunSingle = PRECACHE_EVENT(1, "events/shotgun1.sc");
 	m_usShotgunDouble = PRECACHE_EVENT(1, "events/shotgun2.sc");
@@ -136,22 +136,22 @@ void CBasePlayer ::Precache(void)
 
 /*
 =====================
-CBaseEntity :: Killed
+CBaseEntity:: Killed
 
 If weapons code "kills" an entity, just set its effects to EF_NODRAW
 =====================
 */
-void CBaseEntity ::Killed(entvars_t* pevAttacker, int iGib)
+void CBaseEntity::Killed(entvars_t* pevAttacker, int iGib)
 {
 	pev->effects |= EF_NODRAW;
 }
 
 /*
 =====================
-CBasePlayerWeapon :: DefaultReload
+CBasePlayerWeapon:: DefaultReload
 =====================
 */
-BOOL CBasePlayerWeapon ::DefaultReload(int iClipSize, int iAnim, float fDelay)
+BOOL CBasePlayerWeapon::DefaultReload(int iClipSize, int iAnim, float fDelay)
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + fDelay;
 
@@ -166,10 +166,10 @@ BOOL CBasePlayerWeapon ::DefaultReload(int iClipSize, int iAnim, float fDelay)
 
 /*
 =====================
-CBasePlayerWeapon :: CanDeploy
+CBasePlayerWeapon:: CanDeploy
 =====================
 */
-BOOL CBasePlayerWeapon ::CanDeploy(void)
+BOOL CBasePlayerWeapon::CanDeploy(void)
 {
 	BOOL bHasAmmo = 0;
 
@@ -201,11 +201,11 @@ BOOL CBasePlayerWeapon ::CanDeploy(void)
 
 /*
 =====================
-CBasePlayerWeapon :: DefaultDeploy
+CBasePlayerWeapon:: DefaultDeploy
 
 =====================
 */
-BOOL CBasePlayerWeapon ::DefaultDeploy(char* szViewModel, char* szWeaponModel, int iAnim, char* szAnimExt, int skiplocal)
+BOOL CBasePlayerWeapon::DefaultDeploy(char* szViewModel, char* szWeaponModel, int iAnim, char* szAnimExt, int skiplocal)
 {
 	if (!CanDeploy())
 		return FALSE;
@@ -223,11 +223,11 @@ BOOL CBasePlayerWeapon ::DefaultDeploy(char* szViewModel, char* szWeaponModel, i
 
 /*
 =====================
-CBasePlayerWeapon :: PlayEmptySound
+CBasePlayerWeapon:: PlayEmptySound
 
 =====================
 */
-BOOL CBasePlayerWeapon ::PlayEmptySound(void)
+BOOL CBasePlayerWeapon::PlayEmptySound(void)
 {
 	if (m_iPlayEmptySound)
 	{
@@ -240,11 +240,11 @@ BOOL CBasePlayerWeapon ::PlayEmptySound(void)
 
 /*
 =====================
-CBasePlayerWeapon :: ResetEmptySound
+CBasePlayerWeapon:: ResetEmptySound
 
 =====================
 */
-void CBasePlayerWeapon ::ResetEmptySound(void)
+void CBasePlayerWeapon::ResetEmptySound(void)
 {
 	m_iPlayEmptySound = 1;
 }

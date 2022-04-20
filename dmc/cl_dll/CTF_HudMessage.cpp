@@ -76,7 +76,7 @@ int CHudBonus::VidInit(void)
 	return 1;
 }
 
-void CHudBonus ::Reset(void)
+void CHudBonus::Reset(void)
 {
 	m_iFlags |= HUD_ACTIVE;
 
@@ -91,7 +91,7 @@ void CHudBonus ::Reset(void)
 	}
 }
 
-int CHudBonus ::Draw(float flTime)
+int CHudBonus::Draw(float flTime)
 {
 	for (int index = 1; index < MAX_BONUS + 1; index++)
 	{

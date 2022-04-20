@@ -113,7 +113,7 @@ public:
 LINK_ENTITY_TO_CLASS(infodecal, CDecal);
 
 // UNDONE:  These won't get sent to joining players in multi-player
-void CDecal ::Spawn(void)
+void CDecal::Spawn(void)
 {
 	if (pev->skin < 0 || (gpGlobals->deathmatch && FBitSet(pev->spawnflags, SF_DECAL_NOTINDEATHMATCH)))
 	{
@@ -135,7 +135,7 @@ void CDecal ::Spawn(void)
 	}
 }
 
-void CDecal ::TriggerDecal(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
+void CDecal::TriggerDecal(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
 {
 	// this is set up as a USE function for infodecals that have targetnames, so that the
 	// decal doesn't get applied until it is fired. (usually by a scripted sequence)
@@ -161,7 +161,7 @@ void CDecal ::TriggerDecal(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TY
 }
 
 
-void CDecal ::StaticDecal(void)
+void CDecal::StaticDecal(void)
 {
 	TraceResult trace;
 	int entityIndex, modelIndex;
@@ -180,7 +180,7 @@ void CDecal ::StaticDecal(void)
 }
 
 
-void CDecal ::KeyValue(KeyValueData* pkvd)
+void CDecal::KeyValue(KeyValueData* pkvd)
 {
 	if (FStrEq(pkvd->szKeyName, "texture"))
 	{
@@ -271,7 +271,7 @@ void CGlobalState::Reset(void)
 	m_listCount = 0;
 }
 
-globalentity_t* CGlobalState ::Find(string_t globalname)
+globalentity_t* CGlobalState::Find(string_t globalname)
 {
 	if (!globalname)
 		return NULL;
@@ -295,7 +295,7 @@ globalentity_t* CGlobalState ::Find(string_t globalname)
 
 // This is available all the time now on impulse 104, remove later
 //#ifdef _DEBUG
-void CGlobalState ::DumpGlobals(void)
+void CGlobalState::DumpGlobals(void)
 {
 	static char* estates[] = {"Off", "On", "Dead"};
 	globalentity_t* pTest;
@@ -311,7 +311,7 @@ void CGlobalState ::DumpGlobals(void)
 //#endif
 
 
-void CGlobalState ::EntityAdd(string_t globalname, string_t mapName, GLOBALESTATE state)
+void CGlobalState::EntityAdd(string_t globalname, string_t mapName, GLOBALESTATE state)
 {
 	ASSERT(!Find(globalname));
 
@@ -326,7 +326,7 @@ void CGlobalState ::EntityAdd(string_t globalname, string_t mapName, GLOBALESTAT
 }
 
 
-void CGlobalState ::EntitySetState(string_t globalname, GLOBALESTATE state)
+void CGlobalState::EntitySetState(string_t globalname, GLOBALESTATE state)
 {
 	globalentity_t* pEnt = Find(globalname);
 
@@ -335,7 +335,7 @@ void CGlobalState ::EntitySetState(string_t globalname, GLOBALESTATE state)
 }
 
 
-const globalentity_t* CGlobalState ::EntityFromTable(string_t globalname)
+const globalentity_t* CGlobalState::EntityFromTable(string_t globalname)
 {
 	globalentity_t* pEnt = Find(globalname);
 
@@ -343,7 +343,7 @@ const globalentity_t* CGlobalState ::EntityFromTable(string_t globalname)
 }
 
 
-GLOBALESTATE CGlobalState ::EntityGetState(string_t globalname)
+GLOBALESTATE CGlobalState::EntityGetState(string_t globalname)
 {
 	globalentity_t* pEnt = Find(globalname);
 	if (pEnt)
@@ -468,14 +468,14 @@ LINK_ENTITY_TO_CLASS(worldspawn, CWorld);
 extern DLL_GLOBAL BOOL g_fGameOver;
 float g_flWeaponCheat;
 
-void CWorld ::Spawn(void)
+void CWorld::Spawn(void)
 {
 	g_fGameOver = FALSE;
 	Precache();
 	g_flWeaponCheat = CVAR_GET_FLOAT("sv_cheats"); // Is the impulse 101 command allowed?
 }
 
-void CWorld ::Precache(void)
+void CWorld::Precache(void)
 {
 	g_pLastSpawn = NULL;
 
@@ -674,7 +674,7 @@ void CWorld ::Precache(void)
 //
 // Just to ignore the "wad" field.
 //
-void CWorld ::KeyValue(KeyValueData* pkvd)
+void CWorld::KeyValue(KeyValueData* pkvd)
 {
 	if (FStrEq(pkvd->szKeyName, "skyname"))
 	{

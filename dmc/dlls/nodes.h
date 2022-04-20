@@ -266,7 +266,7 @@ class CNodeEnt: public CBaseEntity
 {
 	void Spawn(void);
 	void KeyValue(KeyValueData* pkvd);
-	virtual int ObjectCaps(void) { return CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int ObjectCaps(void) { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	short m_sHintType;
 	short m_sHintActivity;

@@ -46,7 +46,7 @@ static int line_height = 0;
 
 DECLARE_MESSAGE(m_SayText, SayText);
 
-int CHudSayText ::Init(void)
+int CHudSayText::Init(void)
 {
 	gHUD.AddHudElem(this);
 
@@ -61,7 +61,7 @@ int CHudSayText ::Init(void)
 }
 
 
-void CHudSayText ::InitHUDData(void)
+void CHudSayText::InitHUDData(void)
 {
 	memset(g_szLineBuffer, 0, sizeof g_szLineBuffer);
 	memset(g_pflNameColors, 0, sizeof g_pflNameColors);
@@ -70,7 +70,7 @@ void CHudSayText ::InitHUDData(void)
 	m_iFlags |= HUD_INTERMISSION; // is always drawn during an intermission
 }
 
-int CHudSayText ::VidInit(void)
+int CHudSayText::VidInit(void)
 {
 	return 1;
 }
@@ -94,7 +94,7 @@ int ScrollTextUp(void)
 	return 1;
 }
 
-int CHudSayText ::Draw(float flTime)
+int CHudSayText::Draw(float flTime)
 {
 	int y = Y_START;
 
@@ -151,7 +151,7 @@ int CHudSayText ::Draw(float flTime)
 	return 1;
 }
 
-int CHudSayText ::MsgFunc_SayText(const char* pszName, int iSize, void* pbuf)
+int CHudSayText::MsgFunc_SayText(const char* pszName, int iSize, void* pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
 
@@ -161,7 +161,7 @@ int CHudSayText ::MsgFunc_SayText(const char* pszName, int iSize, void* pbuf)
 	return 1;
 }
 
-void CHudSayText ::SayTextPrint(const char* pszBuf, int iBufSize, int clientIndex)
+void CHudSayText::SayTextPrint(const char* pszBuf, int iBufSize, int clientIndex)
 {
 	// find an empty string slot
 	int i;
@@ -219,7 +219,7 @@ void CHudSayText ::SayTextPrint(const char* pszBuf, int iBufSize, int clientInde
 	Y_START -= (line_height * (MAX_LINES + 1));
 }
 
-void CHudSayText ::EnsureTextFitsInOneLineAndWrapIfHaveTo(int line)
+void CHudSayText::EnsureTextFitsInOneLineAndWrapIfHaveTo(int line)
 {
 	int line_width = 0;
 	GetConsoleStringSize(g_szLineBuffer[line], &line_width, &line_height);

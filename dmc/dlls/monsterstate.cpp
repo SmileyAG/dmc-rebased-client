@@ -25,4 +25,4 @@
 #include "animation.h"
 #include "saverestore.h"
 
-void CBaseMonster ::SetState(MONSTERSTATE State){};
+void CBaseMonster::SetState(MONSTERSTATE State){};

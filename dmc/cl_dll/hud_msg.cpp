@@ -34,7 +34,7 @@ float g_iEndDist;
 
 /// USER-DEFINED SERVER MESSAGE HANDLERS
 
-int CHud ::MsgFunc_ResetHUD(const char* pszName, int iSize, void* pbuf)
+int CHud::MsgFunc_ResetHUD(const char* pszName, int iSize, void* pbuf)
 {
 	ASSERT(iSize == 0);
 
@@ -59,7 +59,7 @@ int CHud ::MsgFunc_ResetHUD(const char* pszName, int iSize, void* pbuf)
 	return 1;
 }
 
-void CHud ::MsgFunc_InitHUD(const char* pszName, int iSize, void* pbuf)
+void CHud::MsgFunc_InitHUD(const char* pszName, int iSize, void* pbuf)
 {
 	g_iTeleNum = 0;
 	g_bLoadedTeles = false;
@@ -117,7 +117,7 @@ void CHud ::MsgFunc_InitHUD(const char* pszName, int iSize, void* pbuf)
 }
 
 
-int CHud ::MsgFunc_GameMode(const char* pszName, int iSize, void* pbuf)
+int CHud::MsgFunc_GameMode(const char* pszName, int iSize, void* pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
 	m_Teamplay = READ_BYTE();
@@ -126,7 +126,7 @@ int CHud ::MsgFunc_GameMode(const char* pszName, int iSize, void* pbuf)
 }
 
 
-int CHud ::MsgFunc_Damage(const char* pszName, int iSize, void* pbuf)
+int CHud::MsgFunc_Damage(const char* pszName, int iSize, void* pbuf)
 {
 	int armor, blood;
 	Vector from;
@@ -150,7 +150,7 @@ int CHud ::MsgFunc_Damage(const char* pszName, int iSize, void* pbuf)
 	return 1;
 }
 
-int CHud ::MsgFunc_Concuss(const char* pszName, int iSize, void* pbuf)
+int CHud::MsgFunc_Concuss(const char* pszName, int iSize, void* pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
 	m_iConcussionEffect = READ_BYTE();
@@ -162,7 +162,7 @@ int CHud ::MsgFunc_Concuss(const char* pszName, int iSize, void* pbuf)
 }
 
 // QUAKECLASSIC
-int CHud ::MsgFunc_QItems(const char* pszName, int iSize, void* pbuf)
+int CHud::MsgFunc_QItems(const char* pszName, int iSize, void* pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
 	m_iQuakeItems = READ_LONG();

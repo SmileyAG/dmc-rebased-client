@@ -380,7 +380,7 @@ TYPEDESCRIPTION CBasePlayerWeapon::m_SaveData[] =
 IMPLEMENT_SAVERESTORE(CBasePlayerWeapon, CBasePlayerItem);
 
 
-void CBasePlayerItem ::SetObjectCollisionBox(void)
+void CBasePlayerItem::SetObjectCollisionBox(void)
 {
 	pev->absmin = pev->origin + Vector(-24, -24, 0);
 	pev->absmax = pev->origin + Vector(24, 24, 16);
@@ -390,7 +390,7 @@ void CBasePlayerItem ::SetObjectCollisionBox(void)
 //=========================================================
 // Sets up movetype, size, solidtype for a new weapon.
 //=========================================================
-void CBasePlayerItem ::FallInit(void)
+void CBasePlayerItem::FallInit(void)
 {
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_BBOX;
@@ -476,7 +476,7 @@ void CBasePlayerItem::AttemptToMaterialize(void)
 // CheckRespawn - a player is taking this weapon, should
 // it respawn?
 //=========================================================
-void CBasePlayerItem ::CheckRespawn(void)
+void CBasePlayerItem::CheckRespawn(void)
 {
 	switch (g_pGameRules->WeaponShouldRespawn(this))
 	{
@@ -779,7 +779,7 @@ void CBasePlayerWeapon::SendWeaponAnim(int iAnim, int skiplocal)
 	MESSAGE_END();
 }
 
-BOOL CBasePlayerWeapon ::AddPrimaryAmmo(int iCount, char* szName, int iMaxClip, int iMaxCarry)
+BOOL CBasePlayerWeapon::AddPrimaryAmmo(int iCount, char* szName, int iMaxClip, int iMaxCarry)
 {
 	int iIdAmmo;
 
@@ -817,7 +817,7 @@ BOOL CBasePlayerWeapon ::AddPrimaryAmmo(int iCount, char* szName, int iMaxClip, 
 }
 
 
-BOOL CBasePlayerWeapon ::AddSecondaryAmmo(int iCount, char* szName, int iMax)
+BOOL CBasePlayerWeapon::AddSecondaryAmmo(int iCount, char* szName, int iMax)
 {
 	int iIdAmmo;
 
@@ -839,7 +839,7 @@ BOOL CBasePlayerWeapon ::AddSecondaryAmmo(int iCount, char* szName, int iMax)
 // (does it have ammo loaded? do I have any ammo for the
 // weapon?, etc)
 //=========================================================
-BOOL CBasePlayerWeapon ::IsUseable(void)
+BOOL CBasePlayerWeapon::IsUseable(void)
 {
 	if (m_iClip <= 0)
 	{
@@ -853,7 +853,7 @@ BOOL CBasePlayerWeapon ::IsUseable(void)
 	return TRUE;
 }
 
-BOOL CBasePlayerWeapon ::CanDeploy(void)
+BOOL CBasePlayerWeapon::CanDeploy(void)
 {
 	BOOL bHasAmmo = 0;
 
@@ -883,7 +883,7 @@ BOOL CBasePlayerWeapon ::CanDeploy(void)
 	return TRUE;
 }
 
-BOOL CBasePlayerWeapon ::DefaultDeploy(char* szViewModel, char* szWeaponModel, int iAnim, char* szAnimExt, int skiplocal /* = 0 */)
+BOOL CBasePlayerWeapon::DefaultDeploy(char* szViewModel, char* szWeaponModel, int iAnim, char* szAnimExt, int skiplocal /* = 0 */)
 {
 	if (!CanDeploy())
 		return FALSE;
@@ -902,7 +902,7 @@ BOOL CBasePlayerWeapon ::DefaultDeploy(char* szViewModel, char* szWeaponModel, i
 }
 
 
-BOOL CBasePlayerWeapon ::DefaultReload(int iClipSize, int iAnim, float fDelay)
+BOOL CBasePlayerWeapon::DefaultReload(int iClipSize, int iAnim, float fDelay)
 {
 	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
 		return FALSE;
@@ -923,7 +923,7 @@ BOOL CBasePlayerWeapon ::DefaultReload(int iClipSize, int iAnim, float fDelay)
 	return TRUE;
 }
 
-BOOL CBasePlayerWeapon ::PlayEmptySound(void)
+BOOL CBasePlayerWeapon::PlayEmptySound(void)
 {
 	if (m_iPlayEmptySound)
 	{
@@ -934,7 +934,7 @@ BOOL CBasePlayerWeapon ::PlayEmptySound(void)
 	return 0;
 }
 
-void CBasePlayerWeapon ::ResetEmptySound(void)
+void CBasePlayerWeapon::ResetEmptySound(void)
 {
 	m_iPlayEmptySound = 1;
 }
@@ -996,7 +996,7 @@ void CBasePlayerAmmo::Materialize(void)
 	SetTouch(&CBasePlayerAmmo::DefaultTouch);
 }
 
-void CBasePlayerAmmo ::DefaultTouch(CBaseEntity* pOther)
+void CBasePlayerAmmo::DefaultTouch(CBaseEntity* pOther)
 {
 	if (!pOther->IsPlayer())
 	{
@@ -1111,7 +1111,7 @@ void CWeaponBox::Precache(void)
 
 //=========================================================
 //=========================================================
-void CWeaponBox ::KeyValue(KeyValueData* pkvd)
+void CWeaponBox::KeyValue(KeyValueData* pkvd)
 {
 	if (m_cAmmoTypes < MAX_AMMO_SLOTS)
 	{

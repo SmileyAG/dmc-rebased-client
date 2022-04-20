@@ -184,7 +184,7 @@ void __CmdFunc_ForceCloseCommandMenu(void)
 }
 
 // This is called every time the DLL is loaded
-void CHud ::Init(void)
+void CHud::Init(void)
 {
 	HOOK_MESSAGE(Logo);
 	HOOK_MESSAGE(ResetHUD);
@@ -277,7 +277,7 @@ CHud::CHud(): m_iSpriteCount(0), m_pHudList(NULL)
 
 // CHud destructor
 // cleans up memory allocated for m_rg* arrays
-CHud ::~CHud()
+CHud::~CHud()
 {
 	delete[] m_rghSprites;
 	delete[] m_rgrcRects;
@@ -302,7 +302,7 @@ CHud ::~CHud()
 // searches through the sprite list loaded from hud.txt for a name matching SpriteName
 // returns an index into the gHUD.m_rghSprites[] array
 // returns 0 if sprite not found
-int CHud ::GetSpriteIndex(const char* SpriteName)
+int CHud::GetSpriteIndex(const char* SpriteName)
 {
 	// look through the loaded sprite name list for SpriteName
 	for (int i = 0; i < m_iSpriteCount; i++)
@@ -314,7 +314,7 @@ int CHud ::GetSpriteIndex(const char* SpriteName)
 	return -1; // invalid sprite
 }
 
-void CHud ::VidInit(void)
+void CHud::VidInit(void)
 {
 	m_scrinfo.iSize = sizeof(m_scrinfo);
 	GetScreenInfo(&m_scrinfo);

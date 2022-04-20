@@ -59,7 +59,7 @@ public:
 	int DamageDecal(int bitsDamageType);
 
 	void EXPORT Die(void);
-	virtual int ObjectCaps(void) { return (CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	virtual int ObjectCaps(void) { return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
 	virtual int Save(CSave& save);
 	virtual int Restore(CRestore& restore);
 

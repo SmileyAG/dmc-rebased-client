@@ -128,7 +128,7 @@ public:
 	virtual int Save(CSave& save);
 	virtual int Restore(CRestore& restore);
 	static TYPEDESCRIPTION m_SaveData[];
-	virtual int ObjectCaps(void) { return (CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	virtual int ObjectCaps(void) { return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
 
 	float m_flAttenuation; // attenuation value
 	dynpitchvol_t m_dpv;
@@ -157,7 +157,7 @@ IMPLEMENT_SAVERESTORE(CAmbientGeneric, CBaseEntity);
 //
 // ambient_generic - general-purpose user-defined static sound
 //
-void CAmbientGeneric ::Spawn(void)
+void CAmbientGeneric::Spawn(void)
 {
 	/*
 			-1 : "Default"
@@ -221,7 +221,7 @@ void CAmbientGeneric ::Spawn(void)
 }
 
 
-void CAmbientGeneric ::Precache(void)
+void CAmbientGeneric::Precache(void)
 {
 	char* szSoundFile = (char*)STRING(pev->message);
 
@@ -253,7 +253,7 @@ void CAmbientGeneric ::Precache(void)
 // ramp pitch and/or volume up or down, modify pitch/volume
 // with lfo if active.
 
-void CAmbientGeneric ::RampThink(void)
+void CAmbientGeneric::RampThink(void)
 {
 	char* szSoundFile = (char*)STRING(pev->message);
 	int pitch = m_dpv.pitch;
@@ -453,7 +453,7 @@ void CAmbientGeneric ::RampThink(void)
 // Init all ramp params in preparation to
 // play a new sound
 
-void CAmbientGeneric ::InitModulationParms(void)
+void CAmbientGeneric::InitModulationParms(void)
 {
 	int pitchinc;
 
@@ -539,7 +539,7 @@ void CAmbientGeneric ::InitModulationParms(void)
 // if it's playing, innactive if not.  If the sound is not
 // a looping sound, never mark it as active.
 //
-void CAmbientGeneric ::ToggleUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
+void CAmbientGeneric::ToggleUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
 {
 	char* szSoundFile = (char*)STRING(pev->message);
 	float fraction;
@@ -650,7 +650,7 @@ void CAmbientGeneric ::ToggleUse(CBaseEntity* pActivator, CBaseEntity* pCaller, 
 // KeyValue - load keyvalue pairs into member data of the
 // ambient generic. NOTE: called BEFORE spawn!
 
-void CAmbientGeneric ::KeyValue(KeyValueData* pkvd)
+void CAmbientGeneric::KeyValue(KeyValueData* pkvd)
 {
 	// NOTE: changing any of the modifiers in this code
 	// NOTE: also requires changing InitModulationParms code.
@@ -857,7 +857,7 @@ TYPEDESCRIPTION CEnvSound::m_SaveData[] =
 IMPLEMENT_SAVERESTORE(CEnvSound, CBaseEntity);
 
 
-void CEnvSound ::KeyValue(KeyValueData* pkvd)
+void CEnvSound::KeyValue(KeyValueData* pkvd)
 {
 
 	if (FStrEq(pkvd->szKeyName, "radius"))
@@ -916,7 +916,7 @@ BOOL FEnvSoundInRange(entvars_t* pev, entvars_t* pevTarget, float* pflRange)
 
 // CONSIDER: if player in water state, autoset roomtype to 14,15 or 16.
 
-void CEnvSound ::Think(void)
+void CEnvSound::Think(void)
 {
 	// get pointer to client if visible; FIND_CLIENT_IN_PVS will
 	// cycle through visible clients on consecutive calls.
@@ -1018,7 +1018,7 @@ env_sound_Think_slow:
 // when player moves in range and sight.
 //
 //
-void CEnvSound ::Spawn()
+void CEnvSound::Spawn()
 {
 	// spread think times
 	pev->nextthink = gpGlobals->time + RANDOM_FLOAT(0.0, 0.5);
@@ -1858,7 +1858,7 @@ public:
 	virtual int Restore(CRestore& restore);
 	static TYPEDESCRIPTION m_SaveData[];
 
-	virtual int ObjectCaps(void) { return (CBaseEntity ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	virtual int ObjectCaps(void) { return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
 
 	int m_preset; // preset number
 };
@@ -1874,7 +1874,7 @@ IMPLEMENT_SAVERESTORE(CSpeaker, CBaseEntity);
 //
 // ambient_generic - general-purpose user-defined static sound
 //
-void CSpeaker ::Spawn(void)
+void CSpeaker::Spawn(void)
 {
 	char* szSoundFile = (char*)STRING(pev->message);
 
@@ -1902,13 +1902,13 @@ void CSpeaker ::Spawn(void)
 #define ANNOUNCE_MINUTES_MIN 0.25
 #define ANNOUNCE_MINUTES_MAX 2.25
 
-void CSpeaker ::Precache(void)
+void CSpeaker::Precache(void)
 {
 	if (!FBitSet(pev->spawnflags, SPEAKER_START_SILENT))
 		// set first announcement time for random n second
 		pev->nextthink = gpGlobals->time + RANDOM_FLOAT(5.0, 15.0);
 }
-void CSpeaker ::SpeakerThink(void)
+void CSpeaker::SpeakerThink(void)
 {
 	char* szSoundFile;
 	float flvolume = pev->health * 0.1;
@@ -1966,7 +1966,7 @@ void CSpeaker ::SpeakerThink(void)
 //
 // ToggleUse - if an announcement is pending, cancel it.  If no announcement is pending, start one.
 //
-void CSpeaker ::ToggleUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
+void CSpeaker::ToggleUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value)
 {
 	int fActive = (pev->nextthink > 0.0);
 
@@ -2012,7 +2012,7 @@ void CSpeaker ::ToggleUse(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYP
 // KeyValue - load keyvalue pairs into member data
 // NOTE: called BEFORE spawn!
 
-void CSpeaker ::KeyValue(KeyValueData* pkvd)
+void CSpeaker::KeyValue(KeyValueData* pkvd)
 {
 
 	// preset

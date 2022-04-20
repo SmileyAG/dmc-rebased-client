@@ -337,7 +337,7 @@ void CBaseDoor::Spawn()
 }
 
 
-void CBaseDoor ::SetToggleState(int state)
+void CBaseDoor::SetToggleState(int state)
 {
 	if (state == TS_AT_TOP)
 		UTIL_SetOrigin(pev, m_vecPosition2);
@@ -936,7 +936,7 @@ void CRotDoor::Spawn(void)
 }
 
 
-void CRotDoor ::SetToggleState(int state)
+void CRotDoor::SetToggleState(int state)
 {
 	if (state == TS_AT_TOP)
 		pev->angles = m_vecAngle2;
@@ -955,7 +955,7 @@ public:
 
 	void KeyValue(KeyValueData* pkvd);
 	void Use(CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value);
-	virtual int ObjectCaps(void) { return CBaseToggle ::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int ObjectCaps(void) { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	virtual int Save(CSave& save);
 	virtual int Restore(CRestore& restore);

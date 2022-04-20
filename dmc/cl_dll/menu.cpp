@@ -33,7 +33,7 @@ int KB_ConvertString(char* in, char** ppout);
 
 DECLARE_MESSAGE(m_Menu, ShowMenu);
 
-int CHudMenu ::Init(void)
+int CHudMenu::Init(void)
 {
 	gHUD.AddHudElem(this);
 
@@ -44,20 +44,20 @@ int CHudMenu ::Init(void)
 	return 1;
 }
 
-void CHudMenu ::InitHUDData(void)
+void CHudMenu::InitHUDData(void)
 {
 	m_fMenuDisplayed = 0;
 	m_bitsValidSlots = 0;
 	Reset();
 }
 
-void CHudMenu ::Reset(void)
+void CHudMenu::Reset(void)
 {
 	g_szPrelocalisedMenuString[0] = 0;
 	m_fWaitingForMore = FALSE;
 }
 
-int CHudMenu ::VidInit(void)
+int CHudMenu::VidInit(void)
 {
 	return 1;
 }
@@ -125,7 +125,7 @@ static inline const char* ParseEscapeToken(const char* token)
 }
 
 
-int CHudMenu ::Draw(float flTime)
+int CHudMenu::Draw(float flTime)
 {
 	// check for if menu is set to disappear
 	if (m_flShutoffTime > 0)
@@ -205,7 +205,7 @@ int CHudMenu ::Draw(float flTime)
 }
 
 // selects an item from the menu
-void CHudMenu ::SelectMenuItem(int menu_item)
+void CHudMenu::SelectMenuItem(int menu_item)
 {
 	// if menu_item is in a valid slot,  send a menuselect command to the server
 	if ((menu_item > 0) && (m_bitsValidSlots & (1 << (menu_item - 1))))
@@ -228,7 +228,7 @@ void CHudMenu ::SelectMenuItem(int menu_item)
 //		byte : a boolean, TRUE if there is more string yet to be received before displaying the menu, FALSE if it's the last string
 //		string: menu string to display
 // if this message is never received, then scores will simply be the combined totals of the players.
-int CHudMenu ::MsgFunc_ShowMenu(const char* pszName, int iSize, void* pbuf)
+int CHudMenu::MsgFunc_ShowMenu(const char* pszName, int iSize, void* pbuf)
 {
 	char* temp = NULL;
 

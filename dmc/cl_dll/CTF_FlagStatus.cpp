@@ -85,13 +85,13 @@ int CHudFlagStatus::VidInit(void)
 	return 1;
 }
 
-void CHudFlagStatus ::Reset(void)
+void CHudFlagStatus::Reset(void)
 {
 	return;
 }
 
 
-int CHudFlagStatus ::Draw(float flTime)
+int CHudFlagStatus::Draw(float flTime)
 {
 
 	if (!iDrawStatus)

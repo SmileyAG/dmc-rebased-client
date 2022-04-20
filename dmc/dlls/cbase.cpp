@@ -451,13 +451,13 @@ edict_t* EHANDLE::Set(edict_t* pent)
 };
 
 
-EHANDLE ::operator CBaseEntity*()
+EHANDLE::operator CBaseEntity*()
 {
 	return (CBaseEntity*)GET_PRIVATE(Get());
 };
 
 
-CBaseEntity* EHANDLE ::operator=(CBaseEntity* pEntity)
+CBaseEntity* EHANDLE::operator=(CBaseEntity* pEntity)
 {
 	if (pEntity)
 	{
@@ -473,19 +473,19 @@ CBaseEntity* EHANDLE ::operator=(CBaseEntity* pEntity)
 	return pEntity;
 }
 
-EHANDLE ::operator int()
+EHANDLE::operator int()
 {
 	return Get() != NULL;
 }
 
-CBaseEntity* EHANDLE ::operator->()
+CBaseEntity* EHANDLE::operator->()
 {
 	return (CBaseEntity*)GET_PRIVATE(Get());
 }
 
 
 // give health
-int CBaseEntity ::TakeHealth(float flHealth, int bitsDamageType)
+int CBaseEntity::TakeHealth(float flHealth, int bitsDamageType)
 {
 	if (!pev->takedamage)
 		return 0;
@@ -504,7 +504,7 @@ int CBaseEntity ::TakeHealth(float flHealth, int bitsDamageType)
 
 // inflict damage on this entity.  bitsDamageType indicates type of damage inflicted, ie: DMG_CRUSH
 
-int CBaseEntity ::TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType)
+int CBaseEntity::TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType)
 {
 	Vector vecTemp;
 
@@ -555,7 +555,7 @@ int CBaseEntity ::TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, fl
 }
 
 
-void CBaseEntity ::Killed(entvars_t* pevAttacker, int iGib)
+void CBaseEntity::Killed(entvars_t* pevAttacker, int iGib)
 {
 	pev->takedamage = DAMAGE_NO;
 	pev->deadflag = DEAD_DEAD;
@@ -664,7 +664,7 @@ void CBaseEntity::SetObjectCollisionBox(void)
 }
 
 
-int CBaseEntity ::Intersects(CBaseEntity* pOther)
+int CBaseEntity::Intersects(CBaseEntity* pOther)
 {
 	if (pOther->pev->absmin.x > pev->absmax.x ||
 		pOther->pev->absmin.y > pev->absmax.y ||
@@ -676,7 +676,7 @@ int CBaseEntity ::Intersects(CBaseEntity* pOther)
 	return 1;
 }
 
-void CBaseEntity ::MakeDormant(void)
+void CBaseEntity::MakeDormant(void)
 {
 	SetBits(pev->flags, FL_DORMANT);
 
@@ -692,12 +692,12 @@ void CBaseEntity ::MakeDormant(void)
 	UTIL_SetOrigin(pev, pev->origin);
 }
 
-int CBaseEntity ::IsDormant(void)
+int CBaseEntity::IsDormant(void)
 {
 	return FBitSet(pev->flags, FL_DORMANT);
 }
 
-BOOL CBaseEntity ::IsInWorld(void)
+BOOL CBaseEntity::IsInWorld(void)
 {
 	// position
 	if (pev->origin.x >= 4096)
@@ -740,7 +740,7 @@ int CBaseEntity::ShouldToggle(USE_TYPE useType, BOOL currentState)
 }
 
 
-int CBaseEntity ::DamageDecal(int bitsDamageType)
+int CBaseEntity::DamageDecal(int bitsDamageType)
 {
 	if (pev->rendermode == kRenderTransAlpha)
 		return -1;

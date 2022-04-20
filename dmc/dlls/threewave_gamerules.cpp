@@ -122,7 +122,7 @@ char* GetTeamName(int team)
 	return sTeamNames[team];
 }
 
-CThreeWave ::CThreeWave()
+CThreeWave::CThreeWave()
 {
 	// CHalfLifeMultiplay already initialized it - just override its helper callback.
 	m_VoiceGameMgr.SetHelper(&g_GameMgrHelper);
@@ -173,7 +173,7 @@ BOOL CThreeWave::ClientConnected(edict_t* pEntity, const char* pszName, const ch
 
 extern cvar_t timeleft, fragsleft;
 
-void CThreeWave ::Think(void)
+void CThreeWave::Think(void)
 {
 	m_VoiceGameMgr.Update(gpGlobals->frametime);
 
@@ -246,7 +246,7 @@ void CThreeWave ::Think(void)
 	last_time = time_remaining;
 }
 
-void CThreeWave ::JoinTeam(CBasePlayer* pPlayer, int iTeam)
+void CThreeWave::JoinTeam(CBasePlayer* pPlayer, int iTeam)
 {
 	if (pPlayer->pev->team == iTeam)
 		return;
@@ -333,7 +333,7 @@ void DropRune(CBasePlayer* pPlayer);
 // the user has typed a command which is unrecognized by everything else;
 // this check to see if the gamerules knows anything about the command
 //=========================================================
-BOOL CThreeWave ::ClientCommand(CBasePlayer* pPlayer, const char* pcmd)
+BOOL CThreeWave::ClientCommand(CBasePlayer* pPlayer, const char* pcmd)
 {
 	if (m_VoiceGameMgr.ClientCommand(pPlayer, pcmd))
 		return TRUE;
@@ -411,7 +411,7 @@ extern int gmsgGameMode;
 extern int gmsgSayText;
 extern int gmsgTeamInfo;
 
-void CThreeWave ::UpdateGameMode(CBasePlayer* pPlayer)
+void CThreeWave::UpdateGameMode(CBasePlayer* pPlayer)
 {
 	MESSAGE_BEGIN(MSG_ONE, gmsgGameMode, NULL, pPlayer->edict());
 	WRITE_BYTE(1); // game mode teamplay
@@ -447,7 +447,7 @@ edict_t* CThreeWave::GetPlayerSpawnSpot(CBasePlayer* pPlayer)
 	return pentSpawnSpot;
 }
 
-void CThreeWave ::PlayerTakeDamage(CBasePlayer* pPlayer, CBaseEntity* pAttacker)
+void CThreeWave::PlayerTakeDamage(CBasePlayer* pPlayer, CBaseEntity* pAttacker)
 {
 	if (!pAttacker->IsPlayer())
 		return;
@@ -462,7 +462,7 @@ void CThreeWave ::PlayerTakeDamage(CBasePlayer* pPlayer, CBaseEntity* pAttacker)
 	}
 }
 
-void CThreeWave ::PlayerSpawn(CBasePlayer* pPlayer)
+void CThreeWave::PlayerSpawn(CBasePlayer* pPlayer)
 {
 	BOOL addDefault;
 	CBaseEntity* pWeaponEntity = NULL;
@@ -683,7 +683,7 @@ void CThreeWave::DeathNotice(CBasePlayer* pVictim, entvars_t* pKiller, entvars_t
 
 //=========================================================
 //=========================================================
-void CThreeWave ::ClientDisconnected(edict_t* pClient)
+void CThreeWave::ClientDisconnected(edict_t* pClient)
 {
 	if (pClient)
 	{
@@ -830,7 +830,7 @@ void CThreeWave ::ClientDisconnected(edict_t* pClient)
 	}
 }
 
-void CThreeWave ::PlayerThink(CBasePlayer* pPlayer)
+void CThreeWave::PlayerThink(CBasePlayer* pPlayer)
 {
 	if (g_fGameOver)
 	{
@@ -902,7 +902,7 @@ void CThreeWave ::PlayerThink(CBasePlayer* pPlayer)
 
 //=========================================================
 //=========================================================
-void CThreeWave ::PlayerKilled(CBasePlayer* pVictim, entvars_t* pKiller, entvars_t* pInflictor)
+void CThreeWave::PlayerKilled(CBasePlayer* pVictim, entvars_t* pKiller, entvars_t* pInflictor)
 {
 	CBasePlayer* pk = NULL;
 
@@ -2106,7 +2106,7 @@ LINK_ENTITY_TO_CLASS(item_flag_team1, CItemFlagTeam1);
 LINK_ENTITY_TO_CLASS(item_flag_team2, CItemFlagTeam2);
 
 
-void CCarriedFlag ::Spawn()
+void CCarriedFlag::Spawn()
 {
 	Precache();
 
