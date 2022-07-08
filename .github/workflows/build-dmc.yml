@@ -9,7 +9,7 @@ on:
 
 env:
   RELEASE_CONFIGURATION: Release
-  PROJECT_FILE_PATH: projects/vs2022/projects.sln
+  PROJECT_FILE_PATH: projects/vs2022/dmc_cdll.vcxproj
 
 jobs:
   game-dlls:
@@ -21,13 +21,11 @@ jobs:
     - name: Build release game dlls
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m ${{env.PROJECT_FILE_PATH}} /p:Configuration=${{env.RELEASE_CONFIGURATION}}
-    - name: Upload release game libs
+    - name: Upload release game libs (Client)
       uses: actions/upload-artifact@v3
       with:
         name: Win32
-        path: |
-            projects/vs2022/${{env.RELEASE_CONFIGURATION}}/dmc_cdll/client.dll
-            projects/vs2022/${{env.RELEASE_CONFIGURATION}}/dmcdll/dmc.dll
+        path: projects/vs2022/${{env.RELEASE_CONFIGURATION}}/dmc_cdll/client.dll
 
   game-so-libs:
     runs-on: ubuntu-18.04
@@ -46,11 +44,9 @@ jobs:
     - name: Install headers
       run: sudo apt-get install gcc-multilib g++-multilib -y
     - name: Build DMC
-      run: cd linux && make CFG=${{env.RELEASE_CONFIGURATION}}
-    - name: Upload release game libs
+      run: cd linux && make dmc_cdll CFG=${{env.RELEASE_CONFIGURATION}}
+    - name: Upload release game libs (Client)
       uses: actions/upload-artifact@v3
       with:
         name: Linux-x86
-        path: |
-            linux/${{env.RELEASE_CONFIGURATION}}/client.so
-            linux/${{env.RELEASE_CONFIGURATION}}/dmc.so
+        path: linux/${{env.RELEASE_CONFIGURATION}}/client.so
