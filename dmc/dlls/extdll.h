@@ -74,6 +74,14 @@ typedef int BOOL;
 // Misc C-runtime library headers
 #include "stdio.h"
 #include "stdlib.h"
+
+#ifndef min
+#define min(a,b)  (((a) < (b)) ? (a) : (b))
+#endif
+#ifndef max
+#define max(a,b)  (((a) > (b)) ? (a) : (b))
+#endif
+
 #include "math.h"
 
 // Header file containing definition of globalvars_t and entvars_t

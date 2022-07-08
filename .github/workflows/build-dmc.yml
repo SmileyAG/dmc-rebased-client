@@ -24,7 +24,7 @@ jobs:
     - name: Upload release game libs (Client)
       uses: actions/upload-artifact@v3
       with:
-        name: dmc-client
+        name: Win32
         path: projects/vs2022/${{env.RELEASE_CONFIGURATION}}/dmc_cdll/client.dll
 
   game-so-libs:
@@ -39,14 +39,14 @@ jobs:
       run: sudo apt update -y
     - name: Install make
       run: sudo apt-get install make
-    - name: Install g++-4.8
-      run: sudo apt install g++-4.8 gcc-4.8 -y
+    - name: Install g++
+      run: sudo apt install g++ gcc -y
     - name: Install headers
-      run: sudo apt-get install gcc-4.8-multilib g++-4.8-multilib -y
+      run: sudo apt-get install gcc-multilib g++-multilib -y
     - name: Build DMC
-      run: cd linux && make dmc CFG=${{env.RELEASE_CONFIGURATION}}
-    - name: Upload release game libs (Server)
+      run: cd linux && make dmc_cdll CFG=${{env.RELEASE_CONFIGURATION}}
+    - name: Upload release game libs (Client)
       uses: actions/upload-artifact@v3
       with:
-        name: dmc-server
-        path: linux/${{env.RELEASE_CONFIGURATION}}/dmc.so
+        name: Linux-x86
+        path: linux/${{env.RELEASE_CONFIGURATION}}/client.so
